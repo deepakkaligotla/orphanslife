@@ -15,16 +15,13 @@ Orphanage Management System -
 ### PlayStore Link: 
 
 ### AppStore Link: 
-
-##### Contact Me:
-
-##### Name: Deepak Uma Sai Kaligotla
-
-##### Mobile: +91 9381640235
-
-##### Email : deepak.kaligotla@gmail.com
-
-##### Address: WhiteField, Bangalore - 560066
+```
+Contact Me:
+Name: Deepak Uma Sai Kaligotla
+Mobile: +91 9381640235
+Email : deepak.kaligotla@gmail.com
+Address: WhiteField, Bangalore - 560066
+```
 
 #### This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
 
