@@ -3,14 +3,14 @@
 Orphanage Management System -
 [Read Me](https://github.com/deepakkaligotla/orphanslife#readme)
 
-```
+
 ![GitHub all releases](https://img.shields.io/github/downloads/deepakkaligotla/orphanslife/total)
 ![GitHub language count](https://img.shields.io/github/languages/count/deepakkaligotla/orphanslife)
 ![GitHub top language](https://img.shields.io/github/languages/top/deepakkaligotla/orphanslife?color=yellow)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/deepakkaligotla/orphanslife)
 ![GitHub forks](https://img.shields.io/github/forks/deepakkaligotla/orphanslife?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/deepakkaligotla/orphanslife?style=social)
-```
+
 
 ### Website: http://orphanslife.in
 ### PlayStore Link: 
