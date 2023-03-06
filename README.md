@@ -3,18 +3,19 @@
 Orphanage Management System -
 [Read Me](https://github.com/deepakkaligotla/orphanslife#readme)
 
+```
 ![GitHub all releases](https://img.shields.io/github/downloads/deepakkaligotla/orphanslife/total)
 ![GitHub language count](https://img.shields.io/github/languages/count/deepakkaligotla/orphanslife)
 ![GitHub top language](https://img.shields.io/github/languages/top/deepakkaligotla/orphanslife?color=yellow)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/deepakkaligotla/orphanslife)
 ![GitHub forks](https://img.shields.io/github/forks/deepakkaligotla/orphanslife?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/deepakkaligotla/orphanslife?style=social)
+```
 
 ### Website: http://orphanslife.in
-
 ### PlayStore Link: 
-
 ### AppStore Link: 
+
 ```
 Contact Me:
 Name: Deepak Uma Sai Kaligotla
@@ -23,28 +24,22 @@ Email : deepak.kaligotla@gmail.com
 Address: WhiteField, Bangalore - 560066
 ```
 
-#### This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
+```
+This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
+Technologies, Languages, tools, Machines used to make this project
 
-#### Technologies, Languages, tools, Machines used to make this project
+Cloud - AWS
+Cloud Services - EC2, RDS, S3, Amplify.
+Languages - Java, Swift, Dart, JavaScript, HTML, CSS
+Database - Mongo, SQL
+Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
+Domain - GoDaddy
+Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
+OS - macOS
+Linux Commands
+```
 
-#### Cloud - AWS
-
-#### Cloud Services - EC2, RDS, S3, Amplify.
-
-#### Languages - Java, Swift, Dart, JavaScript, HTML, CSS
-
-#### Database - Mongo, SQL
-
-#### Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
-
-#### Domain - GoDaddy
-
-#### Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
-
-#### OS - macOS
-
-#### Linux Commands
-
+```
 Orphanslife -  home
 [Orphanslife Home](https://github.com/deepakkaligotla/orphanslife "Orphanslife -  home")
 
@@ -62,4 +57,5 @@ Orphanslife - React
 
 Orphanslife - iOs/Swift
 [iOS Swift, Objc, Alamofire, CocoaPods using backend REST API Node (Express) - Orphanslife](https://github.com/deepakkaligotla/orphanslife/tree/main/iOS%20Swift%20Alomafire-%20Orphanslife "Orphanslife iOs/Swift")
+````
 
