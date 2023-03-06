@@ -1,4 +1,4 @@
-# orphanslife
+### orphanslife
 Orphanage Management System
 
 ## website: http://orphanslife.in
@@ -7,25 +7,25 @@ Orphanage Management System
 
 ## AppStore Link: 
 
-### This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
+# This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
 
-### Technologies, Languages, tools, Machines used to make this project
+# Technologies, Languages, tools, Machines used to make this project
 
-### Cloud - AWS
+# Cloud - AWS
 
-### Cloud Services - EC2, RDS, S3, Amplify.
+# Cloud Services - EC2, RDS, S3, Amplify.
 
-### Languages - Java, Swift, Dart, JavaScript, HTML, CSS
+# Languages - Java, Swift, Dart, JavaScript, HTML, CSS
 
-### Database - Mongo, SQL
+# Database - Mongo, SQL
 
-### Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
+# Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
 
-### Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
+# Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
 
-### OS - macOS
+# OS - macOS
 
-### Linux Commands
+# Linux Commands
 
 Orphanslife -  home
 [Orphanslife Home](https://github.com/deepakkaligotla/orphanslife "Orphanslife -  home")
