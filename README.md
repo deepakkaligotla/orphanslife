@@ -15,19 +15,27 @@ This repository contains my Post Graduation Project, which is implemented on mul
 ###Cloud Services - EC2, RDS, S3, Amplify.
 ###Languages - Java, Swift, Dart, JavaScript, HTML, CSS
 ###Database - Mongo, SQL
-###Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery 
+###Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
+###Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
+###OS - macOS
+###Linux Commands
 
+Orphanslife -  home
+[Orphanslife Home](https://github.com/deepakkaligotla/orphanslife "Orphanslife -  home")
 
-[Orphanslife Home](https://github.com/deepakkaligotla/orphanslife "Github home")
-
+Orphanslife - Android/Java
 [Android Java, Retrofit using backend REST API Node (Express) - Orphanslife](https://github.com/deepakkaligotla/orphanslife/tree/main/Android%20Java%20Retrofit%20Node%20Express-%20Orphanslife "Orphanslife - Android/Java")
 
+Orphanslife - Flutter/Dart
 [Flutter, Dart, using backend REST API Node (Express) - Orphanslife](https://github.com/deepakkaligotla/orphanslife "Orphanslife - Flutter/Dart")
 
+Orphanslife - Node/Express/AWS RDS - SQL
 [Node, Express, AWS RDS - SQL](https://github.com/deepakkaligotla/orphanslife/tree/main/Node%20Express%20-%20API%20-%20Orphanslife "Orphanslife - Node/Express/AWS RDS - SQL")
 
-[React, HTML, CSS, BootStrap, JQuery - Orphanslife](https://github.com/deepakkaligotla/orphanslife/tree/main/React%20-%20website%20Orphanslife "Orphanslife React")
+Orphanslife - React
+[React, HTML, CSS, BootStrap, JQuery - Orphanslife](https://github.com/deepakkaligotla/orphanslife/tree/main/React%20-%20website%20Orphanslife "Orphanslife - React")
 
+Orphanslife - iOs/Swift
 [iOS Swift, Objc, Alamofire, CocoaPods using backend REST API Node (Express) - Orphanslife](https://github.com/deepakkaligotla/orphanslife/tree/main/iOS%20Swift%20Alomafire-%20Orphanslife "Orphanslife iOs/Swift")
 
 Contact Me:
