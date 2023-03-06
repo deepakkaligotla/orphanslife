@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:Orphanslife/admin.dart';
-import 'package:Orphanslife/admin_home.dart';
-import 'package:Orphanslife/guardian_home.dart';
+import 'package:Orphanslife/Models/admin.dart';
+import 'package:Orphanslife/AdminHome/admin_home.dart';
+import 'package:Orphanslife/GuardianHome/guardian_home.dart';
 import 'package:Orphanslife/signup.dart';
 import 'package:Orphanslife/sponsor.dart';
-import 'package:Orphanslife/sponsor_home.dart';
+import 'package:Orphanslife/SponsorHome/sponsor_home.dart';
 import 'package:Orphanslife/user.dart';
-import 'package:Orphanslife/volunteer_home.dart';
+import 'package:Orphanslife/VolunteerHome/volunteer_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
