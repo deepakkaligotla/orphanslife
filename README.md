@@ -1,7 +1,16 @@
-$${\color{lightgreen}Light \space Green}$$# orphanslife
-Orphanage Management System
+# Orphanslife
 
-### website: http://orphanslife.in
+Orphanage Management System -
+[Read Me](https://github.com/deepakkaligotla/orphanslife#readme)
+
+![GitHub all releases](https://img.shields.io/github/downloads/deepakkaligotla/orphanslife/total)
+![GitHub language count](https://img.shields.io/github/languages/count/deepakkaligotla/orphanslife)
+![GitHub top language](https://img.shields.io/github/languages/top/deepakkaligotla/orphanslife?color=yellow)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues/deepakkaligotla/orphanslife)
+![GitHub forks](https://img.shields.io/github/forks/deepakkaligotla/orphanslife?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/deepakkaligotla/orphanslife?style=social)
+
+### Website: http://orphanslife.in
 
 ### PlayStore Link: 
 
@@ -20,6 +29,8 @@ Orphanage Management System
 #### Database - Mongo, SQL
 
 #### Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
+
+#### Domain - GoDaddy
 
 #### Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
 
