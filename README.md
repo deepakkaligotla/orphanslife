@@ -12,12 +12,19 @@ This repository contains my Post Graduation Project, which is implemented on mul
 ##Technologies, Languages, tools, Machines used to make this project
 
 ###Cloud - AWS
+
 ###Cloud Services - EC2, RDS, S3, Amplify.
+
 ###Languages - Java, Swift, Dart, JavaScript, HTML, CSS
+
 ###Database - Mongo, SQL
+
 ###Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
+
 ###Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
+
 ###OS - macOS
+
 ###Linux Commands
 
 Orphanslife -  home
