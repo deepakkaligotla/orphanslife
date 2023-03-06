@@ -7,7 +7,7 @@ Orphanage Management System
 
 ## AppStore Link: 
 
-## This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
+### This repository contains my Post Graduation Project, which is implemented on multiple technologies for Mainly MOBILE APP.
 
 ### Technologies, Languages, tools, Machines used to make this project
 
