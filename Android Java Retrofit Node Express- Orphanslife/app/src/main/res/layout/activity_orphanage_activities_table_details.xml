@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".orphanage.OrphanagesTableDetails">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/sponsor_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CE000000"
+        >
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="EDIT CHILD &amp; SAVE"
+
+
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ORPHANAGE"
+
+
+                        android:textSize="15dp"/>
+
+                    <EditText
+                        android:id="@+id/orphanage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="ORPHANAGE" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EVENT ID"
+
+
+                        android:textSize="15dp"/>
+
+                    <EditText
+                        android:id="@+id/details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="EVENT ID" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="480dp"
+                        android:layout_height="240dp"
+                        android:id="@+id/image_1"
+                        android:src="@drawable/ic_launcher_foreground"/>
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="480dp"
+                        android:layout_height="240dp"
+                        android:id="@+id/image_2"
+                        android:src="@drawable/ic_launcher_foreground"/>
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="480dp"
+                        android:layout_height="240dp"
+                        android:id="@+id/image_3"
+                        android:src="@drawable/ic_launcher_foreground"/>
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="480dp"
+                        android:layout_height="240dp"
+                        android:id="@+id/image_4"
+                        android:src="@drawable/ic_launcher_foreground"/>
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="480dp"
+                        android:layout_height="240dp"
+                        android:id="@+id/image_5"
+                        android:src="@drawable/ic_launcher_foreground"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cancel"
+            android:text="CANCEL"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="save"
+            android:text="SAVE"/>
+    </LinearLayout>
+
+</LinearLayout>

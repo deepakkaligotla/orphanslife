@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OMS"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".AdminView.AdoptRequest.AdoptRequestsTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.AdoptRequest.AdoptRequestsTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.AdoptRequest.AdoptRequestsTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".SponsorView.OrphanageActivitiesListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Location.LocationsTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Location.LocationsTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.DonationsTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.DonationsTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Location.LocationsTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.DonationsTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".OrphanageActivities.OrphanageActivitiesTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".OrphanageActivities.OrphanageActivitiesTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".OrphanageActivities.OrphanageActivitiesTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".VolunteerView.VolunteerHome"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".GuardianView.GuardianHome"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".orphanage.OrphanagesTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".orphanage.OrphanagesTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".orphanage.OrphanagesTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Role.RolesTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Role.RolesTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Role.RolesTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Child.ChildsTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Child.ChildsTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Child.ChildsTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.AdoptiveStatus.AdoptiveStatusTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.AdoptiveStatus.AdoptiveStatusTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.AdoptiveStatus.AdoptiveStatusTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Admin.AdminTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Admin.AdminsTableListAdapter"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Admin.AdminsTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Sponsor.SponsorTableDetails"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.Sponsor.SponsorsTable"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".AdminView.AdminHome"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".OrphanageActivities.AddOrphanageActivities"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".SponsorView.donation.DonationDetails"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".SponsorView.Adopt"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="Complete Parent Details"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".SponsorView.Donate"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".Register"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".LoginFragment"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".Splash"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".SponsorView.SponsorHome"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+    </application>
+</manifest>

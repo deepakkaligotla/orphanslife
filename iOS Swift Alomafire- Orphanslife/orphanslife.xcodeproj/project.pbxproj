@@ -1,0 +1,512 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D121BCB6298D6DE400BA1527 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D121BCB5298D6DE400BA1527 /* AppDelegate.swift */; };
+		D121BCB8298D6DE400BA1527 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D121BCB7298D6DE400BA1527 /* SceneDelegate.swift */; };
+		D121BCBD298D6DE400BA1527 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D121BCBB298D6DE400BA1527 /* Main.storyboard */; };
+		D121BCC0298D6DE400BA1527 /* orphanslife.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D121BCBE298D6DE400BA1527 /* orphanslife.xcdatamodeld */; };
+		D121BCC2298D6DE500BA1527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D121BCC1298D6DE500BA1527 /* Assets.xcassets */; };
+		D121BCC5298D6DE500BA1527 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D121BCC3298D6DE500BA1527 /* LaunchScreen.storyboard */; };
+		D162A3F0298D74AA003D060C /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D162A3EF298D74AA003D060C /* SigninViewController.swift */; };
+		D170880D298DE84700891F55 /* AdminTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170880C298DE84700891F55 /* AdminTabBarViewController.swift */; };
+		D195E2C9298DCEB900D839F4 /* AdminHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = D195E2C8298DCEB900D839F4 /* AdminHome.swift */; };
+		D1B4049C298D790000DC67E9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B4049B298D790000DC67E9 /* Config.swift */; };
+		D1B4049E298D79BF00DC67E9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B4049D298D79BF00DC67E9 /* Utils.swift */; };
+		D1B404A0298D7B6600DC67E9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B4049F298D7B6600DC67E9 /* BaseViewController.swift */; };
+		D1B5540329A2B78C00776849 /* SponsorTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B5540229A2B78C00776849 /* SponsorTabBarViewController.swift */; };
+		D1DA7D3729A2BB12009DBA3F /* SponsorHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DA7D3629A2BB12009DBA3F /* SponsorHome.swift */; };
+		D1DA7D3929A2DCC9009DBA3F /* OrphanageActivityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DA7D3829A2DCC9009DBA3F /* OrphanageActivityDetails.swift */; };
+		D1DA7D3B29A2F326009DBA3F /* OrphanageActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DA7D3A29A2F326009DBA3F /* OrphanageActivityCell.swift */; };
+		FF199A2D5ACEBC970B3C2A97 /* Pods_orphanslife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0872F5FD6E188F9C95191D /* Pods_orphanslife.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A0872F5FD6E188F9C95191D /* Pods_orphanslife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_orphanslife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D121BCB2298D6DE400BA1527 /* orphanslife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = orphanslife.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D121BCB5298D6DE400BA1527 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D121BCB7298D6DE400BA1527 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D121BCBC298D6DE400BA1527 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D121BCBF298D6DE400BA1527 /* orphanslife.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = orphanslife.xcdatamodel; sourceTree = "<group>"; };
+		D121BCC1298D6DE500BA1527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D121BCC4298D6DE500BA1527 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D121BCC6298D6DE500BA1527 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D162A3EF298D74AA003D060C /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
+		D170880C298DE84700891F55 /* AdminTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTabBarViewController.swift; sourceTree = "<group>"; };
+		D17FE410CCE55A6DE69F7F21 /* Pods-orphanslife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-orphanslife.debug.xcconfig"; path = "Target Support Files/Pods-orphanslife/Pods-orphanslife.debug.xcconfig"; sourceTree = "<group>"; };
+		D195E2C8298DCEB900D839F4 /* AdminHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHome.swift; sourceTree = "<group>"; };
+		D1B4049B298D790000DC67E9 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		D1B4049D298D79BF00DC67E9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D1B4049F298D7B6600DC67E9 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D1B5540229A2B78C00776849 /* SponsorTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorTabBarViewController.swift; sourceTree = "<group>"; };
+		D1DA7D3629A2BB12009DBA3F /* SponsorHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorHome.swift; sourceTree = "<group>"; };
+		D1DA7D3829A2DCC9009DBA3F /* OrphanageActivityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrphanageActivityDetails.swift; sourceTree = "<group>"; };
+		D1DA7D3A29A2F326009DBA3F /* OrphanageActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrphanageActivityCell.swift; sourceTree = "<group>"; };
+		D6AA987BBD0F45D1E1137142 /* Pods-orphanslife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-orphanslife.release.xcconfig"; path = "Target Support Files/Pods-orphanslife/Pods-orphanslife.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D121BCAF298D6DE400BA1527 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF199A2D5ACEBC970B3C2A97 /* Pods_orphanslife.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2501230032E16336E97546F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A0872F5FD6E188F9C95191D /* Pods_orphanslife.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A6E7482472A78CE2D1F8158 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D17FE410CCE55A6DE69F7F21 /* Pods-orphanslife.debug.xcconfig */,
+				D6AA987BBD0F45D1E1137142 /* Pods-orphanslife.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D121BCA9298D6DE400BA1527 = {
+			isa = PBXGroup;
+			children = (
+				D121BCB4298D6DE400BA1527 /* orphanslife */,
+				D121BCB3298D6DE400BA1527 /* Products */,
+				7A6E7482472A78CE2D1F8158 /* Pods */,
+				2501230032E16336E97546F8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D121BCB3298D6DE400BA1527 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D121BCB2298D6DE400BA1527 /* orphanslife.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D121BCB4298D6DE400BA1527 /* orphanslife */ = {
+			isa = PBXGroup;
+			children = (
+				D1F5B136298D6F5B00F955D7 /* view controllers */,
+				D121BCB5298D6DE400BA1527 /* AppDelegate.swift */,
+				D121BCB7298D6DE400BA1527 /* SceneDelegate.swift */,
+				D121BCBB298D6DE400BA1527 /* Main.storyboard */,
+				D121BCC1298D6DE500BA1527 /* Assets.xcassets */,
+				D121BCC3298D6DE500BA1527 /* LaunchScreen.storyboard */,
+				D121BCC6298D6DE500BA1527 /* Info.plist */,
+				D121BCBE298D6DE400BA1527 /* orphanslife.xcdatamodeld */,
+				D1B4049B298D790000DC67E9 /* Config.swift */,
+			);
+			path = orphanslife;
+			sourceTree = "<group>";
+		};
+		D195E2C7298DCDF600D839F4 /* AdminViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D195E2C8298DCEB900D839F4 /* AdminHome.swift */,
+				D170880C298DE84700891F55 /* AdminTabBarViewController.swift */,
+			);
+			path = AdminViewControllers;
+			sourceTree = "<group>";
+		};
+		D1B553FD29A2B72800776849 /* SponsorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1B5540229A2B78C00776849 /* SponsorTabBarViewController.swift */,
+				D1DA7D3629A2BB12009DBA3F /* SponsorHome.swift */,
+				D1DA7D3829A2DCC9009DBA3F /* OrphanageActivityDetails.swift */,
+				D1DA7D3A29A2F326009DBA3F /* OrphanageActivityCell.swift */,
+			);
+			path = SponsorViewController;
+			sourceTree = "<group>";
+		};
+		D1F5B136298D6F5B00F955D7 /* view controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D1B553FD29A2B72800776849 /* SponsorViewController */,
+				D195E2C7298DCDF600D839F4 /* AdminViewControllers */,
+				D162A3EF298D74AA003D060C /* SigninViewController.swift */,
+				D1B4049D298D79BF00DC67E9 /* Utils.swift */,
+				D1B4049F298D7B6600DC67E9 /* BaseViewController.swift */,
+			);
+			path = "view controllers";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D121BCB1298D6DE400BA1527 /* orphanslife */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D121BCC9298D6DE500BA1527 /* Build configuration list for PBXNativeTarget "orphanslife" */;
+			buildPhases = (
+				499AA666526F89EBE0EE9E9D /* [CP] Check Pods Manifest.lock */,
+				D121BCAE298D6DE400BA1527 /* Sources */,
+				D121BCAF298D6DE400BA1527 /* Frameworks */,
+				D121BCB0298D6DE400BA1527 /* Resources */,
+				F87FBD5FCC9626B89B869BC7 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orphanslife;
+			productName = orphanslife;
+			productReference = D121BCB2298D6DE400BA1527 /* orphanslife.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D121BCAA298D6DE400BA1527 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					D121BCB1298D6DE400BA1527 = {
+						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
+					};
+				};
+			};
+			buildConfigurationList = D121BCAD298D6DE400BA1527 /* Build configuration list for PBXProject "orphanslife" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D121BCA9298D6DE400BA1527;
+			productRefGroup = D121BCB3298D6DE400BA1527 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D121BCB1298D6DE400BA1527 /* orphanslife */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D121BCB0298D6DE400BA1527 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D121BCC5298D6DE500BA1527 /* LaunchScreen.storyboard in Resources */,
+				D121BCC2298D6DE500BA1527 /* Assets.xcassets in Resources */,
+				D121BCBD298D6DE400BA1527 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		499AA666526F89EBE0EE9E9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-orphanslife-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F87FBD5FCC9626B89B869BC7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-orphanslife/Pods-orphanslife-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-orphanslife/Pods-orphanslife-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-orphanslife/Pods-orphanslife-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D121BCAE298D6DE400BA1527 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D162A3F0298D74AA003D060C /* SigninViewController.swift in Sources */,
+				D1DA7D3729A2BB12009DBA3F /* SponsorHome.swift in Sources */,
+				D1DA7D3B29A2F326009DBA3F /* OrphanageActivityCell.swift in Sources */,
+				D1B5540329A2B78C00776849 /* SponsorTabBarViewController.swift in Sources */,
+				D121BCB6298D6DE400BA1527 /* AppDelegate.swift in Sources */,
+				D1B4049C298D790000DC67E9 /* Config.swift in Sources */,
+				D121BCB8298D6DE400BA1527 /* SceneDelegate.swift in Sources */,
+				D195E2C9298DCEB900D839F4 /* AdminHome.swift in Sources */,
+				D170880D298DE84700891F55 /* AdminTabBarViewController.swift in Sources */,
+				D121BCC0298D6DE400BA1527 /* orphanslife.xcdatamodeld in Sources */,
+				D1DA7D3929A2DCC9009DBA3F /* OrphanageActivityDetails.swift in Sources */,
+				D1B404A0298D7B6600DC67E9 /* BaseViewController.swift in Sources */,
+				D1B4049E298D79BF00DC67E9 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D121BCBB298D6DE400BA1527 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D121BCBC298D6DE400BA1527 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D121BCC3298D6DE500BA1527 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D121BCC4298D6DE500BA1527 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D121BCC7298D6DE500BA1527 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D121BCC8298D6DE500BA1527 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D121BCCA298D6DE500BA1527 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D17FE410CCE55A6DE69F7F21 /* Pods-orphanslife.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = orphanslife/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kaligotla.orphanslife;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D121BCCB298D6DE500BA1527 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6AA987BBD0F45D1E1137142 /* Pods-orphanslife.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = orphanslife/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kaligotla.orphanslife;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D121BCAD298D6DE400BA1527 /* Build configuration list for PBXProject "orphanslife" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D121BCC7298D6DE500BA1527 /* Debug */,
+				D121BCC8298D6DE500BA1527 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D121BCC9298D6DE500BA1527 /* Build configuration list for PBXNativeTarget "orphanslife" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D121BCCA298D6DE500BA1527 /* Debug */,
+				D121BCCB298D6DE500BA1527 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D121BCBE298D6DE400BA1527 /* orphanslife.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D121BCBF298D6DE400BA1527 /* orphanslife.xcdatamodel */,
+			);
+			currentVersion = D121BCBF298D6DE400BA1527 /* orphanslife.xcdatamodel */;
+			path = orphanslife.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D121BCAA298D6DE400BA1527 /* Project object */;
+}

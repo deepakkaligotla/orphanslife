@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminView.Child.ChildsTable"
+    android:orientation="horizontal">
+
+    <TableRow
+        android:background="@android:drawable/list_selector_background">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="120dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:id="@+id/name"
+            android:background="@drawable/cell_shape"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:id="@+id/gender"
+            android:background="@drawable/cell_shape"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:id="@+id/age"
+            android:background="@drawable/cell_shape"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:id="@+id/adoptive_status"
+            android:background="@drawable/cell_shape"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:src="@drawable/delete"
+            android:id="@+id/deleteAdoptiveStatus"
+            android:background="@drawable/cell_shape"/>
+    </TableRow>
+</TableLayout>
