@@ -39,7 +39,7 @@ OS - macOS
 Linux Commands
 ```
 
-```
+
 Orphanslife -  home
 [Orphanslife Home](https://github.com/deepakkaligotla/orphanslife "Orphanslife -  home")
 
@@ -57,5 +57,5 @@ Orphanslife - React
 
 Orphanslife - iOs/Swift
 [iOS Swift, Objc, Alamofire, CocoaPods using backend REST API Node (Express) - Orphanslife](https://github.com/deepakkaligotla/orphanslife/tree/main/iOS%20Swift%20Alomafire-%20Orphanslife "Orphanslife iOs/Swift")
-````
+
 
