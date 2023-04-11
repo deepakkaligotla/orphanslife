@@ -3,7 +3,6 @@ package com.kaligotla.oms.AdminView.Sponsor;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,15 +77,17 @@ public class SponsorsTable extends AppCompatActivity {
                             for(int i=0; i<jsonArray.size(); i++) {
                                 jsonObject = jsonArray.get(i).getAsJsonObject();
                                 Sponsor sponsor = new Sponsor();
-
-                                sponsor.setId( Integer.parseInt( jsonObject.get( "id" ).toString() ));
-                                sponsor.setName(jsonObject.get( "name" ).getAsString());
-                                if(!jsonObject.get( "mobile" ).isJsonNull()) {
-                                    sponsor.setMobile( jsonObject.get( "mobile" ).getAsString() );}
-                                else sponsor.setMobile(null);
-                                sponsor.setEmail(jsonObject.get( "email" ).getAsString());
+                                if(!jsonObject.get( "sponsor_id" ).isJsonNull()) {
+                                    sponsor.setSponsor_id(jsonObject.get("sponsor_id").getAsInt());
+                                }
+                                if(!jsonObject.get( "sponsor_name" ).isJsonNull()) {
+                                    sponsor.setSponsor_name(jsonObject.get("sponsor_name").getAsString());
+                                }
+                                if(!jsonObject.get( "sponsor_mobile" ).isJsonNull()) {
+                                    sponsor.setSponsor_mobile( jsonObject.get( "sponsor_mobile" ).getAsString() );}
+                                else sponsor.setSponsor_mobile(null);
+                                sponsor.setSponsor_email(jsonObject.get( "sponsor_email" ).getAsString());
                                 sponsorsList.add( sponsor );
-                                Log.e( "SponsorsList from DB",""+sponsorsList );
                             }
                             sponsorsTableListAdapter.notifyDataSetChanged();
                         }
@@ -104,6 +105,10 @@ public class SponsorsTable extends AppCompatActivity {
 
     public void cancel(View view) {
         finish();
+    }
+
+    public void newAdmin(View view) {
+        startActivity(new Intent(this, NewSponsor.class));
     }
 
     @Override

@@ -67,8 +67,9 @@
                     android:hint="Sponsor Date of Birth">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="280dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/dobEditText"
+                        android:layout_width="300dp"
+                        android:layout_height="60dp"
                         android:layout_centerInParent="true"
                         android:clickable="false"
                         android:cursorVisible="false"
@@ -388,7 +389,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:hint="Location ID">
+                    android:hint="Donation ID">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"

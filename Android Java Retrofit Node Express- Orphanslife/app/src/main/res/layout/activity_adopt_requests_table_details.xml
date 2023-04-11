@@ -136,8 +136,9 @@
                     android:hint="Adopt Request Logged Date">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="280dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/dateOfReqEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:clickable="false"
                         android:cursorVisible="false"
@@ -158,8 +159,9 @@
                     android:hint="Admin Last Check Date">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="280dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/lastCheckedEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:clickable="false"
                         android:cursorVisible="false"
@@ -196,8 +198,9 @@
                     android:hint="Admin's next check date">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="280dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/nextCheckEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:clickable="false"
                         android:cursorVisible="false"
@@ -218,8 +221,9 @@
                     android:hint="Child adopted Date">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="280dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/adoptedEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:clickable="false"
                         android:cursorVisible="false"

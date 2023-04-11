@@ -38,7 +38,7 @@ public class DonationsTableListAdapter extends RecyclerView.Adapter<DonationsTab
         holder.id.setText(""+donationList.get(position).getId());
         holder.amount.setText(""+donationList.get(position).getAmount());
         holder.payment_status.setText(donationList.get(position).getPayment_status());
-        holder.sponsor.setText(""+donationList.get(position).getSponsor().getId());
+        holder.sponsor.setText(""+donationList.get(position).getSponsor().getSponsor_id());
     }
 
     @Override

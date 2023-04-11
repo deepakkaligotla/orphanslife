@@ -1,32 +1,62 @@
 package com.kaligotla.oms;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE;
+import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED;
+import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE;
+import static android.hardware.biometrics.BiometricManager.BIOMETRIC_SUCCESS;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.hardware.biometrics.BiometricManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kaligotla.oms.AdminView.Admin.Admin;
 import com.kaligotla.oms.AdminView.AdminHome;
+import com.kaligotla.oms.AdminView.Role.Role;
 import com.kaligotla.oms.Essentials.Constants;
+import com.kaligotla.oms.Essentials.CustomDateFormate;
 import com.kaligotla.oms.Essentials.DBService;
 import com.kaligotla.oms.GuardianView.GuardianHome;
+import com.kaligotla.oms.SponsorView.Sponsor;
 import com.kaligotla.oms.SponsorView.SponsorHome;
 import com.kaligotla.oms.VolunteerView.VolunteerHome;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
@@ -36,33 +66,41 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
-
-    TextInputLayout login_username, login_password;
+    TextInputLayout login_username, login_password, enteredOTP;
     MaterialCheckBox remember_me;
+    LinearLayout otpLinearLayout;
     GifImageView kids_jumping;
-    MaterialButton sign_in;
-    MaterialTextView forgotPassword, register;
+    MaterialButton sign_in, validateOTP;
+    MaterialTextView forgotPassword;
     Cred cred;
+    View rootView;
+    Bundle bundle;
+    int sentOTP;
+    Sponsor loggedInSponsor;
+    Admin loggedInAdmin;
+    LocalTime otpSentTime, validateOTPTime;
 
-    public LoginFragment() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bundle = new Bundle();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = requireArguments();
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        String value = bundle.getString("key");
+        rootView = inflater.inflate(R.layout.fragment_login, container, false);
         login_username = rootView.findViewById(R.id.login_username);
         login_password = rootView.findViewById( R.id.login_password );
+        enteredOTP = rootView.findViewById(R.id.enteredOTP);
         remember_me = rootView.findViewById( R.id.remember_me );
         kids_jumping = rootView.findViewById( R.id.kids_jumping );
         sign_in = rootView.findViewById(R.id.sign_in);
+        validateOTP = rootView.findViewById(R.id.validateOTP);
         forgotPassword = rootView.findViewById(R.id.forgotPassword);
-        register = rootView.findViewById(R.id.register);
-
-        SharedPreferences preferences = this.getActivity().getSharedPreferences( "sponsor_logged_in", MODE_PRIVATE );
+        otpLinearLayout = rootView.findViewById(R.id.otpLinearLayout);
+        otpLinearLayout.setVisibility(View.GONE);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "sponsor_logged_in", false )) {
             Log.e("Sponsor logged in",""+this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "sponsor_logged_in", false ));
             startActivity( new Intent( getActivity(), SponsorHome.class ) );
@@ -80,17 +118,19 @@ public class LoginFragment extends Fragment {
             startActivity( new Intent( getActivity(), VolunteerHome.class ) );
             getActivity().finish();
         }
+
+        //restoring
+        if(savedInstanceState!=null){
+            login_username.getEditText().setText(savedInstanceState.getString("login_username_key"));
+            login_password.getEditText().setText(savedInstanceState.getString("login_password_key"));
+            sentOTP = Integer.parseInt(savedInstanceState.getString("sent_otp_key"));
+            if(sentOTP!=0) {
+                otpLinearLayout.setVisibility(View.VISIBLE);
+            } else otpLinearLayout.setVisibility(View.GONE);
+        }
+        super.onCreate(savedInstanceState);
+
         return rootView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
@@ -103,16 +143,25 @@ public class LoginFragment extends Fragment {
                 sign_in();
             }
         });
-    }
+        validateOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateOTP();
+            }
+        });
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ForgotPassword.class));
+            }
+        });
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
     }
 
     public void sign_in() {
         cred = validateData();
         if (cred != null) {
+            Log.e("sign_in",cred.toString());
             signinSponsor( cred );
         }
     }
@@ -131,23 +180,25 @@ public class LoginFragment extends Fragment {
                         JsonArray jsonArray = response.body().getAsJsonArray( "data" );
                         JsonObject jsonObject;
                         Log.e("cred",""+jsonArray);
-                        if (jsonArray.size() > 0) {
+                        if (jsonArray!=null) {
+                            sentOTP = response.body().get("otp").getAsInt();
+                            Log.e("sentOTP",""+sentOTP);
                             jsonObject = jsonArray.get( 0 ).getAsJsonObject();
-                            int admin_id = jsonObject.get( "id" ).getAsInt();
-                            String role = jsonObject.get( "role" ).getAsString();
-                            saveData( admin_id, role );
-                            Toast.makeText( getActivity(), "Admin Login successfull", Toast.LENGTH_SHORT ).show();
-                            if(role.equals( "Super_Admin" )) {
-                                startActivity( new Intent( getActivity(), AdminHome.class ) );
-                            } else if(role.equals( "Volunteer" )) {
-                                startActivity( new Intent( getActivity(), VolunteerHome.class ) );
-                            } else if(role.equals( "Guardian" )) {
-                                startActivity( new Intent( getActivity(), GuardianHome.class ) );
+                            loggedInAdmin = new Admin();
+                            loggedInAdmin.setAdmin_id(jsonObject.get( "admin_id" ).getAsInt());
+                            loggedInAdmin.setRole(new Role(jsonObject.get( "role" ).getAsString()));
+                            otpLinearLayout.setVisibility(View.VISIBLE);
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                otpSentTime = LocalTime.now();
                             }
-                            getActivity().finish();
                         }
-                        else if(jsonArray.size()==0) {
-                            Toast.makeText( getActivity(), "No account found, kindly check email & password or Register with us", Toast.LENGTH_SHORT ).show();
+                        else if(jsonArray==null) {
+                            Toast.makeText( getActivity(), "No account found, kindly check email & password or Register with us", Toast.LENGTH_LONG ).show();
+                            RegisterFragment rf = new RegisterFragment();
+                            bundle.putString("email", login_username.getEditText().getText().toString() );
+                            bundle.putString("password", login_password.getEditText().getText().toString() );
+                            rf.setArguments(bundle);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,RegisterFragment.class,bundle).commit();
                         }
 
                     }
@@ -171,16 +222,22 @@ public class LoginFragment extends Fragment {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         JsonArray jsonArray = response.body().getAsJsonArray( "data" );
                         JsonObject jsonObject;
-                        Log.e("cred",""+jsonArray);
-                        if (jsonArray.size() > 0) {
+                        if (jsonArray!=null) {
+                            sentOTP = response.body().get("otp").getAsInt();
+                            Log.e("sentOTP",""+sentOTP);
                             jsonObject = jsonArray.get( 0 ).getAsJsonObject();
-                            int sponsor_id = jsonObject.get( "id" ).getAsInt();
-                            saveData( sponsor_id, null );
-                            Toast.makeText( getActivity(), "Sponsor Login successfull", Toast.LENGTH_SHORT ).show();
-                            startActivity( new Intent( getActivity(), SponsorHome.class ) );
-                            getActivity().finish();
+                            loggedInSponsor = new Sponsor();
+                            Log.e("jsonObject",""+jsonObject);
+                            loggedInSponsor.setSponsor_id(jsonObject.get( "sponsor_id" ).getAsInt());
+                            loggedInSponsor.setSponsor_name(jsonObject.get( "sponsor_name" ).getAsString());
+                            loggedInSponsor.setSponsor_email(jsonObject.get( "sponsor_email" ).getAsString());
+                            otpLinearLayout.setVisibility(View.VISIBLE);
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                otpSentTime = LocalTime.now();
+                            }
                         }
-                        else if(jsonArray.size()==0) {
+                        else if(jsonArray==null) {
+                            Toast.makeText( getActivity(), "Checking if Admin", Toast.LENGTH_LONG ).show();
                             signinAdmin(cred);
                         }
 
@@ -193,32 +250,73 @@ public class LoginFragment extends Fragment {
                 } );
     }
 
+    public void validateOTP() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            validateOTPTime = LocalTime.now();
+            long otpExpire = otpSentTime.until(validateOTPTime, ChronoUnit.MINUTES);
+            if(otpExpire<2) {
+                if(Integer.parseInt(enteredOTP.getEditText().getText().toString())==sentOTP) {
+                    if(loggedInSponsor!=null) {
+                        saveData(loggedInSponsor.getSponsor_id(),null);
+                        Toast.makeText( getActivity(), "Sponsor Login Successful", Toast.LENGTH_SHORT ).show();
+                        startActivity( new Intent( getActivity(), SponsorHome.class ) );
+                        getActivity().finish();
+                    } else if(loggedInAdmin!=null) {
+                        Toast.makeText( getActivity(), "Admin Login successfull", Toast.LENGTH_SHORT ).show();
+                        if(loggedInAdmin.getRole().getRole().equals( "Super_Admin" )) {
+                            startActivity( new Intent( getActivity(), AdminHome.class ) );
+                        } else if(loggedInAdmin.getRole().getRole().equals( "Volunteer" )) {
+                            startActivity( new Intent( getActivity(), VolunteerHome.class ) );
+                        } else if(loggedInAdmin.getRole().getRole().equals( "Guardian" )) {
+                            startActivity( new Intent( getActivity(), GuardianHome.class ) );
+                        }
+                        getActivity().finish();
+                    }
+                } else {
+                    Toast.makeText( getActivity(), "INVALID OTP", Toast.LENGTH_SHORT ).show();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                }
+            } else {
+                Toast.makeText( getActivity(), "OTP EXPIRED, SignIn again...!", Toast.LENGTH_LONG ).show();
+                otpLinearLayout.setVisibility(View.GONE);
+            }
+        }
+    }
+
     public void saveData(int id, String role) {
         SharedPreferences preferences = this.getActivity().getSharedPreferences( "store", MODE_PRIVATE );
-        preferences.edit().putInt( "sponsor_id", id ).commit();
-        preferences.edit().putInt( "admin_id", id ).commit();
         if(remember_me.isChecked()) {
             if(role==null) {
+                preferences.edit().putInt( "sponsor_id", id ).commit();
                 preferences.edit().putBoolean( "sponsor_logged_in", true ).commit();
             } else if(role.equals( "Volunteer" )) {
+                preferences.edit().putInt( "admin_id", id ).commit();
                 preferences.edit().putBoolean( "volunteer_logged_in", true ).commit();
             } else if(role.equals( "Guardian" )) {
+                preferences.edit().putInt( "admin_id", id ).commit();
                 preferences.edit().putBoolean( "guardian_logged_in", true ).commit();
             } else if(role.equals( "Super_Admin" )) {
+                preferences.edit().putInt( "admin_id", id ).commit();
                 preferences.edit().putBoolean( "super_admin_logged_in", true ).commit();
             }
         }
     }
 
     public Cred validateData() {
-        Cred cred = new Cred();
+        cred = new Cred();
         cred.setEmail( login_username.getEditText().getText().toString() );
         cred.setPassword( login_password.getEditText().getText().toString() );
-        Log.e("cred",cred.toString());
+
+        String emailRegex = "[a-zA-Z0-9]{0,}([._-]?[a-zA-Z0-9]{1,})[@][a-z]{3,}(.com|.in)";
+        Pattern p = Pattern.compile(emailRegex);
+        Matcher m = p.matcher(cred.getEmail());
 
         if (!cred.getEmail().equals( "" ))
-            if (!cred.getPassword().equals( "" ))
-                return cred;
+            if (!cred.getPassword().equals( "" )) {
+                if(m.matches()) {
+                    return cred;
+                } else Toast.makeText( this.getActivity(), "Enter valid email", Toast.LENGTH_SHORT ).show();
+            }
             else
                 Toast.makeText( this.getActivity(), "Password cannot be empty", Toast.LENGTH_SHORT ).show();
         else
@@ -227,22 +325,10 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("login_username_key",login_username.getEditText().getText().toString());
+        outState.putString("login_password_key",login_password.getEditText().getText().toString());
+        outState.putString("sent_otp_key",String.valueOf(sentOTP));
     }
 }

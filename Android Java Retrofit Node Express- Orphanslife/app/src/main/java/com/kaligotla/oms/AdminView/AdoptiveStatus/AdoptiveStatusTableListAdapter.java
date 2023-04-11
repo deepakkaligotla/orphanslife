@@ -49,8 +49,8 @@ public class AdoptiveStatusTableListAdapter extends RecyclerView.Adapter<Adoptiv
 
     @Override
     public void onBindViewHolder(@NonNull AdoptiveStatusTableListAdapter.MyViewHolder holder, int position) {
-        Log.e("ID",""+adoptiveStatusList.get(position).getId());
-        holder.id.setText(""+adoptiveStatusList.get(position).getId());
+        Log.e("ID",""+adoptiveStatusList.get(position).getAdoptive_status_id());
+        holder.id.setText(""+adoptiveStatusList.get(position).getAdoptive_status_id());
         holder.status.setText(adoptiveStatusList.get(position).getStatus());
     }
 
@@ -75,7 +75,7 @@ public class AdoptiveStatusTableListAdapter extends RecyclerView.Adapter<Adoptiv
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                deleteAdoptiveStatus(adoptiveStatusList.get(getAdapterPosition()).getId(),getAdapterPosition());
+                                deleteAdoptiveStatus(adoptiveStatusList.get(getAdapterPosition()).getAdoptive_status_id(),getAdapterPosition());
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
@@ -91,8 +91,8 @@ public class AdoptiveStatusTableListAdapter extends RecyclerView.Adapter<Adoptiv
 
         @Override
         public void onClick(View v) {
-            adoptiveStatusId = adoptiveStatusList.get(getAdapterPosition()).getId();
-            Log.e("Clicked position",""+adoptiveStatusList.get(getAdapterPosition()).getId());
+            adoptiveStatusId = adoptiveStatusList.get(getAdapterPosition()).getAdoptive_status_id();
+            Log.e("Clicked position",""+adoptiveStatusList.get(getAdapterPosition()).getAdoptive_status_id());
             context.startActivity(new Intent(context, AdoptiveStatusTableDetails.class)
                     .putExtra("adoptiveStatusId",adoptiveStatusId));
         }

@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class Admin implements Serializable {
 
-    private int id;
-    private String name, dob, gender, govt_id_type, govt_id, mobile, email, password, address;
+    private int admin_id;
+    private String admin_name, admin_dob, admin_gender, admin_govt_id_type, admin_govt_id, admin_mobile, admin_email, admin_password, address;
     private Location location;
     private Role role;
     private Orphanage orphanage;
@@ -18,15 +18,29 @@ public class Admin implements Serializable {
     public Admin() {
     }
 
-    public Admin(String name, String dob, String gender, String govt_id_type, String govt_id, String mobile, String email, String password, String address, Location location, Role role, Orphanage orphanage, String image) {
-        this.name = name;
-        this.dob = dob;
-        this.gender = gender;
-        this.govt_id_type = govt_id_type;
-        this.govt_id = govt_id;
-        this.mobile = mobile;
-        this.email = email;
-        this.password = password;
+    public Admin(int admin_id) {
+        this.admin_id = admin_id;
+    }
+
+    public Admin(String admin_name, String admin_dob, String admin_gender, String admin_mobile, String admin_email, String admin_password) {
+        this.admin_name = admin_name;
+        this.admin_dob = admin_dob;
+        this.admin_gender = admin_gender;
+        this.admin_mobile = admin_mobile;
+        this.admin_email = admin_email;
+        this.admin_password = admin_password;
+    }
+
+    public Admin(int admin_id, String admin_name, String admin_dob, String admin_gender, String admin_govt_id_type, String admin_govt_id, String admin_mobile, String admin_email, String admin_password, String address, Location location, Role role, Orphanage orphanage, String image) {
+        this.admin_id = admin_id;
+        this.admin_name = admin_name;
+        this.admin_dob = admin_dob;
+        this.admin_gender = admin_gender;
+        this.admin_govt_id_type = admin_govt_id_type;
+        this.admin_govt_id = admin_govt_id;
+        this.admin_mobile = admin_mobile;
+        this.admin_email = admin_email;
+        this.admin_password = admin_password;
         this.address = address;
         this.location = location;
         this.role = role;
@@ -34,76 +48,76 @@ public class Admin implements Serializable {
         this.image = image;
     }
 
-    public int getId() {
-        return id;
+    public int getAdmin_id() {
+        return admin_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAdmin_id(int admin_id) {
+        this.admin_id = admin_id;
     }
 
-    public String getName() {
-        return name;
+    public String getAdmin_name() {
+        return admin_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAdmin_name(String admin_name) {
+        this.admin_name = admin_name;
     }
 
-    public String getDob() {
-        return dob;
+    public String getAdmin_dob() {
+        return admin_dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setAdmin_dob(String admin_dob) {
+        this.admin_dob = admin_dob;
     }
 
-    public String getGender() {
-        return gender;
+    public String getAdmin_gender() {
+        return admin_gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAdmin_gender(String admin_gender) {
+        this.admin_gender = admin_gender;
     }
 
-    public String getGovt_id_type() {
-        return govt_id_type;
+    public String getAdmin_govt_id_type() {
+        return admin_govt_id_type;
     }
 
-    public void setGovt_id_type(String govt_id_type) {
-        this.govt_id_type = govt_id_type;
+    public void setAdmin_govt_id_type(String admin_govt_id_type) {
+        this.admin_govt_id_type = admin_govt_id_type;
     }
 
-    public String getGovt_id() {
-        return govt_id;
+    public String getAdmin_govt_id() {
+        return admin_govt_id;
     }
 
-    public void setGovt_id(String govt_id) {
-        this.govt_id = govt_id;
+    public void setAdmin_govt_id(String admin_govt_id) {
+        this.admin_govt_id = admin_govt_id;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getAdmin_mobile() {
+        return admin_mobile;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setAdmin_mobile(String admin_mobile) {
+        this.admin_mobile = admin_mobile;
     }
 
-    public String getEmail() {
-        return email;
+    public String getAdmin_email() {
+        return admin_email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAdmin_email(String admin_email) {
+        this.admin_email = admin_email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAdmin_password() {
+        return admin_password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAdmin_password(String admin_password) {
+        this.admin_password = admin_password;
     }
 
     public String getAddress() {
@@ -165,15 +179,15 @@ public class Admin implements Serializable {
     @Override
     public String toString() {
         return "Admin{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dob='" + dob + '\'' +
-                ", gender='" + gender + '\'' +
-                ", govt_id_type='" + govt_id_type + '\'' +
-                ", govt_id='" + govt_id + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                "admin_id=" + admin_id +
+                ", admin_name='" + admin_name + '\'' +
+                ", admin_dob='" + admin_dob + '\'' +
+                ", admin_gender='" + admin_gender + '\'' +
+                ", admin_govt_id_type='" + admin_govt_id_type + '\'' +
+                ", admin_govt_id='" + admin_govt_id + '\'' +
+                ", admin_mobile='" + admin_mobile + '\'' +
+                ", admin_email='" + admin_email + '\'' +
+                ", admin_password='" + admin_password + '\'' +
                 ", address='" + address + '\'' +
                 ", location=" + location +
                 ", role=" + role +

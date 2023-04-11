@@ -5,99 +5,120 @@ import com.kaligotla.oms.AdminView.Location.Location;
 import java.io.Serializable;
 public class Sponsor implements Serializable{
 
-    private int id;
+    private int sponsor_id;
 
-    private String name, dob, gender, govt_id_type, govt_id, mobile, email, password, marital_status,
-            user_image, user_address;
+    private String sponsor_name, sponsor_dob, sponsor_gender, sponsor_govt_id_type, sponsor_govt_id, sponsor_mobile, sponsor_email, sponsor_password, marital_status,
+            sponsor_image, sponsor_address;
 
     private Location location;
 
     private String spouce_name, spouce_dob, spouce_govt_id_type, spouce_govt_id, spouce_mobile, spouce_image;
 
-    private String created_at;
+    private String sponsor_created_at;
 
-    private String updated_at;
+    private String sponsor_updated_at;
 
     public Sponsor() {
     }
 
-    public Sponsor(String name, String email, String password, String mobile) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.mobile = mobile;
+    public Sponsor(int sponsor_id) {
+        this.sponsor_id = sponsor_id;
     }
 
-    public int getId() {
-        return id;
+    public Sponsor(String sponsor_name, String sponsor_dob, String sponsor_gender, String sponsor_mobile, String sponsor_email, String sponsor_password) {
+        this.sponsor_name = sponsor_name;
+        this.sponsor_dob = sponsor_dob;
+        this.sponsor_gender = sponsor_gender;
+        this.sponsor_mobile = sponsor_mobile;
+        this.sponsor_email = sponsor_email;
+        this.sponsor_password = sponsor_password;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Sponsor(int sponsor_id, String sponsor_name, String sponsor_dob, String sponsor_gender, String sponsor_govt_id_type, String sponsor_govt_id, String sponsor_mobile, String sponsor_email, String sponsor_password, String marital_status, String sponsor_image, String sponsor_address) {
+        this.sponsor_id = sponsor_id;
+        this.sponsor_name = sponsor_name;
+        this.sponsor_dob = sponsor_dob;
+        this.sponsor_gender = sponsor_gender;
+        this.sponsor_govt_id_type = sponsor_govt_id_type;
+        this.sponsor_govt_id = sponsor_govt_id;
+        this.sponsor_mobile = sponsor_mobile;
+        this.sponsor_email = sponsor_email;
+        this.sponsor_password = sponsor_password;
+        this.marital_status = marital_status;
+        this.sponsor_image = sponsor_image;
+        this.sponsor_address = sponsor_address;
     }
 
-    public String getName() {
-        return name;
+    public int getSponsor_id() {
+        return sponsor_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSponsor_id(int sponsor_id) {
+        this.sponsor_id = sponsor_id;
     }
 
-    public String getDob() {
-        return dob;
+    public String getSponsor_name() {
+        return sponsor_name;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setSponsor_name(String sponsor_name) {
+        this.sponsor_name = sponsor_name;
     }
 
-    public String getGender() {
-        return gender;
+    public String getSponsor_dob() {
+        return sponsor_dob;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setSponsor_dob(String sponsor_dob) {
+        this.sponsor_dob = sponsor_dob;
     }
 
-    public String getGovt_id_type() {
-        return govt_id_type;
+    public String getSponsor_gender() {
+        return sponsor_gender;
     }
 
-    public void setGovt_id_type(String govt_id_type) {
-        this.govt_id_type = govt_id_type;
+    public void setSponsor_gender(String sponsor_gender) {
+        this.sponsor_gender = sponsor_gender;
     }
 
-    public String getGovt_id() {
-        return govt_id;
+    public String getSponsor_govt_id_type() {
+        return sponsor_govt_id_type;
     }
 
-    public void setGovt_id(String govt_id) {
-        this.govt_id = govt_id;
+    public void setSponsor_govt_id_type(String sponsor_govt_id_type) {
+        this.sponsor_govt_id_type = sponsor_govt_id_type;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getSponsor_govt_id() {
+        return sponsor_govt_id;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setSponsor_govt_id(String sponsor_govt_id) {
+        this.sponsor_govt_id = sponsor_govt_id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSponsor_mobile() {
+        return sponsor_mobile;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSponsor_mobile(String sponsor_mobile) {
+        this.sponsor_mobile = sponsor_mobile;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSponsor_email() {
+        return sponsor_email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSponsor_email(String sponsor_email) {
+        this.sponsor_email = sponsor_email;
+    }
+
+    public String getSponsor_password() {
+        return sponsor_password;
+    }
+
+    public void setSponsor_password(String sponsor_password) {
+        this.sponsor_password = sponsor_password;
     }
 
     public String getMarital_status() {
@@ -108,20 +129,20 @@ public class Sponsor implements Serializable{
         this.marital_status = marital_status;
     }
 
-    public String getUser_image() {
-        return user_image;
+    public String getSponsor_image() {
+        return sponsor_image;
     }
 
-    public void setUser_image(String user_image) {
-        this.user_image = user_image;
+    public void setSponsor_image(String sponsor_image) {
+        this.sponsor_image = sponsor_image;
     }
 
-    public String getUser_address() {
-        return user_address;
+    public String getSponsor_address() {
+        return sponsor_address;
     }
 
-    public void setUser_address(String user_address) {
-        this.user_address = user_address;
+    public void setSponsor_address(String sponsor_address) {
+        this.sponsor_address = sponsor_address;
     }
 
     public Location getLocation() {
@@ -180,37 +201,37 @@ public class Sponsor implements Serializable{
         this.spouce_image = spouce_image;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getSponsor_created_at() {
+        return sponsor_created_at;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setSponsor_created_at(String sponsor_created_at) {
+        this.sponsor_created_at = sponsor_created_at;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getSponsor_updated_at() {
+        return sponsor_updated_at;
     }
 
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
+    public void setSponsor_updated_at(String sponsor_updated_at) {
+        this.sponsor_updated_at = sponsor_updated_at;
     }
 
     @Override
     public String toString() {
         return "Sponsor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dob='" + dob + '\'' +
-                ", gender='" + gender + '\'' +
-                ", govt_id_type='" + govt_id_type + '\'' +
-                ", govt_id='" + govt_id + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                "sponsor_id=" + sponsor_id +
+                ", sponsor_name='" + sponsor_name + '\'' +
+                ", sponsor_dob='" + sponsor_dob + '\'' +
+                ", sponsor_gender='" + sponsor_gender + '\'' +
+                ", sponsor_govt_id_type='" + sponsor_govt_id_type + '\'' +
+                ", sponsor_govt_id='" + sponsor_govt_id + '\'' +
+                ", sponsor_mobile='" + sponsor_mobile + '\'' +
+                ", sponsor_email='" + sponsor_email + '\'' +
+                ", sponsor_password='" + sponsor_password + '\'' +
                 ", marital_status='" + marital_status + '\'' +
-                ", user_image='" + user_image + '\'' +
-                ", user_address='" + user_address + '\'' +
+                ", sponsor_image='" + sponsor_image + '\'' +
+                ", sponsor_address='" + sponsor_address + '\'' +
                 ", location=" + location +
                 ", spouce_name='" + spouce_name + '\'' +
                 ", spouce_dob='" + spouce_dob + '\'' +
@@ -218,8 +239,8 @@ public class Sponsor implements Serializable{
                 ", spouce_govt_id='" + spouce_govt_id + '\'' +
                 ", spouce_mobile='" + spouce_mobile + '\'' +
                 ", spouce_image='" + spouce_image + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
+                ", sponsor_created_at='" + sponsor_created_at + '\'' +
+                ", sponsor_updated_at='" + sponsor_updated_at + '\'' +
                 '}';
     }
 }

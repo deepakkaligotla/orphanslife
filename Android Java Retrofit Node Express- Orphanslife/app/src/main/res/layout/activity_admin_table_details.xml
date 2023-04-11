@@ -19,7 +19,7 @@
         android:layout_marginBottom="10dp"
         android:text="UPDATE ADMIN"
         android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,8 +67,9 @@
                     android:hint="Admin Date of Birth">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="280dp"
-                        android:layout_height="55dp"
+                        android:id="@+id/dobEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:clickable="false"
                         android:cursorVisible="false"

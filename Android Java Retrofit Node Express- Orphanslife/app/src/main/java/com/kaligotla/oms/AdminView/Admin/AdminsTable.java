@@ -79,12 +79,11 @@ public class AdminsTable extends AppCompatActivity {
                             for(int i=0; i<jsonArray.size(); i++) {
                                 jsonObject = jsonArray.get(i).getAsJsonObject();
                                 Admin admin = new Admin();
-                                admin.setId( Integer.parseInt( jsonObject.get( "id" ).toString() ));
-                                admin.setName(jsonObject.get( "name" ).getAsString());
-                                if(!jsonObject.get( "mobile" ).isJsonNull()) {
-                                    admin.setMobile( jsonObject.get( "mobile" ).getAsString() );}
-                                else admin.setMobile(null);
-                                admin.setEmail(jsonObject.get( "email" ).getAsString());
+                                admin.setAdmin_id( Integer.parseInt( jsonObject.get( "admin_id" ).toString() ));
+                                if(!jsonObject.get( "admin_mobile" ).isJsonNull()) {
+                                    admin.setAdmin_mobile( jsonObject.get( "admin_mobile" ).getAsString() );}
+                                else admin.setAdmin_mobile(null);
+                                admin.setAdmin_email(jsonObject.get( "admin_email" ).getAsString());
                                 adminList.add( admin );
                                 Log.e( "adminList from DB",""+adminList );
                             }

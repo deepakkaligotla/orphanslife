@@ -37,6 +37,7 @@ public class AdoptRequestsTable extends AppCompatActivity {
     List<AdoptRequest> adoptRequestList;
     AdoptRequestsTableListAdapter adoptRequestsTableListAdapter;
     MaterialToolbar sponsor_toolbar;
+    int aid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class AdoptRequestsTable extends AppCompatActivity {
         setContentView( R.layout.activity_adopt_requests_table );
         sponsor_toolbar = findViewById( R.id.sponsor_toolbar );
         AdoptRequestsTableRecyclerView = findViewById( R.id.AdoptRequestsTableRecyclerView );
+        aid = getIntent().getIntExtra("aid",0);
     }
 
     @Override
@@ -70,7 +72,6 @@ public class AdoptRequestsTable extends AppCompatActivity {
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        Log.e( "adoptRequests from DB",""+adoptRequestList );
                         JsonArray jsonArray = response.body().getAsJsonArray( "data" );
                         JsonObject jsonObject;
                         if (jsonArray.size() > 0) {
@@ -85,20 +86,25 @@ public class AdoptRequestsTable extends AppCompatActivity {
                             adoptRequestsTableListAdapter.notifyDataSetChanged();
                         }
                         else if(jsonArray.size()==0) {
-//                            Toast.makeText( DBHelper.this, "No data found in Sponsors DB", Toast.LENGTH_SHORT ).show();
+                            Toast.makeText( AdoptRequestsTable.this, "No data found in DB", Toast.LENGTH_SHORT ).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         Log.e("onFailure",""+adoptRequestList);
-//                        Toast.makeText( DBHelper.this, "DB Connection failed", Toast.LENGTH_SHORT ).show();
+                        Toast.makeText( AdoptRequestsTable.this, "DB Connection failed", Toast.LENGTH_SHORT ).show();
                     }
                 } );
     }
 
     public void cancel(View view) {
         finish();
+    }
+
+    public void newAdoptRequest(View view) {
+        startActivity(new Intent(AdoptRequestsTable.this, NewAdoptRequest.class)
+                .putExtra("aid",aid));
     }
 
     @Override

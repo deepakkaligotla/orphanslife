@@ -7,21 +7,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.kaligotla.oms.AdminView.Location.Location;
-import com.kaligotla.oms.AdminView.Role.Role;
 import com.kaligotla.oms.Essentials.Constants;
 import com.kaligotla.oms.Essentials.CustomDateFormate;
 import com.kaligotla.oms.Essentials.DBService;
@@ -29,7 +25,6 @@ import com.kaligotla.oms.Essentials.ImageLoadTask;
 import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.OrphanageActivities.AddOrphanageActivities;
 import com.kaligotla.oms.R;
-import com.kaligotla.oms.orphanage.Orphanage;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,18 +78,16 @@ public class ChildsTableDetails extends AppCompatActivity {
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        Location l = new Location();
-                        Role r = new Role();
-                        Orphanage o = new Orphanage();
-                        JsonArray array = response.body().get("data").getAsJsonArray();
-                        if(array.size()>0){
-                            JsonObject jsonObject = array.get(0).getAsJsonObject();
+
+                        JsonArray jsonData = response.body().get("data").getAsJsonArray();
+                        if(jsonData.size()>0){
+                            JsonObject jsonObject = jsonData.get(0).getAsJsonObject();
                             Log.e("jsonObject",""+jsonObject);
                             if(!jsonObject.get( "child_name" ).isJsonNull())
                                 name.getEditText().setText(jsonObject.get( "child_name" ).getAsString());
                             else name.getEditText().setText(null);
                             if(!jsonObject.get( "child_dob" ).isJsonNull())
-                                dob.getEditText().setText( CustomDateFormate.convert( jsonObject.get( "dob" ).toString() ) );
+                                dob.getEditText().setText( CustomDateFormate.convert( jsonObject.get( "child_dob" ).toString() ) );
                             else dob.getEditText().setText(null);
 
 
@@ -110,8 +103,8 @@ public class ChildsTableDetails extends AppCompatActivity {
                             if(!jsonObject.get( "father_name" ).isJsonNull())
                                 father_name.getEditText().setText( jsonObject.get( "father_name" ).getAsString() );
                             else father_name.getEditText().setText(null);
-                            if(!jsonObject.get( "mobile" ).isJsonNull())
-                                mobile.getEditText().setText( jsonObject.get( "mobile" ).getAsString() );
+                            if(!jsonObject.get( "child_mobile" ).isJsonNull())
+                                mobile.getEditText().setText( jsonObject.get( "child_mobile" ).getAsString() );
                             else mobile.getEditText().setText(null);
                             if(!jsonObject.get( "child_image" ).isJsonNull())
                                 new ImageLoadTask(jsonObject.get( "child_image" ).getAsString(), image).execute();
@@ -122,6 +115,7 @@ public class ChildsTableDetails extends AppCompatActivity {
                             if(!jsonObject.get( "admin_id" ).isJsonNull())
                                 admin_id.getEditText().setText( jsonObject.get( "admin_id" ).getAsString() );
                             else admin_id.getEditText().setText(null);
+
                         }
                     }
                     @Override

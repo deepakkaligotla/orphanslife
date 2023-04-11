@@ -9,6 +9,10 @@ public class Location implements Serializable {
     public Location() {
     }
 
+    public Location(int id) {
+        this.id = id;
+    }
+
     public Location(int pincode, String area, String city, String district, String state) {
         this.pincode = pincode;
         this.area = area;

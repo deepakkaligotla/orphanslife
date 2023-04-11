@@ -54,7 +54,7 @@ public class RolesTable extends AppCompatActivity {
         super.onResume();
         RolesTableRecyclerView = findViewById(R.id.RolesTableRecyclerView);
         roleList = new ArrayList<>();
-        getAdmins();
+        getRoles();
         rolesTableListAdapter = new RolesTableListAdapter(this, roleList);
         RolesTableRecyclerView.setAdapter(rolesTableListAdapter);
         RolesTableRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -62,7 +62,7 @@ public class RolesTable extends AppCompatActivity {
 
     }
 
-    public void getAdmins() {
+    public void getRoles() {
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
                 .baseUrl( Constants.BASE_URL )
@@ -97,6 +97,10 @@ public class RolesTable extends AppCompatActivity {
 //                        Toast.makeText( DBHelper.this, "DB Connection failed", Toast.LENGTH_SHORT ).show();
                     }
                 } );
+    }
+
+    public void addNewRole(View view) {
+        startActivity(new Intent(RolesTable.this, NewRole.class));
     }
 
     public void cancel(View view) {

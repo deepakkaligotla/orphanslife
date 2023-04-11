@@ -85,7 +85,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="newChild"
+            android:onClick="newAdoptRequest"
             android:text="ADD NEW RECORD"/>
     </LinearLayout>
 

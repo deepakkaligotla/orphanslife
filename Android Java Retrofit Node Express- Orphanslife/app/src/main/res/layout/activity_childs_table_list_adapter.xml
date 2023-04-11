@@ -15,34 +15,38 @@
             android:layout_height="25dp"
             android:gravity="center"
             android:id="@+id/name"
-            android:background="@drawable/cell_shape"/>
+            android:background="@drawable/cell_shape"
+            android:textSize="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="50dp"
             android:layout_height="25dp"
             android:gravity="center"
             android:id="@+id/gender"
-            android:background="@drawable/cell_shape"/>
+            android:background="@drawable/cell_shape"
+            android:textSize="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="30dp"
             android:layout_height="25dp"
             android:gravity="center"
             android:id="@+id/age"
-            android:background="@drawable/cell_shape"/>
+            android:background="@drawable/cell_shape"
+            android:textSize="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="100dp"
             android:layout_height="25dp"
             android:gravity="center"
             android:id="@+id/adoptive_status"
-            android:background="@drawable/cell_shape"/>
+            android:background="@drawable/cell_shape"
+            android:textSize="10dp"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:layout_width="30dp"
             android:layout_height="25dp"
             android:src="@drawable/delete"
-            android:id="@+id/deleteAdoptiveStatus"
+            android:id="@+id/deleteChild"
             android:background="@drawable/cell_shape"/>
     </TableRow>
 </TableLayout>

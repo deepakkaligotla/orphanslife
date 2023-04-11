@@ -1,8 +1,12 @@
 package com.kaligotla.oms.AdminView;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,8 +18,11 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -32,6 +39,8 @@ import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.OrphanageActivities.AddOrphanageActivities;
 import com.kaligotla.oms.OrphanageActivities.OrphanageActivitiesTable;
 import com.kaligotla.oms.R;
+import com.kaligotla.oms.SponsorView.SponsorHome;
+import com.kaligotla.oms.SponsorView.services.SponsorNotificationService;
 import com.kaligotla.oms.orphanage.OrphanagesTable;
 
 import retrofit2.Call;
@@ -74,7 +83,7 @@ public class AdminHome extends AppCompatActivity {
         getRejectedAdoptReqsCount();
         adoptRequestsDashboardThread();
 
-        getMonthwiseDonationsTotal();
+//        getMonthwiseDonationsTotal();
         monthwiseDonationsDashboardThread();
     }
 
@@ -152,7 +161,8 @@ public class AdminHome extends AppCompatActivity {
                         String donationDetails = "file:///android_asset/donation_payment_details.html";
                         donationDetailsWebView.loadUrl(donationDetails);
                         donationDetailsWebView.addJavascriptInterface(new WebAppInterface(), "Android");
-                        donationDetailsWebView.getSettings().setJavaScriptEnabled(true);getNewAdoptReqsCount();
+                        donationDetailsWebView.getSettings().setJavaScriptEnabled(true);
+                        getNewAdoptReqsCount();
                     }
                 });
             }
@@ -266,94 +276,95 @@ public class AdminHome extends AppCompatActivity {
         }).start();
     }
 
-    public void getMonthwiseDonationsTotal() {
-        new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
-                .build()
-                .create(DBService.class)
-                .getMonthwiseDonationsTotal()
-                .enqueue(new Callback<JsonObject>() {
-
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        JsonArray jsonArray = response.body().getAsJsonArray("data");
-                        JsonObject jsonObject;
-                        if (jsonArray.size() > 0) {
-                            for (int i = 0; i < jsonArray.size(); i++) {
-                                jsonObject = jsonArray.get(i).getAsJsonObject();
-                                //January
-                                if (jsonObject.get("Month").equals("January")) {
-                                    monthwise_donations[0] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("January",""+monthwise_donations[0]);
-                                }
-                                //February
-                                if (jsonObject.get("Month").getAsString().equals("February")) {
-                                    monthwise_donations[1] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("February",""+monthwise_donations[1]);
-                                }
-                                //March
-                                if (jsonObject.get("Month").getAsString().equals("March")) {
-                                    monthwise_donations[2] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("March",""+monthwise_donations[2]);
-                                }
-                                //April
-                                if (jsonObject.get("Month").getAsString().equals("April")) {
-                                    monthwise_donations[3] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("April",""+monthwise_donations[3]);
-                                }
-                                //May
-                                if (jsonObject.get("Month").getAsString().equals("May")) {
-                                    monthwise_donations[4] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("May",""+monthwise_donations[4]);
-                                }
-                                //June
-                                if (jsonObject.get("Month").getAsString().equals("June")) {
-                                    monthwise_donations[5] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("June",""+monthwise_donations[5]);
-                                }
-                                //July
-                                if (jsonObject.get("Month").getAsString().equals("July")) {
-                                    monthwise_donations[6] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("July",""+monthwise_donations[6]);
-                                }
-                                //August
-                                if (jsonObject.get("Month").getAsString().equals("August")) {
-                                    monthwise_donations[7] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("August",""+monthwise_donations[7]);
-                                }
-                                //September
-                                if (jsonObject.get("Month").getAsString().equals("September")) {
-                                    monthwise_donations[8] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("September",""+monthwise_donations[8]);
-                                }
-                                //October
-                                if (jsonObject.get("Month").getAsString().equals("October")) {
-                                    monthwise_donations[9] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("October",""+monthwise_donations[9]);
-                                }
-                                //November
-                                if (jsonObject.get("Month").getAsString().equals("November")) {
-                                    monthwise_donations[10] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("November",""+monthwise_donations[10]);
-                                }
-                                //December
-                                if (jsonObject.get("Month").getAsString().equals("December")) {
-                                    monthwise_donations[11] = jsonObject.get("donations").getAsDouble();
-                                    Log.e("December",""+monthwise_donations[10]);
-                                }
-                            }
-
-                        } else if (jsonArray.size() == 0) {
-//                            Toast.makeText( DBHelper.this, "No data found in Sponsors DB", Toast.LENGTH_SHORT ).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-//                        Toast.makeText( DBHelper.this, "DB Connection failed", Toast.LENGTH_SHORT ).show();
-                    }
-                });
-    }
+//    public void getMonthwiseDonationsTotal() {
+//        new Retrofit.Builder()
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .baseUrl(Constants.BASE_URL)
+//                .build()
+//                .create(DBService.class)
+//                .getMonthwiseDonationsTotal()
+//                .enqueue(new Callback<JsonObject>() {
+//
+//                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                        JsonArray jsonArray = response.body().getAsJsonArray("data");
+//                        JsonObject jsonObject;
+//                        Log.e("jsonArray",""+jsonArray);
+//                        if (jsonArray.size() > 0) {
+//                            for (int i = 0; i < jsonArray.size(); i++) {
+//                                jsonObject = jsonArray.get(i).getAsJsonObject();
+//                                //January
+//                                if (jsonObject.get("Month").equals("January")) {
+//                                    monthwise_donations[0] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("January",""+monthwise_donations[0]);
+//                                }
+//                                //February
+//                                if (jsonObject.get("Month").getAsString().equals("February")) {
+//                                    monthwise_donations[1] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("February",""+monthwise_donations[1]);
+//                                }
+//                                //March
+//                                if (jsonObject.get("Month").getAsString().equals("March")) {
+//                                    monthwise_donations[2] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("March",""+monthwise_donations[2]);
+//                                }
+//                                //April
+//                                if (jsonObject.get("Month").getAsString().equals("April")) {
+//                                    monthwise_donations[3] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("April",""+monthwise_donations[3]);
+//                                }
+//                                //May
+//                                if (jsonObject.get("Month").getAsString().equals("May")) {
+//                                    monthwise_donations[4] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("May",""+monthwise_donations[4]);
+//                                }
+//                                //June
+//                                if (jsonObject.get("Month").getAsString().equals("June")) {
+//                                    monthwise_donations[5] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("June",""+monthwise_donations[5]);
+//                                }
+//                                //July
+//                                if (jsonObject.get("Month").getAsString().equals("July")) {
+//                                    monthwise_donations[6] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("July",""+monthwise_donations[6]);
+//                                }
+//                                //August
+//                                if (jsonObject.get("Month").getAsString().equals("August")) {
+//                                    monthwise_donations[7] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("August",""+monthwise_donations[7]);
+//                                }
+//                                //September
+//                                if (jsonObject.get("Month").getAsString().equals("September")) {
+//                                    monthwise_donations[8] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("September",""+monthwise_donations[8]);
+//                                }
+//                                //October
+//                                if (jsonObject.get("Month").getAsString().equals("October")) {
+//                                    monthwise_donations[9] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("October",""+monthwise_donations[9]);
+//                                }
+//                                //November
+//                                if (jsonObject.get("Month").getAsString().equals("November")) {
+//                                    monthwise_donations[10] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("November",""+monthwise_donations[10]);
+//                                }
+//                                //December
+//                                if (jsonObject.get("Month").getAsString().equals("December")) {
+//                                    monthwise_donations[11] = jsonObject.get("donations").getAsDouble();
+//                                    Log.e("December",""+monthwise_donations[10]);
+//                                }
+//                            }
+//
+//                        } else if (jsonArray.size() == 0) {
+////                            Toast.makeText( DBHelper.this, "No data found in Sponsors DB", Toast.LENGTH_SHORT ).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<JsonObject> call, Throwable t) {
+////                        Toast.makeText( DBHelper.this, "DB Connection failed", Toast.LENGTH_SHORT ).show();
+//                    }
+//                });
+//    }
 
     private void monthwiseDonationsDashboardThread() {
         mHandler=new Handler();
@@ -416,6 +427,51 @@ public class AdminHome extends AppCompatActivity {
 
     public void orphanageActivities(View view) {
         startActivity(new Intent(AdminHome.this, OrphanageActivitiesTable.class));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendSponsorNotifications(View view){
+        //Create a Notification Channel
+        NotificationChannel channel = new NotificationChannel("myChannelId","myChannelName", NotificationManager.IMPORTANCE_DEFAULT);
+
+        //Create a notification Manager object to set this created channel
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
+        // Create a Notification builder object
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"myChannelId");
+        builder.setSmallIcon(R.drawable.ic_notification);
+        builder.setContentTitle("My Notification");
+        builder.setContentText("This is a new notification generated from my App");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
+        // Show the Notification
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(1,builder.build());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendSponsorNotificationsEvent(View view) {
+        NotificationChannel channel = new NotificationChannel("tapChannelID","tapChannelName",NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(channel);
+
+        Intent intent = new Intent(this, SponsorHome.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,1,intent,PendingIntent.FLAG_IMMUTABLE);
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"tapChannelID");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle("Tap Notification");
+        builder.setContentText("This is a Tap notification generated from my App");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true);
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        managerCompat.notify(2,builder.build());
     }
 
     @Override

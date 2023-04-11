@@ -83,7 +83,7 @@ public class DonationsTable extends AppCompatActivity {
                                 donation.setAmount((jsonObject.get("amount").getAsDouble()));
                                 donation.setPayment_status(jsonObject.get("payment_status").getAsString());
                                 Sponsor donatedSponsor = new Sponsor();
-                                donatedSponsor.setId(jsonObject.get("user_id").getAsInt());
+                                donatedSponsor.setSponsor_id(jsonObject.get("user_id").getAsInt());
                                 donation.setSponsor(donatedSponsor);
                                 donationList.add( donation );
                                 Log.e( "donationList from DB",""+donationList );

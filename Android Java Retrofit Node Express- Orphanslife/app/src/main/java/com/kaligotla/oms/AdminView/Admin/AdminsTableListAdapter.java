@@ -47,8 +47,8 @@ public class AdminsTableListAdapter extends RecyclerView.Adapter<AdminsTableList
 
     @Override
     public void onBindViewHolder(@NonNull AdminsTableListAdapter.MyViewHolder holder, int position) {
-        holder.mobile.setText(adminList.get(position).getMobile());
-        holder.email.setText(adminList.get(position).getEmail());
+        holder.mobile.setText(adminList.get(position).getAdmin_mobile());
+        holder.email.setText(adminList.get(position).getAdmin_email());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class AdminsTableListAdapter extends RecyclerView.Adapter<AdminsTableList
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                deleteAdmin(adminList.get(getAdapterPosition()).getId(),getAdapterPosition());
+                                deleteAdmin(adminList.get(getAdapterPosition()).getAdmin_id(),getAdapterPosition());
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
@@ -80,7 +80,7 @@ public class AdminsTableListAdapter extends RecyclerView.Adapter<AdminsTableList
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Confirm to Delete - \""+adminList.get(getAdapterPosition()).getName()+"\" permanently").setNegativeButton("No", dialogClickListener)
+                builder.setMessage("Confirm to Delete - \""+adminList.get(getAdapterPosition()).getAdmin_name()+"\" permanently").setNegativeButton("No", dialogClickListener)
                         .setPositiveButton("Confirm", dialogClickListener)
                         .show();
             });
@@ -88,8 +88,8 @@ public class AdminsTableListAdapter extends RecyclerView.Adapter<AdminsTableList
 
         @Override
         public void onClick(View v) {
-            aid = adminList.get(getAdapterPosition()).getId();
-            Toast.makeText(itemView.getContext(), "Loading "+adminList.get(getAdapterPosition()).getName()+" details give sometime", Toast.LENGTH_LONG).show();
+            aid = adminList.get(getAdapterPosition()).getAdmin_id();
+            Toast.makeText(itemView.getContext(), "Loading "+adminList.get(getAdapterPosition()).getAdmin_name()+" details give sometime", Toast.LENGTH_LONG).show();
             context.startActivity(new Intent(context, AdminTableDetails.class)
                     .putExtra("aid",aid));
         }

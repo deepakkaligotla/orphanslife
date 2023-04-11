@@ -14,11 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonArray;
@@ -29,10 +29,8 @@ import com.kaligotla.oms.Essentials.DBService;
 import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.R;
 import com.kaligotla.oms.orphanage.Orphanage;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddOrphanageActivities extends AppCompatActivity {
     Spinner addOrphanageSpinner;
+    ShapeableImageView close;
     List<Orphanage> orphanageList;
     String[] orphanageNameArray;
     Toolbar sponsor_toolbar;
@@ -81,6 +80,7 @@ public class AddOrphanageActivities extends AppCompatActivity {
                 updateOrphangeSpinner();
                 myDialog.setContentView(R.layout.orphange_spinner);
                 addOrphanageSpinner =(Spinner) myDialog.findViewById(R.id.addOrphanageSpinner);
+                close = myDialog.findViewById(R.id.close);
                 ArrayAdapter arrayAdapter = new ArrayAdapter(AddOrphanageActivities.this, android.R.layout.simple_list_item_1,orphanageNameArray);
                 addOrphanageSpinner.setAdapter(arrayAdapter);
                 addOrphanageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -90,6 +90,9 @@ public class AddOrphanageActivities extends AppCompatActivity {
                         for(Orphanage o: orphanageList) {
                             if(o.getAddress().equals(orphanageNameArray[position])){
                                 selectedOrphanageID.setId(o.getId());
+                            }
+                            if(position>0) {
+                                myDialog.dismiss();
                             }
                         }
                     }
@@ -101,6 +104,12 @@ public class AddOrphanageActivities extends AppCompatActivity {
                 });
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myDialog.dismiss();
+                    }
+                });
             }
         });
     }
@@ -143,7 +152,7 @@ public class AddOrphanageActivities extends AppCompatActivity {
     }
 
     public void updateOrphangeSpinner() {
-        orphanageNameArray[0] = "Select Orphanage";
+        orphanageNameArray[0] = "Click here to get Orphanages List";
         for (int i = 1; i < orphanageList.size(); i++) {
             orphanageNameArray[i] = orphanageList.get(i-1).getAddress();
         }
@@ -194,6 +203,7 @@ public class AddOrphanageActivities extends AppCompatActivity {
 
     public void save(View view) {
         orphanageActivities.setOrphanage(selectedOrphanageID);
+        Log.e("inside Save", ""+selectedOrphanageID.getId());
         orphanageActivities.setDetails(addOrphanageEventName.getEditText().getText().toString());
         orphanageActivities.setImage_1("");
         orphanageActivities.setImage_2("");

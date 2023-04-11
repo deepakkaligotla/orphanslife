@@ -17,15 +17,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kaligotla.oms.AdminView.Admin.Admin;
+import com.kaligotla.oms.AdminView.Child.Child;
 import com.kaligotla.oms.Essentials.Constants;
 import com.kaligotla.oms.Essentials.CustomDateFormate;
 import com.kaligotla.oms.Essentials.DBService;
 import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.OrphanageActivities.AddOrphanageActivities;
 import com.kaligotla.oms.R;
+import com.kaligotla.oms.SponsorView.Sponsor;
 
 import java.util.Calendar;
 
@@ -37,11 +41,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdoptRequestsTableDetails extends AppCompatActivity {
 
-    int req_no;
+    int req_no, aid;
     TextInputLayout sponsor, admin, child, reason, date_of_req, last_checked, req_comment, next_check, adopted;
+    TextInputEditText dateOfReqEditText, lastCheckedEditText, nextCheckEditText, adoptedEditText;
     Spinner reqStageSpinner;
     MaterialToolbar sponsor_toolbar;
     String[] reqStageSpinnerArray = {"New Request", "Approved", "Rejected"};
+    ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +60,19 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
         reason = findViewById( R.id.reason);
         reqStageSpinner = findViewById( R.id.reqStageSpinner);
         date_of_req = findViewById( R.id.date_of_req);
+        dateOfReqEditText = findViewById(R.id.dateOfReqEditText);
         last_checked = findViewById( R.id.last_checked);
+        lastCheckedEditText = findViewById(R.id.lastCheckedEditText);
         req_comment = findViewById( R.id.req_comment);
         next_check = findViewById( R.id.next_check);
+        nextCheckEditText = findViewById(R.id.nextCheckEditText);
         adopted = findViewById( R.id.adopted);
-
+        adoptedEditText = findViewById(R.id.adoptedEditText);
         req_no = getIntent().getIntExtra("req_no",0);
+        aid = getIntent().getIntExtra("aid",0);
         getAdoptRequest(req_no);
 
-        date_of_req.setOnClickListener(new View.OnClickListener() {
+        dateOfReqEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -87,7 +97,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
             }
         });
 
-        last_checked.setOnClickListener(new View.OnClickListener() {
+        lastCheckedEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -112,7 +122,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
             }
         });
 
-        next_check.setOnClickListener(new View.OnClickListener() {
+        nextCheckEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -137,7 +147,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
             }
         });
 
-        adopted.setOnClickListener(new View.OnClickListener() {
+        adoptedEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -169,6 +179,9 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
         super.onResume();
         setSupportActionBar( sponsor_toolbar );
         getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        arrayAdapter = new ArrayAdapter(AdoptRequestsTableDetails.this, android.R.layout.simple_list_item_1, reqStageSpinnerArray);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        reqStageSpinner.setAdapter(arrayAdapter);
     }
 
     private void getAdoptRequest(int req_no) {
@@ -203,12 +216,9 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
                             } else reason.getEditText().setText(null);
 
                             if (!jsonObject.get("req_stage").isJsonNull()) {
-                                String existingGender = jsonObject.get("req_stage").getAsString();
-                                ArrayAdapter arrayAdapter = new ArrayAdapter(AdoptRequestsTableDetails.this, android.R.layout.simple_list_item_1, reqStageSpinnerArray);
-                                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                reqStageSpinner.setAdapter(arrayAdapter);
-                                if (existingGender != null) {
-                                    int spinnerPosition = arrayAdapter.getPosition(existingGender);
+                                String existingRequestStage = jsonObject.get("req_stage").getAsString();
+                                if (existingRequestStage != null) {
+                                    int spinnerPosition = arrayAdapter.getPosition(existingRequestStage);
                                     reqStageSpinner.setSelection(spinnerPosition);
                                 } else reqStageSpinner.setSelection(1);
                             } else reqStageSpinner.setSelection(1);
@@ -245,7 +255,46 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
     }
 
     public void update(View view) {
+        AdoptRequest updatedAdoptReq = new AdoptRequest();
 
+        updatedAdoptReq.setSponsor(new Sponsor(Integer.parseInt(String.valueOf(sponsor.getEditText().getText()))));
+        updatedAdoptReq.setAdmin(new Admin(Integer.parseInt(String.valueOf(admin.getEditText().getText()))));
+        updatedAdoptReq.setChild(new Child(Integer.parseInt(String.valueOf(child.getEditText().getText()))));
+        updatedAdoptReq.setReason(String.valueOf(reason.getEditText().getText()));
+        updatedAdoptReq.setReq_stage((String) reqStageSpinner.getSelectedItem());
+        updatedAdoptReq.setDate_of_req(CustomDateFormate.convert(String.valueOf(date_of_req.getEditText().getText())));
+        updatedAdoptReq.setLast_checked(CustomDateFormate.convert(String.valueOf(last_checked.getEditText().getText())));
+        updatedAdoptReq.setReq_comment(String.valueOf(req_comment.getEditText().getText()));
+        updatedAdoptReq.setNext_check(CustomDateFormate.convert(String.valueOf(next_check.getEditText().getText())));
+        updatedAdoptReq.setAdopted(CustomDateFormate.convert(String.valueOf(adopted.getEditText().getText())));
+
+
+        Log.e("update in adopt req details",updatedAdoptReq.toString());
+        new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Constants.BASE_URL)
+                .build()
+                .create(DBService.class)
+                .updateAdoptReq(req_no, updatedAdoptReq)
+                .enqueue(new Callback<JsonObject>() {
+
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        JsonObject data = response.body().getAsJsonObject( "data" );
+                        if (data.get("affectedRows").getAsInt()==1) {
+                            Toast.makeText(AdoptRequestsTableDetails.this,"Updated Adopt Request ID "+req_no+" in Database",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(AdoptRequestsTableDetails.this,"Unable to update, please try again",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(AdoptRequestsTableDetails.this,"DB connection failed, please try after sometime",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

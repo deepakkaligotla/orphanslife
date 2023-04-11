@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.OrphanageActivities.AddOrphanageActivities;
 import com.kaligotla.oms.OrphanageActivities.OrphanageActivities;
 import com.kaligotla.oms.R;
+import com.kaligotla.oms.SponsorView.services.SponsorBackgroundService;
 import com.kaligotla.oms.orphanage.Orphanage;
 
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class SponsorHome extends AppCompatActivity {
     OrphanageActivitiesListAdapter orphanageActivitiesListAdapter;
     WebView orphangeChildDashboardWebView;
     int adoptive, willBeAdoptive, adopted;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class SponsorHome extends AppCompatActivity {
         OrphanageActivitiesRecyclerView = findViewById( R.id.OrphanageActivitiesRecyclerView );
         orphangeChildDashboardWebView = findViewById(R.id.orphangeChildDashboardWebView);
 
-        Intent intent = getIntent();
+        intent = getIntent();
 
         adoptive = intent.getIntExtra("adoptive", 30);
         willBeAdoptive = intent.getIntExtra("willBeAdoptive",90);
@@ -95,6 +98,25 @@ public class SponsorHome extends AppCompatActivity {
         OrphanageActivitiesRecyclerView.setAdapter(orphanageActivitiesListAdapter);
         OrphanageActivitiesRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         orphanageActivitiesListAdapter.notifyDataSetChanged();
+    }
+
+    public void startBackgroundService(View view) {
+        intent = new Intent(this, SponsorBackgroundService.class);
+        startService(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    public void stopBackgroundService(View view) {
+        stopService(intent);
     }
 
     public void getOrphanageActivities() {

@@ -1,7 +1,10 @@
 package com.kaligotla.oms.Essentials;
 
 import com.google.gson.JsonObject;
+import com.kaligotla.oms.AdminView.Admin.Admin;
+import com.kaligotla.oms.AdminView.AdoptRequest.AdoptRequest;
 import com.kaligotla.oms.AdminView.Location.Pagination;
+import com.kaligotla.oms.AdminView.Role.Role;
 import com.kaligotla.oms.Cred;
 import com.kaligotla.oms.OrphanageActivities.OrphanageActivities;
 import com.kaligotla.oms.SponsorView.Sponsor;
@@ -19,11 +22,30 @@ public interface DBService {
     @POST("newsponsor")
     public Call<JsonObject> register(@Body Sponsor sponsor);
 
+    @POST("findByEmailSponsor")
+    public Call<JsonObject> checkSponsorExists(@Body Sponsor sponsor);
+
+    @POST("newrole")
+    public Call<JsonObject> newRole(@Body Role role);
+
+    @POST("newadoptreq")
+    public Call<JsonObject> newAdoptReq(@Body AdoptRequest newAdoptReq);
+
     @PUT("updatesponsorbyid/{sid}")
     public Call<JsonObject> updateSponsor(@Path("sid") int sid, @Body Sponsor updateSponsor);
+    @PUT("updateadminbyid/{aid}")
+    public Call<JsonObject> updateAdmin(@Path("aid") int aid, @Body Admin updateAdmin);
 
+    @PUT("updateadoptreqbyid/{req_no}")
+    public Call<JsonObject> updateAdoptReq(@Path("req_no") int aid, @Body AdoptRequest adoptRequest);
     @POST("sponsorlogin")
     public Call<JsonObject> sponsorlogin(@Body Cred cred);
+
+    @POST("forgotpasswordsendotp")
+    public Call<JsonObject> forgotPasswordSendOTP(@Body Cred cred);
+
+    @PUT("updatesponsorpassword")
+    public Call<JsonObject> changePassword(@Body Cred cred);
 
     @POST("adminlogin")
     public Call<JsonObject> adminlogin(@Body Cred cred);
@@ -63,6 +85,15 @@ public interface DBService {
 
     @DELETE("deleteAdoptiveStatusById/{id}")
     public Call<JsonObject> deleteAdoptiveStatusByID(@Path("id") int id);
+
+    @DELETE("deleteSponsor/{id}")
+    public Call<JsonObject> deleteSponsorByID(@Path("id") int id);
+
+    @DELETE("deletechild/{id}")
+    public Call<JsonObject> deleteChildByID(@Path("id") int id);
+
+    @DELETE("deleterole/{id}")
+    public Call<JsonObject> deleteRoleByID(@Path("id") int id);
 
     @GET("admins")
     public Call<JsonObject> admins();

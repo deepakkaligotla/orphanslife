@@ -37,6 +37,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    //biometric
+    implementation "androidx.biometric:biometric:1.1.0"
+
     //Adding glide dependency for image fetching
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     implementation 'androidx.annotation:annotation:1.5.0'

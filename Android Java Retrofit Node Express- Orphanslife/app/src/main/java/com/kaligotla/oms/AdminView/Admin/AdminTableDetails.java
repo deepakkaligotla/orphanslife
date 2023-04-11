@@ -17,17 +17,15 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.kaligotla.oms.AdminView.Location.Location;
 import com.kaligotla.oms.AdminView.Role.Role;
 import com.kaligotla.oms.Essentials.Constants;
 import com.kaligotla.oms.Essentials.CustomDateFormate;
@@ -37,11 +35,9 @@ import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.OrphanageActivities.AddOrphanageActivities;
 import com.kaligotla.oms.R;
 import com.kaligotla.oms.orphanage.Orphanage;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,9 +48,10 @@ public class AdminTableDetails extends AppCompatActivity {
     int aid;
     Admin admin;
     TextInputLayout name, dob, govt_id, mobile, email, password, address, location;
+    TextInputEditText dobEditText;
     MaterialTextView selectedOrphanage;
     Spinner genderSpinner, govtIdTypeSpinner, roleSpinner, addOrphanageSpinner;
-    ShapeableImageView image;
+    ShapeableImageView image, close;
     MaterialToolbar sponsor_toolbar;
     String[] genderSpinnerArray = {"Male", "Female", "Other"};
     String[] govtIdTypeSpinnerArray = {"Aadhaar", "Voter", "Driving License", "PAN", "Passport"};
@@ -73,6 +70,7 @@ public class AdminTableDetails extends AppCompatActivity {
         sponsor_toolbar = findViewById(R.id.sponsor_toolbar);
         name = findViewById(R.id.name);
         dob = findViewById(R.id.dob);
+        dobEditText = findViewById(R.id.dobEditText);
         genderSpinner = findViewById(R.id.genderSpinner);
         govtIdTypeSpinner = findViewById(R.id.govtIdTypeSpinner);
         govt_id = findViewById(R.id.govt_id);
@@ -85,11 +83,10 @@ public class AdminTableDetails extends AppCompatActivity {
         selectedOrphanage = findViewById(R.id.selectedOrphanage);
         image = findViewById(R.id.image);
         aid = getIntent().getIntExtra("aid", 0);
-        admin = new Admin();
         orphanageList = new ArrayList<>();
-        myDialog = new Dialog(AdminTableDetails.this);
+        myDialog = new Dialog(this);
 
-        dob.setOnClickListener(new View.OnClickListener() {
+        dobEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar c = Calendar.getInstance();
@@ -135,7 +132,6 @@ public class AdminTableDetails extends AppCompatActivity {
             }
         });
     }
-
     private void getOrphanages() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -161,11 +157,11 @@ public class AdminTableDetails extends AppCompatActivity {
                                 orphanageList.add(orphanage);
                             }
                         } else if (jsonArray.size() == 0) {
-
-
+                            Toast.makeText( AdminTableDetails.this, "Unable to get orphanage details from DB", Toast.LENGTH_SHORT ).show();
                         }
                         orphanageNameArray = new String[orphanageList.size()];
                         updateOrphangeSpinnerThread();
+                        Log.e("orphanageList from DB",""+orphanageList.size());
                     }
 
                     @Override
@@ -194,7 +190,8 @@ public class AdminTableDetails extends AppCompatActivity {
                             orphanageNameArray[i] = orphanageList.get(i - 1).getAddress();
                         }
                         myDialog.setContentView(R.layout.orphange_spinner);
-                        addOrphanageSpinner = (Spinner) myDialog.findViewById(R.id.addOrphanageSpinner);
+                        addOrphanageSpinner = myDialog.findViewById(R.id.addOrphanageSpinner);
+                        close = myDialog.findViewById(R.id.close);
                         ArrayAdapter arrayAdapter = new ArrayAdapter(AdminTableDetails.this, android.R.layout.simple_list_item_1, orphanageNameArray);
                         addOrphanageSpinner.setAdapter(arrayAdapter);
                         addOrphanageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -215,6 +212,12 @@ public class AdminTableDetails extends AppCompatActivity {
                         });
                         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         myDialog.show();
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                myDialog.dismiss();
+                            }
+                        });
                     }
                 });
             }
@@ -227,7 +230,7 @@ public class AdminTableDetails extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -243,22 +246,19 @@ public class AdminTableDetails extends AppCompatActivity {
                                 .enqueue(new Callback<JsonObject>() {
                                     @Override
                                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                        Location l = new Location();
-                                        Role r = new Role();
-                                        Orphanage o = new Orphanage();
+                                        admin = new Admin();
                                         JsonArray array = response.body().get("data").getAsJsonArray();
                                         if (array.size() > 0) {
                                             JsonObject jsonObject = array.get(0).getAsJsonObject();
-                                            Log.e("jsonObject", "" + jsonObject);
 
-                                            name.getEditText().setText(jsonObject.get("name").getAsString());
+                                            name.getEditText().setText(jsonObject.get("admin_name").getAsString());
 
-                                            if (!jsonObject.get("dob").isJsonNull())
-                                                dob.getEditText().setText(CustomDateFormate.convert(jsonObject.get("dob").toString()));
+                                            if (!jsonObject.get("admin_dob").isJsonNull())
+                                                dob.getEditText().setText(CustomDateFormate.convert(jsonObject.get("admin_dob").toString()));
                                             else dob.getEditText().setText(null);
 
-                                            if (!jsonObject.get("gender").isJsonNull()) {
-                                                String existingGender = jsonObject.get("gender").getAsString();
+                                            if (!jsonObject.get("admin_gender").isJsonNull()) {
+                                                String existingGender = jsonObject.get("admin_gender").getAsString();
                                                 ArrayAdapter arrayAdapter = new ArrayAdapter(AdminTableDetails.this, android.R.layout.simple_list_item_1, genderSpinnerArray);
                                                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                 genderSpinner.setAdapter(arrayAdapter);
@@ -268,8 +268,8 @@ public class AdminTableDetails extends AppCompatActivity {
                                                 } else genderSpinner.setSelection(1);
                                             } else genderSpinner.setSelection(1);
 
-                                            if (!jsonObject.get("govt_id_type").isJsonNull()) {
-                                                String existingGovtIdType = jsonObject.get("govt_id_type").getAsString();
+                                            if (!jsonObject.get("admin_govt_id_type").isJsonNull()) {
+                                                String existingGovtIdType = jsonObject.get("admin_govt_id_type").getAsString();
                                                 ArrayAdapter arrayAdapter = new ArrayAdapter(AdminTableDetails.this, android.R.layout.simple_list_item_1, govtIdTypeSpinnerArray);
                                                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                 govtIdTypeSpinner.setAdapter(arrayAdapter);
@@ -279,24 +279,24 @@ public class AdminTableDetails extends AppCompatActivity {
                                                 } else govtIdTypeSpinner.setSelection(1);
                                             } else govtIdTypeSpinner.setSelection(1);
 
-                                            if (!jsonObject.get("govt_id").isJsonNull())
-                                                govt_id.getEditText().setText(jsonObject.get("govt_id").getAsString());
+                                            if (!jsonObject.get("admin_govt_id").isJsonNull())
+                                                govt_id.getEditText().setText(jsonObject.get("admin_govt_id").getAsString());
                                             else govt_id.getEditText().setText(null);
 
-                                            if (!jsonObject.get("mobile").isJsonNull())
-                                                mobile.getEditText().setText(jsonObject.get("mobile").getAsString());
+                                            if (!jsonObject.get("admin_mobile").isJsonNull())
+                                                mobile.getEditText().setText(jsonObject.get("admin_mobile").getAsString());
                                             else mobile.getEditText().setText(null);
 
-                                            email.getEditText().setText(jsonObject.get("email").getAsString());
+                                            email.getEditText().setText(jsonObject.get("admin_email").getAsString());
 
-                                            password.getEditText().setText(jsonObject.get("password").getAsString());
+                                            password.getEditText().setText(jsonObject.get("admin_password").getAsString());
 
-                                            if (!jsonObject.get("address").isJsonNull())
-                                                address.getEditText().setText(jsonObject.get("address").getAsString());
+                                            if (!jsonObject.get("admin_address").isJsonNull())
+                                                address.getEditText().setText(jsonObject.get("admin_address").getAsString());
                                             else address.getEditText().setText(null);
 
-                                            if (!jsonObject.get("location_id").isJsonNull())
-                                                location.getEditText().setText(jsonObject.get("location_id").getAsString());
+                                            if (!jsonObject.get("admin_location_id").isJsonNull())
+                                                location.getEditText().setText(jsonObject.get("admin_location_id").getAsString());
                                             else location.getEditText().setText(null);
 
                                             if (!jsonObject.get("role_id").isJsonNull()) {
@@ -307,16 +307,18 @@ public class AdminTableDetails extends AppCompatActivity {
                                                 roleSpinner.setSelection(admin.getRole().getId() - 1);
                                             } else roleSpinner.setSelection(1);
 
-                                            if (!jsonObject.get("orphanage_id").isJsonNull()) {
-                                                admin.setOrphanage(new Orphanage(jsonObject.get("orphanage_id").getAsInt()));
+                                            if (!jsonObject.get("admin_orphanage_id").isJsonNull()) {
+                                                int adminOrphanageId = jsonObject.get("admin_orphanage_id").getAsInt();
                                                 ArrayAdapter arrayAdapter = new ArrayAdapter(AdminTableDetails.this, android.R.layout.simple_list_item_1, orphanageNameArray);
-                                                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                 addOrphanageSpinner.setAdapter(arrayAdapter);
-                                                addOrphanageSpinner.setSelection(admin.getOrphanage().getId());
-                                            } else addOrphanageSpinner.setSelection(0);
+                                                    addOrphanageSpinner.setSelection(adminOrphanageId);
+                                                } else if(jsonObject.get("admin_orphanage_id").isJsonNull()) {
+                                                addOrphanageSpinner.setSelection(1);
+                                            }
+                                            myDialog.dismiss();
 
-                                            if(!jsonObject.get( "image" ).isJsonNull())
-                                                new ImageLoadTask(jsonObject.get( "image" ).getAsString(), image).execute();
+                                            if(!jsonObject.get( "admin_image" ).isJsonNull())
+                                                new ImageLoadTask(jsonObject.get( "admin_image" ).getAsString(), image).execute();
                                             else image.setBackgroundResource( R.drawable.image_not_available );
 
                                         }
@@ -339,7 +341,7 @@ public class AdminTableDetails extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -358,7 +360,48 @@ public class AdminTableDetails extends AppCompatActivity {
     }
 
     public void update(View view) {
+        Admin updatedAdmin = new Admin();
 
+        updatedAdmin.setAdmin_id(getIntent().getIntExtra("aid",0));
+        updatedAdmin.setAdmin_name(name.getEditText().getText().toString());
+        updatedAdmin.setAdmin_dob(dob.getEditText().getText().toString());
+        updatedAdmin.setAdmin_gender(genderSpinner.getSelectedItem().toString());
+        updatedAdmin.setAdmin_govt_id_type(govtIdTypeSpinner.getSelectedItem().toString());
+        updatedAdmin.setAdmin_govt_id(govt_id.getEditText().getText().toString());
+        updatedAdmin.setAdmin_mobile(mobile.getEditText().getText().toString());
+        updatedAdmin.setAdmin_email(email.getEditText().getText().toString());
+        updatedAdmin.setAdmin_password(password.getEditText().getText().toString());
+        updatedAdmin.setAddress(address.getEditText().getText().toString());
+        //location
+        //role
+        updatedAdmin.setOrphanage(admin.getOrphanage());
+        //Image
+        Log.e("update in admin details",updatedAdmin.toString());
+        new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Constants.BASE_URL)
+                .build()
+                .create(DBService.class)
+                .updateAdmin(aid, updatedAdmin)
+                .enqueue(new Callback<JsonObject>() {
+
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        JsonObject data = response.body().getAsJsonObject( "data" );
+                        if (data.get("affectedRows").getAsInt()==1) {
+                            Toast.makeText(AdminTableDetails.this,"Updated Admin ID "+aid+" in Database",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(AdminTableDetails.this,"Unable to update, please try again",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(AdminTableDetails.this,"DB connection failed, please try after sometime",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

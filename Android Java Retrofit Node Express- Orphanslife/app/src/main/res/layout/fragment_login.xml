@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.material"
+    android:id="@+id/loginFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".LoginFragment">
 
     <LinearLayout
+        android:id="@+id/logo_AppTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="320dp"
-            android:layout_height="100dp"
-            android:src="@drawable/donate" />
-
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Orphanage Management System"
-            android:textSize="25dp" />
+            android:textColor="#FFFFFF" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/donate" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,30 +33,30 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/logo_AppTitle">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_username"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Enter registered Email">
+                android:hint="Enter Registered Email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:drawableStart="@drawable/email"
-                    android:drawablePadding="@android:dimen/app_icon_size" />
-
+                    android:drawablePadding="@android:dimen/app_icon_size"
+                    android:shadowColor="#FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="Enter registered Password">
@@ -64,35 +66,58 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/password"
                     android:drawablePadding="@android:dimen/app_icon_size" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/remember_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="Remember me" />
+                android:text="Remember me"
+                android:textColor="@color/md_theme_light_onPrimary" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sign_in"
                 android:text="Sign In" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <LinearLayout
+                android:id="@+id/otpLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/forgotPassword"
-                android:text="Forgot Password"
-                android:textColor="@android:color/holo_red_light" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/enteredOTP"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Enter OTP">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/password"
+                        android:drawablePadding="@android:dimen/app_icon_size" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/validateOTP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Validate OTP" />
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFEB3B"
-                android:id="@+id/register"
-                android:text="Click here to register"
+                android:text="Forgot Password"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/cell_shape"
                 android:textColor="@android:color/holo_red_light" />
 
             <pl.droidsonroids.gif.GifImageView
@@ -104,5 +129,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </FrameLayout>

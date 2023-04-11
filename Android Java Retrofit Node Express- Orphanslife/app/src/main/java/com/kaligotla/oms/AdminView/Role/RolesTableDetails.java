@@ -7,13 +7,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kaligotla.oms.Essentials.Constants;
@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RolesTableDetails extends AppCompatActivity {
 
     int aid;
-    EditText role;
+    TextInputLayout role;
     Toolbar sponsor_toolbar;
 
     @Override
@@ -66,9 +66,9 @@ public class RolesTableDetails extends AppCompatActivity {
                         JsonArray array = response.body().get("data").getAsJsonArray();
                         if(array.size()>0){
                             JsonObject jsonObject = array.get(0).getAsJsonObject();
-                            role.setText(jsonObject.get( "role" ).getAsString());
+                            role.getEditText().setText(jsonObject.get( "role" ).getAsString());
                         } else {
-                            role.setText(null);
+                            role.getEditText().setText(null);
                         }
                     }
                     @Override

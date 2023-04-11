@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,15 +82,15 @@ public class ChildsTable extends AppCompatActivity {
                                 Child child = new Child();
                                 AdoptiveStatus adoptiveStatus = new AdoptiveStatus();
                                 if(!jsonObject.get( "child_id" ).isJsonNull()) {
-                                    child.setId( jsonObject.get( "child_id" ).getAsInt() );
-                                } else child.setId(0);
-                                child.setName(jsonObject.get( "child_name" ).toString());
+                                    child.setChild_id( jsonObject.get( "child_id" ).getAsInt() );
+                                } else child.setChild_id(0);
+                                child.setChild_name(jsonObject.get( "child_name" ).getAsString());
                                 if(!jsonObject.get( "child_dob" ).isJsonNull()) {
-                                    child.setDob( CustomDateFormate.convert( jsonObject.get( "child_dob" ).getAsString() ) );}
-                                else child.setDob(null);
+                                    child.setChild_dob( CustomDateFormate.convert( jsonObject.get( "child_dob" ).getAsString() ) );}
+                                else child.setChild_dob(null);
                                 if(!jsonObject.get( "child_gender" ).isJsonNull()) {
-                                    child.setGender( jsonObject.get( "child_gender" ).getAsString() );
-                                } else child.setGender(null);
+                                    child.setChild_gender( jsonObject.get( "child_gender" ).getAsString() );
+                                } else child.setChild_gender(null);
                                 if(!jsonObject.get( "status" ).isJsonNull()) {
                                     adoptiveStatus.setStatus( jsonObject.get( "status" ).getAsString() );
                                     child.setAdoptiveStatus( adoptiveStatus );

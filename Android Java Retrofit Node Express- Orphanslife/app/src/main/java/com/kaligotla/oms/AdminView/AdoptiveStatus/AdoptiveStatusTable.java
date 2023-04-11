@@ -77,7 +77,7 @@ public class AdoptiveStatusTable extends AppCompatActivity {
                             for(int i=0; i<jsonArray.size(); i++) {
                                 jsonObject = jsonArray.get(i).getAsJsonObject();
                                 AdoptiveStatus adoptiveStatus = new AdoptiveStatus();
-                                adoptiveStatus.setId( Integer.parseInt( jsonObject.get( "id" ).toString() ));
+                                adoptiveStatus.setAdoptive_status_id( Integer.parseInt( jsonObject.get( "adoptive_status_id" ).toString() ));
                                 adoptiveStatus.setStatus(jsonObject.get( "status" ).getAsString());
                                 adoptiveStatusList.add( adoptiveStatus );
                             }

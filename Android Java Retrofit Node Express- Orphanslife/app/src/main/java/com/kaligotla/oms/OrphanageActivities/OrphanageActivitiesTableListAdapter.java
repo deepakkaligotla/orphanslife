@@ -35,6 +35,7 @@ public class OrphanageActivitiesTableListAdapter extends RecyclerView.Adapter<Or
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Log.e("dummy",orphanageActivitiesList.get( position ).getImage_1());
         if(!(orphanageActivitiesList.get( position ).getImage_1().equals(""))) {
             Picasso.with(context).load(orphanageActivitiesList.get( position ).getImage_1()).into(holder.images);
         } else if(orphanageActivitiesList.get( position ).getImage_1().equals("")) {

@@ -7,24 +7,28 @@
     tools:context=".AdminView.Role.RolesTable"
     android:orientation="horizontal">
 
-    <TableRow android:background="#F0F7F7" android:padding="2dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+    <TableRow
+        android:background="@android:drawable/list_selector_background">
 
-
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="150dp"
+            android:layout_height="25dp"
             android:gravity="center"
-            android:id="@+id/id"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:id="@+id/id"
+            android:background="@drawable/cell_shape"/>
 
-
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="150dp"
+            android:layout_height="25dp"
             android:gravity="center"
-            android:id="@+id/role"/>
+            android:id="@+id/role"
+            android:background="@drawable/cell_shape"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:src="@drawable/delete"
+            android:id="@+id/deleteRole"
+            android:background="@drawable/cell_shape"/>
     </TableRow>
-
-
 </TableLayout>
