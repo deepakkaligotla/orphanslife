@@ -11,4 +11,14 @@ function createResult(error, data) {
     return result
 }
 
-module.exports = { createResult }
+function createErrorResult(error) {
+    return { status: 'error', error }
+  }
+  
+function createSuccessResult(data, otp) {
+    console.log(otp)
+    return { status: 'success', data, otp }
+}
+
+module.exports = { createResult,createErrorResult,
+    createSuccessResult, }

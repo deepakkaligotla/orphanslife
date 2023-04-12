@@ -1,29 +1,23 @@
 import React from 'react';
 import { useState } from "react";
+import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
 function Locations()
 {
@@ -57,7 +51,7 @@ function Locations()
                         }
                 }
             };
-            const url = "http://orphanslife.in:4000/location/"+pin.pincode
+            const url = "http://localhost:4000/location/"+pin.pincode
             console.log(url)
             helper.open("POST",url);
             helper.setRequestHeader("Content-Type", "application/json");
@@ -100,8 +94,8 @@ function Locations()
                     <StyledTableCell align="center">{location.district}</StyledTableCell>
                     <StyledTableCell align="center">{location.state}</StyledTableCell>
                     <StyledTableCell align="center">
-                        <a href="/editLocation" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                        <a href="/deleteLocation" class="btn btn-primary">DEL</a>
+                        <a href="/editLocation" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                        <a href="/deleteLocation" className="btn btn-primary">DEL</a>
                     </StyledTableCell>
                     </StyledTableRow>
                   ))}
@@ -110,7 +104,7 @@ function Locations()
             </TableContainer>
         </div>
         <div>
-        <a href="locations" class="btn btn-info">Back</a> || <a href="addLocation" class="btn btn-success">Location not found here 😱, ADD IT</a> || <a href="locations" class="btn btn-info">Next</a>
+        <a href="locations" className="btn btn-info">Back</a> || <a href="addLocation" className="btn btn-success">Location not found here 😱, ADD IT</a> || <a href="locations" className="btn btn-info">Next</a>
         </div>
         </div>
     );

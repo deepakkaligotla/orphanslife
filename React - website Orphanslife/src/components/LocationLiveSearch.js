@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import './mainDiv.css'
+
 
 function Locations()
 {
@@ -48,7 +47,7 @@ function Locations()
                     }
             }
         };
-        const url = "http://http://orphanslife.in:4000/alllocations/"
+        const url = "http://http://localhost:4000/alllocations/"
         console.log(url)
         helper.open("GET",url);
         helper.setRequestHeader("Content-Type", "application/json");

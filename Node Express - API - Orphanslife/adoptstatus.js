@@ -21,7 +21,7 @@ router.post('/newadoptstatus', (request, response) => {
 
 router.delete('/deleteAdoptiveStatusById/:id', (request, response) => {
     console.log(request.params.id);
-    const statement = `Delete from adoptive_status where id="${request.params.id}"`
+    const statement = `Delete from adoptive_status where adoptive_status_id="${request.params.id}"`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
@@ -30,7 +30,7 @@ router.delete('/deleteAdoptiveStatusById/:id', (request, response) => {
 router.get('/findByIdAdoptStatus/:id', (request, response) => {
     const id = request.params.id
     console.log(id);
-    const statement = `select status from adoptive_status where id=${request.params.id};`
+    const statement = `select status from adoptive_status where adoptive_status_id=${request.params.id};`
     db.pool.query(statement, [id], (error, result) => {
         response.send(utils.createResult(error, result))
     })

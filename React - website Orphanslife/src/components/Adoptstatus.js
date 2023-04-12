@@ -1,12 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from "react";
+import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,7 +33,7 @@ function AdoptStatus()
                 setadoptstatus(result.data);
             }
         };
-        helper.open("GET","http://orphanslife.in:4000/adoptstatus");
+        helper.open("GET","http://localhost:4000/adoptstatus");
         helper.send();
     }, []);
 
@@ -59,8 +55,8 @@ function AdoptStatus()
                     <StyledTableCell component="th" scope="adoptstate">{adoptstate.id}</StyledTableCell>
                     <StyledTableCell align="center">{adoptstate.status}</StyledTableCell>
                     <StyledTableCell align="center">
-                                    <a href="/editAdoptReq" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                                    <a href="/deleteAdoptReq" class="btn btn-primary">DEL</a>
+                                    <a href="/editAdoptReq" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                                    <a href="/deleteAdoptReq" className="btn btn-primary">DEL</a>
                     </StyledTableCell>
                     </StyledTableRow>
                   ))}
@@ -69,7 +65,7 @@ function AdoptStatus()
             </TableContainer>
         </div>
         <div>
-        <a href="addAdoptStatus" class="btn btn-success">Add new Adopt Status</a>
+        <a href="addAdoptStatus" className="btn btn-success">Add new Adopt Status</a>
         </div>
         </div>
     );

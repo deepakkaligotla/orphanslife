@@ -1,7 +1,8 @@
 import React from 'react';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 
 function AddSponsor()
 {
@@ -62,7 +63,7 @@ function AddSponsor()
                 }
             }
         };
-        helper.open("POST","http://http://orphanslife.in:4000/newsponsor");
+        helper.open("POST","http://http://localhost:4000/newsponsor");
         helper.setRequestHeader("Content-Type", "application/json")
         debugger;
         helper.send(JSON.stringify(emp));

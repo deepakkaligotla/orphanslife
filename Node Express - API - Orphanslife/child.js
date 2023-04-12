@@ -9,7 +9,7 @@ const upload = multer()
 const router = express.Router()
 
 router.get('/childs', (request, response) => {
-    const statement = `SELECT child.name as child_name, child.id as child_id, child.dob as child_dob, child.gender as child_gender, child.*, adoptive_status.id as status_id, adoptive_status.status as status, admin.name as admin_name, admin.* FROM child LEFT JOIN adoptive_status ON child.status_id = adoptive_status.id LEFT JOIN admin ON child.admin_id = admin.id`
+    const statement = `SELECT * FROM child LEFT JOIN adoptive_status ON child.status_id = adoptive_status.adoptive_status_id LEFT JOIN admin ON child.admin_id = admin.admin_id`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
@@ -23,11 +23,19 @@ router.post('/newchild', (request, response) => {
     })
 })
 
-router.get('/findByIdChild/:child_id', (request, response) => {
-    const child_id = request.params.id
-    console.log(child_id);
-    const statement = `SELECT child.name as child_name, child.id as child_id, child.dob as child_dob, child.gender as child_gender, child.*, adoptive_status.id as status_id, adoptive_status.status as status, admin.name as admin_name, admin.* FROM child LEFT JOIN adoptive_status ON child.status_id = adoptive_status.id LEFT JOIN admin ON child.admin_id = admin.id where child.id=${request.params.child_id};`
-    db.pool.query(statement, [child_id], (error, result) => {
+router.get('/findByIdChild/:id', (request, response) => {
+    const id = request.params.id
+    console.log(id);
+    const statement = `SELECT * FROM child LEFT JOIN adoptive_status ON child.status_id = adoptive_status.adoptive_status_id LEFT JOIN admin ON child.admin_id = admin.admin_id where child.child_id=${request.params.id};`
+    db.pool.query(statement, [id], (error, result) => {
+        response.send(utils.createResult(error, result))
+    })
+})
+
+router.delete('/deletechild/:id', (request, response) => {
+    console.log(request.params.id);
+    const statement = `Delete from child where id="${request.params.id}"`
+    db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
 })

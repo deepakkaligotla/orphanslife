@@ -1,14 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import {td, table} from './mainDiv.css'
+import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,7 +32,7 @@ const Sponsors = () => {
                 setsponsors(result.data);
             }
         };
-        helper.open("GET","http://orphanslife.in:4000/sponsors");
+        helper.open("GET","http://localhost:4000/sponsors");
         helper.send();
     }, []);
 
@@ -79,31 +73,31 @@ const Sponsors = () => {
                   <TableBody>
                     {sponsors.map((sponsor) => (
                     <StyledTableRow key={sponsor.id}>
-                    <StyledTableCell component="th" scope="sponsor">{sponsor.id}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.name}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.dob}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.gender}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.govt_id_type}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.govt_id}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.mobile}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.email}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.password}</StyledTableCell>
+                    <StyledTableCell component="th" scope="sponsor">{sponsor.sponsor_id}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_name}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_dob}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_gender}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_govt_id_type}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_govt_id}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_mobile}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_email}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_password}</StyledTableCell>
                     <StyledTableCell align="center">{sponsor.marital_status}</StyledTableCell>
-                    <StyledTableCell align="center"><img className='potrait' src={sponsor.user_image}></img></StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.user_address}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.city}</StyledTableCell>
+                    <StyledTableCell align="center"><img className='potrait' alt={sponsor.sponsor_name} src={sponsor.user_image}></img></StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_address}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_city}</StyledTableCell>
                     <StyledTableCell align="center">{sponsor.spouce_name}</StyledTableCell>
                     <StyledTableCell align="center">{sponsor.spouce_dob}</StyledTableCell>
                     <StyledTableCell align="center">{sponsor.spouce_govt_id_type}</StyledTableCell>
                     <StyledTableCell align="center">{sponsor.spouce_govt_id}</StyledTableCell>
                     <StyledTableCell align="center">{sponsor.spouce_mobile}</StyledTableCell>
-                    <StyledTableCell align="center"><img className='potrait' src={sponsor.spouce_image}></img></StyledTableCell>
+                    <StyledTableCell align="center"><img className='potrait' alt={sponsor.spouce_name} src={sponsor.spouce_image}></img></StyledTableCell>
                     <StyledTableCell align="center">{sponsor.donation_id}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.created_at}</StyledTableCell>
-                    <StyledTableCell align="center">{sponsor.updated_at}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_created_at}</StyledTableCell>
+                    <StyledTableCell align="center">{sponsor.sponsor_updated_at}</StyledTableCell>
                     <StyledTableCell align="center">
-                        <a href="/editSponsor" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                        <a href="/deleteSponsor" class="btn btn-primary">DEL</a>
+                        <a href="/editSponsor" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                        <a href="/deleteSponsor" className="btn btn-primary">DEL</a>
                     </StyledTableCell>
                     </StyledTableRow>
                   ))}
@@ -112,7 +106,7 @@ const Sponsors = () => {
             </TableContainer>
         </div>
         <div>
-        <a href="addSponsor" class="btn btn-success">Like to be a Sponsor?🥺</a>
+        <a href="addSponsor" className="btn btn-success">Like to be a Sponsor?🥺</a>
         </div>
         </div>
         </React.Fragment>

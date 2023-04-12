@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import {BrowserRouter as Route, Routes} from 'react-router-dom';
 import About from './About';
 import Sponsors from './Sponsors'
 import AddSponsor from './Addsponsor'
@@ -20,8 +20,7 @@ import LocationLiveSearch from './LocationLiveSearch';
 function Home(){
 
 	return (<center>
-              <div class="margin">
-                <hr></hr>
+              <div className="margin">
                     <Routes>
                         <Route path="/home" element={<Show/>}></Route>
                         <Route path="/sponsors" element={<Sponsors/>}/>
@@ -41,9 +40,8 @@ function Home(){
                         <Route path="/locationlivesearch" element={<LocationLiveSearch/>} />
                         <Route path="/logout" element={<Logout/>} />
                     </Routes>
-                <hr></hr>
 			</div>
-				<img src="https://orphanslife.s3.ap-northeast-1.amazonaws.com/kids_jumping_crop.gif" alt="kids jumping"></img>
+				<img src="../../images/kids_jumping" alt="kids jumping"></img>
 
            </center>
 	)

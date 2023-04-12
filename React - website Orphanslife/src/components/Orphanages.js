@@ -1,29 +1,23 @@
 import React from 'react';
 import { useEffect, useState } from "react";
+import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
 function Donations()
 {
@@ -38,7 +32,7 @@ function Donations()
                 setorphanages(result.data);
             }
         };
-        helper.open("GET","http://orphanslife.in:4000/orphanages");
+        helper.open("GET","http://localhost:4000/orphanages");
         helper.send();
     }, []);
 
@@ -83,12 +77,12 @@ function Donations()
                     <StyledTableCell align="center">{orphanage.adoptable}</StyledTableCell>
                     <StyledTableCell align="center">{orphanage.boys}</StyledTableCell>
                     <StyledTableCell align="center">{orphanage.girls}</StyledTableCell>
-                    <StyledTableCell align="center"><img className='potrait' src={orphanage.orphanage_image}></img></StyledTableCell>
+                    <StyledTableCell align="center"><img className='potrait' alt={orphanage.type} src={orphanage.orphanage_image}></img></StyledTableCell>
                     <StyledTableCell align="center">{orphanage.created_at}</StyledTableCell>
                     <StyledTableCell align="center">{orphanage.updated_at}</StyledTableCell>
                     <StyledTableCell align="center">
-                        <a href="/editSponsor" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                        <a href="/deleteSponsor" class="btn btn-primary">DEL</a>
+                        <a href="/editSponsor" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                        <a href="/deleteSponsor" className="btn btn-primary">DEL</a>
                     </StyledTableCell>
                     </StyledTableRow>
                   ))}
@@ -97,7 +91,7 @@ function Donations()
             </TableContainer>
         </div>
         <div>
-        <a href="addSponsor" class="btn btn-success">New Orphanage? 🏡🏠 Add it</a>
+        <a href="addSponsor" className="btn btn-success">New Orphanage? 🏡🏠 Add it</a>
         </div>
         </div>
     );

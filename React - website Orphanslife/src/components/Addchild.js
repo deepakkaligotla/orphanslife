@@ -1,7 +1,8 @@
 import React from 'react';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 
 
 function AddChild()
@@ -63,7 +64,7 @@ function AddChild()
                 }
             }
         };
-        helper.open("POST","http://orphanslife.in:4000/newchild");
+        helper.open("POST","http://localhost:4000/newchild");
         helper.setRequestHeader("Content-Type", "application/json")
         debugger;
         helper.send(JSON.stringify(child));

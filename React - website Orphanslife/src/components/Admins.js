@@ -1,13 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
+import {TableCell,tableCellClasses,TableContainer,Paper,Table,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,7 +32,7 @@ function Admins()
                 setadmins(result.data);
             }
         };
-        helper.open("GET","http://orphanslife.in:4000/admins");
+        helper.open("GET","http://localhost:4000/admins");
         helper.send();
     }, []);
 
@@ -72,25 +66,25 @@ function Admins()
             <TableBody>
                 {admins.map((admin)=>(
                     <StyledTableRow key={admin.id}>
-                        <StyledTableCell component="th" scope="role">{admin.id}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.name}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.dob}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.gender}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.govt_id_type}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.govt_id}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.mobile}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.email}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.password}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.address}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.location_id}</StyledTableCell>
+                        <StyledTableCell component="th" scope="role">{admin.admin_id}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_name}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_dob}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_gender}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_govt_id_type}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_govt_id}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_mobile}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_email}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_password}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_address}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_location_id}</StyledTableCell>
                         <StyledTableCell align="center">{admin.role_id}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.orphanage_id}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.image}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.created_at}</StyledTableCell>
-                        <StyledTableCell align="center">{admin.updated_at}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_orphanage_id}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_image}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_created_at}</StyledTableCell>
+                        <StyledTableCell align="center">{admin.admin_updated_at}</StyledTableCell>
                         <StyledTableCell align="center">
-                            <a href="/editAdmin" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                            <a href="/deleteAdmin" class="btn btn-primary">DEL</a>
+                            <a href="/editAdmin" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                            <a href="/deleteAdmin" className="btn btn-primary">DEL</a>
                         </StyledTableCell>
                     </StyledTableRow>
                 ))}

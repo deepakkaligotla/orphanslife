@@ -1,12 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from "react";
+import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,7 +33,7 @@ function AdoptRequests()
                 setadoptrequests(result.data);
             }
         };
-        helper.open("GET","http://orphanslife.in:4000/adoptrequests");
+        helper.open("GET","http://localhost:4000/adoptrequests");
         helper.send();
     }, []);
 
@@ -77,8 +73,8 @@ function AdoptRequests()
                     <StyledTableCell align="center">{adoptreq.next_check}</StyledTableCell>
                     <StyledTableCell align="center">{adoptreq.adopted}</StyledTableCell>
                     <StyledTableCell align="center">
-                                    <a href="/editAdoptReq" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                                    <a href="/deleteAdoptReq" class="btn btn-primary">DEL</a></StyledTableCell>
+                                    <a href="/editAdoptReq" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                                    <a href="/deleteAdoptReq" className="btn btn-primary">DEL</a></StyledTableCell>
                     </StyledTableRow>
                   ))}
                   </TableBody>

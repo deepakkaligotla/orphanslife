@@ -1,13 +1,17 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
+import Popup from 'reactjs-popup';
 import { Button, Col, Container, Form, FormGroup, FormLabel, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import './css/style.css'
 
 function Login() {
 
-    const loginAPI = 'http://orphanslife.in:4000/adminlogin';
+    const loginAPI = 'http://localhost:4000/adminlogin';
     const navigate = useNavigate();
-
+    var otp, userOTP=0, otpExpire, validateOTPTime, otpSentTime;
+    const [open] = useState(false);
+    
     const submitLoginForm = (event) => {
         event.preventDefault();
         const formElement = document.querySelector('#loginForm');
@@ -17,25 +21,55 @@ function Login() {
         btnPointer.innerHTML = 'Please wait..';
         btnPointer.setAttribute('disabled', true);
         axios.post(loginAPI, formDataJSON).then((response) => {
+            otpTimer()
             btnPointer.innerHTML = 'Login';
             btnPointer.removeAttribute('disabled');
             const profile = response.data.data[0];
             const token = profile.role;
-            if (!token) {
-                alert('Unable to login. Please try after some time.');
+            if(response.data.data[0]!=null) {
+                otpSentTime = (new Date().getMinutes()*60)+new Date().getSeconds();
+                localStorage.clear();
+                localStorage.setItem('user-token', token);
+                otp=response.data.otp;
+                console.log(otp)
                 return;
             }
-            localStorage.clear();
-            localStorage.setItem('user-token', token);
-            setTimeout(() => {
-                navigate('/home');
-            }, 500);
-
         }).catch((error) => {
-            btnPointer.innerHTML = 'Login';
-            btnPointer.removeAttribute('disabled');
-            alert("Oops! Provided email or password is incorrect");
+            console.log(error)
+                alert('Oops! Provided email or password is incorrect');
+                return;
         });
+    }
+
+    function validateOTP() {
+        userOTP = document.getElementById('validate-otp').value
+        validateOTPTime = (new Date().getMinutes()*60)+ new Date().getSeconds();
+        otpExpire = validateOTPTime - otpSentTime
+        if(otpExpire<120) {
+            if(otp===userOTP) {
+                setTimeout(() => {
+                    navigate('/home');
+                }, 500);
+            } else if(otp!==userOTP) {
+                alert("Invalid OTP please check again");
+            }
+        } else if(otpExpire>120) {
+            alert("OTP Expired please try again!!!");
+        }
+    }
+
+    function otpTimer() {
+        let circularProgress = document.querySelector('.circular-progress'),
+        progressValue = document.querySelector('.progress-value')
+        let progressStartValue = 120, progressEndValue = 0, speed = 1000
+        let progress = setInterval(() => {
+            progressStartValue--
+            progressValue.textContent = `${progressStartValue} sec left`
+            circularProgress.style.background = `conic-gradient(#7d2ae8 ${progressStartValue * 3}deg, #ededed 0deg)`
+            if(progressStartValue === progressEndValue){
+                clearInterval(progress);
+            }    
+        }, speed);
     }
 
     return (
@@ -53,12 +87,38 @@ function Login() {
                                 <FormLabel htmlFor={'login-password'}>Password</FormLabel>
                                 <input type={'password'} className="form-control" id={'login-password'} name="password" required />
                             </FormGroup>
-                            <Button type="submit" className="btn btn-success" id="login-btn">Login</Button>
+                            <Popup open={open} trigger={<Button type="submit" className="btn btn-success" id="login-btn">Login</Button>} modal nested>
+                            <div className="modal">
+                                <div>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div className="modal-dialog" role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title">OTP Sent to Email</h5>
+                                        </div>
+                                        <div className="modal-body">
+                                            <input type={'text'} id={'validate-otp'} name="otp" required/>
+                                            <br/>
+                                            <div className="circular-container" id="circular-container">
+                                                <div className="circular-progress">
+                                                    <span className="progress-value">120 sec left</span>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <button className="btn btn-success" id="login-btn" onClick={validateOTP}>Validate OTP</button>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup>
                         </Form>
                     </Col>
                 </Row>
-
-				<img src="https://orphanslife.s3.ap-northeast-1.amazonaws.com/kids_jumping_crop.gif" alt="kids jumping"></img>
+				<img src="images/kids_jumping.gif" alt="kids jumping"></img>
             </Container>
         </React.Fragment>
     );

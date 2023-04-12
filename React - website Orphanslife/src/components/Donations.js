@@ -1,28 +1,23 @@
 import React from 'react';
 import { useEffect, useState } from "react";
+import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
 import { styled } from '@mui/material/styles';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
 function Donations()
 {
@@ -37,7 +32,7 @@ function Donations()
                 setdonations(result.data);
             }
         };
-        helper.open("GET","http://orphanslife.in:4000/donations");
+        helper.open("GET","http://localhost:4000/donations");
         helper.send();
     }, []);
     
@@ -68,8 +63,8 @@ function Donations()
                     <StyledTableCell align="center">{donation.created_at}</StyledTableCell>
                     <StyledTableCell align="center">{donation.updated_at}</StyledTableCell>
                     <StyledTableCell align="center">
-                        <a href="/editDonation" class="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
-                        <a href="/deleteDonation" class="btn btn-primary">DEL</a>
+                        <a href="/editDonation" className="btn btn-primary"><span role="img" aria-label="Love">✏️</span></a>
+                        <a href="/deleteDonation" className="btn btn-primary">DEL</a>
                     </StyledTableCell>
                     </StyledTableRow>
                   ))}
@@ -78,7 +73,7 @@ function Donations()
             </TableContainer>
         </div>
         <div>
-        <a href="addDonation" class="btn btn-success">Here to Donate..💝🎁</a>
+        <a href="addDonation" className="btn btn-success">Here to Donate..💝🎁</a>
         </div>
         </div>
     );
