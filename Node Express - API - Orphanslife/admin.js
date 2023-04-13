@@ -5,10 +5,11 @@ const multer = require('multer')
 const cryptoJs = require('crypto-js')
 const mailer = require('./mailer')
 const upload = multer()
+const auth = require('./Auth/auth.js')
 
 const router = express.Router()
 
-router.get('/admins', (request, response) => {
+router.get('/admins', auth, (request, response) => {
     const statement = `SELECT * FROM admin`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
@@ -20,7 +21,7 @@ router.post('/adminlogin', (request, response) => {
     const encryptedPassword = String(cryptoJs.MD5(password))
     console.log(email+" "+password);
     const statement = `SELECT * FROM admin LEFT JOIN role ON admin.role_id = role.id where admin_email="${email}" and admin_password="${encryptedPassword}"`
-    db.pool.query(statement, [email,password], (error, result) => {
+    db.pool.query(statement, [email,encryptedPassword], (error, result) => {
         if(result[0]!=null) {
             var otp = Math.floor(100000 + Math.random() * 900000)
             const body = `

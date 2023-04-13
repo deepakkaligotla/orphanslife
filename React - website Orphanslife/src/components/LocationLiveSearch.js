@@ -18,7 +18,7 @@ function Locations()
 
     function myFunction() {
         var helper = new XMLHttpRequest();
-        var input, filter, ul, li, a, i, txtValue;
+        var filter, li, a, i, txtValue;
         for (i = 0; i < locations.length; i++) {
             a = li[i].getElementsByTagName("a")[0];
             txtValue = a.textContent || a.innerText;
@@ -32,14 +32,11 @@ function Locations()
             if(helper.readyState === 4 && helper.status === 200)
             {
                 var result = JSON.parse(helper.responseText);
-                debugger;
                     if(result.data.length > 0)
                     {
                        setmessage("Pincode found!");
-                       debugger
                        for (i = 0; i < result.data.length; i++)
                             setlocations[i](result.data[i]);
-                       debugger
                     }
                     else
                     {
@@ -47,7 +44,7 @@ function Locations()
                     }
             }
         };
-        const url = "http://http://localhost:4000/alllocations/"
+        const url = "http://localhost:4000/alllocations/"
         console.log(url)
         helper.open("GET",url);
         helper.setRequestHeader("Content-Type", "application/json");
@@ -57,7 +54,8 @@ function Locations()
         helper.send();
     }
 
-    return (<><div id="search">
+    return (<React.Fragment>
+        <><div id="search">
             <input type="text" id="pincode" onkeyup={myFunction()} placeholder="Search for pincodes.." onChange={handleChange} title="Pincode live filter Search"/><br></br><br></br>
             <h6 style={{color: "orange"}}>{message}</h6>
             </div><br></br>
@@ -66,7 +64,7 @@ function Locations()
                             <li><a href="#">{location.pincode}</a></li>
                         </ul>})}
             </>
-            
+    </React.Fragment>
     );
 }
 

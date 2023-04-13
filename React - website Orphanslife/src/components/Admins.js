@@ -1,23 +1,30 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import {TableCell,tableCellClasses,TableContainer,Paper,Table,TableHead,TableRow,TableBody} from '@mui/material'
+import { alpha } from '@mui/material/styles';
+import {Box, Table, TableBody, TableCell,TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch, tableCellClasses} from '@mui/material'
 import { styled } from '@mui/material/styles';
+import DeleteIcon from '@mui/icons-material';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { visuallyHidden } from '@mui/utils';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 function Admins()
 {
@@ -37,10 +44,11 @@ function Admins()
     }, []);
 
     return (
-        <div className="table-wrap">
+        <React.Fragment>
+          <div className="table-wrap">
           <div className="table-responsive">
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 750 }} aria-label="customized table">
+              <Table class="table table-hover table-dark">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell align="center">ID</StyledTableCell>
@@ -96,6 +104,7 @@ function Admins()
         <a href="addAdmin" className='btn btn-success'>Add new Admin</a>
         </div>
         </div>
+        </React.Fragment>
     );
 }
 

@@ -42,7 +42,6 @@ function AddChild()
         helper.onreadystatechange = ()=>{
             if(helper.readyState === 1 && helper.status === 200)
             {
-                debugger;
                 var result = JSON.parse(helper.responseText);
                 if(result.data.affectedRows!==undefined)
                 {
@@ -66,7 +65,6 @@ function AddChild()
         };
         helper.open("POST","http://localhost:4000/newchild");
         helper.setRequestHeader("Content-Type", "application/json")
-        debugger;
         helper.send(JSON.stringify(child));
     }
 
@@ -75,7 +73,8 @@ function AddChild()
         setChild({});
     }
     
-    return <div>
+    return (<React.Fragment>
+        <div>
                <center>
                     <br></br>
                     <br></br>
@@ -207,6 +206,7 @@ function AddChild()
                     </table>
                </center>
            </div>
+    </React.Fragment>)
 }
 
 export default AddChild;

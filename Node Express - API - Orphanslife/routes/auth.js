@@ -1,34 +1,73 @@
-// Import dependencies
 const jwt = require("jsonwebtoken");
 const express = require("express");
-const bcrypt = require("bcrypt");
+const cryptoJs = require('crypto-js');
+const db = require('../db')
 
-// Setup the express server router
 const router = express.Router();
 
-// On post
+const users = [{ email:'', password:'', roles:'' }];
+let authUser=users;
+
 router.post("/", async (req, res) => {
-    // Dummy data
-    const users = [{ email: "orphanslife", password: "Orphanslife", roles: ["admin", "editor", "viewer"] }];
+    console.log('inside Routes/auth.js')
+    const {email, password} = req.body
+    const encryptedPassword = String(cryptoJs.MD5(password))
 
-    // Get to user from the database, if the user is not there return error
-    let user = users.find(u => u.email === req.body.email);
-    if (!user) throw new Error("Invalid email or password.");
-
-    // Compare the password with the password in the database
-    const valid = await bcrypt.compare(req.body.password, user.password)
-    if (!valid) throw new Error("Invalid email or password.");
-
-    const token = jwt.sign({
-        id: user._id,
-        roles: user.roles,
-    }, "jwtPrivateKey", { expiresIn: "15m" });
-
-    res.send({
-        ok: true,
-        token: token
+    const statement = `SELECT * FROM sponsor where sponsor_email="${email}" and sponsor_password="${encryptedPassword}"`
+    db.pool.query(statement, [email,encryptedPassword], (error, result) => {
+        if(Array.isArray(result)) {
+            if(result[0]!=null) {
+                if(!result[0].role_id) {
+                    authUser = users.find(u => u.email=result[0].sponsor_email)
+                    authUser = users.find(u => u.password=result[0].sponsor_password)
+                    authUser = users.find(u => u.roles='viewer')
+                    response()
+                }
+            } else {
+                checkingAdmin()
+            }
+        }
     });
-});
 
-// Export the router
+    function checkingAdmin() {
+        const statement = `SELECT * FROM admin where admin_email="${email}" and admin_password="${encryptedPassword}"`
+        db.pool.query(statement, [email,encryptedPassword], (error, result) => {
+            if(Array.isArray(result)) {
+                if(result[0]!=null) {
+                    authUser = users.find(u => u.email=result[0].admin_email)
+                    authUser = users.find(u => u.password=result[0].admin_password)
+                    if(result[0].role_id===1) {
+                        authUser = users.find(u => u.roles='editor')
+                    } else if(result[0].role_id===2) {
+                        authUser = users.find(u => u.roles='editor')
+                    } else if(result[0].role_id===3) {
+                        authUser = users.find(u => u.roles='admin')
+                    }
+                    response()
+                }  else {
+                    res.send({
+                        ok: false,
+                        token: null
+                    });
+                }
+            }
+        });
+    }
+
+    //null values checking
+    function response() {
+        if(authUser.email!=null && authUser.password!=null && authUser.roles!=null) {
+            const token = jwt.sign({
+                email: authUser.email,
+                role: authUser.role,
+            }, "jwtPrivateKey", { expiresIn: "5m" });
+    
+            res.send({
+                ok: true,
+                token: token
+            });
+        }
+    }
+})
+
 module.exports = router;

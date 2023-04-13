@@ -6,6 +6,7 @@ const cryptoJs = require('crypto-js')
 const mailer = require('./mailer')
 const upload = multer()
 const router = express.Router()
+const auth = require('./Auth/auth.js')
 
 router.post('/newsponsor', (request, response) => {
     const {sponsor_name, sponsor_dob, sponsor_gender, sponsor_govt_id_type, sponsor_govt_id, sponsor_mobile, sponsor_email, sponsor_password, marital_status, sponsor_image, sponsor_address, sponsor_location_id, spouce_name, spouce_dob, spouce_govt_id_type, spouce_govt_id, spouce_mobile, spouce_image, donation_id} = request.body
@@ -107,14 +108,14 @@ router.put('/updatesponsorbyid/:sid', upload.none(), (request, response) => {
         })
     })
 
-router.get('/sponsors', (request, response) => {
+router.get('/sponsors', auth, (request, response) => {
     const statement = `SELECT * FROM sponsor LEFT JOIN location ON sponsor.sponsor_location_id = location.id;`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
 })
 
-router.post('/sponsorlogin', (request, response) => {
+router.post('/sponsorlogin', auth,  (request, response) => {
     const {email, password} = request.body
     const encryptedPassword = String(cryptoJs.MD5(password))
     const statement = `SELECT * FROM sponsor where sponsor_email="${email}" and sponsor_password="${encryptedPassword}"`

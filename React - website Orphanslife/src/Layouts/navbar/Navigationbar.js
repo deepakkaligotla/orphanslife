@@ -18,7 +18,6 @@ const Navigationbar = () => {
             <Navbar bg="dark" expand="lg" className="navbar-dark">
                 <Container>
                     <Navbar.Brand>
-                        <img className="navbar-logo" src="../../images/donate" onClick={() => navigate("/home")} width="300px" alt="kids jumping"></img><br></br>
                         Orphanage Management System
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -7,7 +7,7 @@ import './css/style.css'
 
 function Login() {
 
-    const loginAPI = 'http://localhost:4000/adminlogin';
+    const loginAPI = 'http://192.168.0.14:4000/adminlogin';
     const navigate = useNavigate();
     var otp, userOTP=0, otpExpire, validateOTPTime, otpSentTime;
     const [open] = useState(false);
@@ -31,7 +31,7 @@ function Login() {
                 localStorage.clear();
                 localStorage.setItem('user-token', token);
                 otp=response.data.otp;
-                console.log(otp)
+                console.log('OTP sent to user - '+otp)
                 return;
             }
         }).catch((error) => {
@@ -43,14 +43,15 @@ function Login() {
 
     function validateOTP() {
         userOTP = document.getElementById('validate-otp').value
+        console.log('User Entered OTP - '+userOTP)
         validateOTPTime = (new Date().getMinutes()*60)+ new Date().getSeconds();
         otpExpire = validateOTPTime - otpSentTime
         if(otpExpire<120) {
-            if(otp===userOTP) {
+            if(otp==userOTP) {
                 setTimeout(() => {
                     navigate('/home');
                 }, 500);
-            } else if(otp!==userOTP) {
+            } else if(otp!=userOTP) {
                 alert("Invalid OTP please check again");
             }
         } else if(otpExpire>120) {
@@ -73,7 +74,7 @@ function Login() {
     }
 
     return (
-        <React.Fragment>
+        <>
             <Container className="my-5">
                 <h2 className="fw-normal mb-5">Login To Orphanage Management System</h2>
                 <Row>
@@ -88,7 +89,7 @@ function Login() {
                                 <input type={'password'} className="form-control" id={'login-password'} name="password" required />
                             </FormGroup>
                             <Popup open={open} trigger={<Button type="submit" className="btn btn-success" id="login-btn">Login</Button>} modal nested>
-                            <div className="modal">
+                            <div className="otpWindow">
                                 <div>
                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -120,7 +121,7 @@ function Login() {
                 </Row>
 				<img src="images/kids_jumping.gif" alt="kids jumping"></img>
             </Container>
-        </React.Fragment>
+        </>
     );
 }
 

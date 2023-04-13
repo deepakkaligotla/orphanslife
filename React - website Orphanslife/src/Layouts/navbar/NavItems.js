@@ -57,6 +57,12 @@ export const navItems = [
       cName: "submenu-item",
     },
     {
+      id: 6,
+      title: "Orphanage Activities",
+      path: "./orphanage_activities",
+      cName: "submenu-item",
+    },
+    {
       id: 7,
       title: "Adopt Requests",
       path: "./adoptrequests",

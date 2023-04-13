@@ -1,8 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import {TableCell,tableCellClasses,TableContainer,Paper,TableHead,TableRow,TableBody} from '@mui/material'
+import { alpha } from '@mui/material/styles';
+import {Box, Table, TableBody, TableCell,TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch, tableCellClasses} from '@mui/material'
 import { styled } from '@mui/material/styles';
-
+import DeleteIcon from '@mui/icons-material';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { visuallyHidden } from '@mui/utils';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,10 +41,11 @@ function AdoptStatus()
     }, []);
 
     return (
-        <div className="table-wrap">
+        <React.Fragment>
+          <div className="table-wrap">
                 <div className="table-responsive">
                 <TableContainer component={Paper}>
-              <table sx={{ minWidth: 700 }} aria-label="customized table">
+              <table class="table table-hover table-dark">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell align="center">ID</StyledTableCell>
@@ -68,6 +72,7 @@ function AdoptStatus()
         <a href="addAdoptStatus" className="btn btn-success">Add new Adopt Status</a>
         </div>
         </div>
+        </React.Fragment>
     );
 }
 

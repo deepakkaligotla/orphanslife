@@ -7,19 +7,18 @@ const ProtectedRoute = (props) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    useEffect(() => {
+        checkUserToken();
+    }, [isLoggedIn]);
+
     const checkUserToken = () => {
         const userToken = localStorage.getItem('user-token');
         if (!userToken || userToken === 'undefined') {
             setIsLoggedIn(false);
             return navigate('/auth/login');
         }
-        debugger
         setIsLoggedIn(true);
     }
-
-    useEffect(() => {
-        checkUserToken();
-    }, [isLoggedIn]);
 
     return (
         <React.Fragment>

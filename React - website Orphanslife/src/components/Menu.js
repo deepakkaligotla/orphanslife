@@ -1,11 +1,11 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import {BrowserRouter as Route, Link, Routes} from 'react-router-dom';
 import Home from './Home';
 
 function Menu() {
 
 return (
-    <center>
+        <center>
             <hr></hr>
             <nav>
                 <ul>
@@ -13,9 +13,13 @@ return (
                 </ul>
             </nav>
             <hr></hr>
+
+    <Route>
             <Routes>
                 <Route path="/Home" element={<Home/>}></Route>
             </Routes>
+
+    </Route>
           <hr></hr>
     </center>)
 }

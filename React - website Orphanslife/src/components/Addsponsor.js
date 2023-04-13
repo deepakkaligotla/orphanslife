@@ -41,7 +41,6 @@ function AddSponsor()
         helper.onreadystatechange = ()=>{
             if(helper.readyState === 4 && helper.status === 200)
             {
-                debugger;
                 var result = JSON.parse(helper.responseText);
                 if(result.affectedRows!==undefined)
                 {
@@ -65,7 +64,6 @@ function AddSponsor()
         };
         helper.open("POST","http://http://localhost:4000/newsponsor");
         helper.setRequestHeader("Content-Type", "application/json")
-        debugger;
         helper.send(JSON.stringify(emp));
     }
 
@@ -74,7 +72,8 @@ function AddSponsor()
         setEmp({});
     }
     
-    return <div>
+    return (<React.Fragment>
+        <div>
                <center>
                     <br></br>
                     <br></br>
@@ -134,6 +133,7 @@ function AddSponsor()
                     </table>
                </center>
            </div>
+    </React.Fragment>)
 }
 
 export default AddSponsor;

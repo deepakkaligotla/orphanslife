@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './auth/login/Login';
-import Auth from './auth/Auth';
+import Login from './Auth/login/Login';
+import Auth from './Auth/Auth';
 import App from './App.js';
 import ProtectedRoute from './util/ProtectedRoute';
-import Home from './components/Home';
+import Home from './Routes/Home';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
