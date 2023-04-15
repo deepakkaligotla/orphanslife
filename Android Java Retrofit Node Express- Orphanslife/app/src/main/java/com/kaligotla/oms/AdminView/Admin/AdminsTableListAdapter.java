@@ -1,5 +1,7 @@
 package com.kaligotla.oms.AdminView.Admin;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -100,7 +102,7 @@ public class AdminsTableListAdapter extends RecyclerView.Adapter<AdminsTableList
                     .baseUrl( Constants.BASE_URL )
                     .build()
                     .create( DBService.class )
-                    .deleteAdminByID(deleteAdminId)
+                    .deleteAdminByID(context.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), deleteAdminId)
                     .enqueue( new Callback<JsonObject>() {
 
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

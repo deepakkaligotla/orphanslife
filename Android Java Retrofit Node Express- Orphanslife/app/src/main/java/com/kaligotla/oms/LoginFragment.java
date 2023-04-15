@@ -8,6 +8,8 @@ import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NONE_
 import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE;
 import static android.hardware.biometrics.BiometricManager.BIOMETRIC_SUCCESS;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +19,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.hardware.biometrics.BiometricManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -37,6 +45,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonArray;
@@ -54,6 +63,7 @@ import com.kaligotla.oms.VolunteerView.VolunteerHome;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,19 +81,25 @@ public class LoginFragment extends Fragment {
     LinearLayout otpLinearLayout;
     GifImageView kids_jumping;
     MaterialButton sign_in, validateOTP;
-    MaterialTextView forgotPassword;
+    MaterialTextView forgotPassword, otpExpireMsg, timeCount;
     Cred cred;
     View rootView;
     Bundle bundle;
     int sentOTP;
     Sponsor loggedInSponsor;
     Admin loggedInAdmin;
-    LocalTime otpSentTime, validateOTPTime;
+    LocalTime otpSentTime, validateOTPTime, otpSentTimeCounter;
+    CircularProgressIndicator otpExpireProgress;
+    CountDownTimer otpTimer;
+    int progress = 100, seconds=120;
+    String apiToken;
+    SharedPreferences preferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = new Bundle();
+        preferences = this.getActivity().getSharedPreferences( "store", MODE_PRIVATE );
     }
 
     @Override
@@ -96,9 +112,12 @@ public class LoginFragment extends Fragment {
         remember_me = rootView.findViewById( R.id.remember_me );
         kids_jumping = rootView.findViewById( R.id.kids_jumping );
         sign_in = rootView.findViewById(R.id.sign_in);
+        otpExpireProgress = rootView.findViewById(R.id.otpExpireProgress);
+        timeCount = rootView.findViewById(R.id.timeCount);
         validateOTP = rootView.findViewById(R.id.validateOTP);
         forgotPassword = rootView.findViewById(R.id.forgotPassword);
         otpLinearLayout = rootView.findViewById(R.id.otpLinearLayout);
+        otpExpireMsg = rootView.findViewById(R.id.otpExpireMsg);
         otpLinearLayout.setVisibility(View.GONE);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "sponsor_logged_in", false )) {
@@ -136,6 +155,18 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        login_password.setEndIconOnClickListener(view -> {
+            login_password.getEditText().setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            login_password.setEndIconDrawable(R.drawable.eye);
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    login_password.getEditText().setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    login_password.setEndIconDrawable(R.drawable.close_eye);
+                }
+            }, 2000);
+        });
         //kids_jumping.animate();
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,37 +193,75 @@ public class LoginFragment extends Fragment {
         cred = validateData();
         if (cred != null) {
             Log.e("sign_in",cred.toString());
-            signinSponsor( cred );
+            sign_in( cred );
         }
     }
 
-    public void signinAdmin(Cred cred) {
+    public void otpTimer() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            otpSentTimeCounter = LocalTime.ofSecondOfDay(seconds);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("mm:ss");
+            otpTimer = new CountDownTimer(120000, 1200) {
+                @Override
+                public void onTick(long l) {
+                    otpExpireProgress.setProgress(progress);
+                    timeCount.setText("" + otpSentTimeCounter.format(dtf));
+                    otpSentTimeCounter = otpSentTimeCounter.minus(1, ChronoUnit.SECONDS);
+                    progress--;
+                }
+
+                @Override
+                public void onFinish() {
+                    otpLinearLayout.setVisibility(View.GONE);
+                    otpExpireMsg.setText("OTP EXPIRED, Click get OTP again to change password \"2 minutes\"");
+                    ObjectAnimator animator = ObjectAnimator.ofInt(otpExpireMsg, "textColor", Color.RED);
+                    animator.setDuration(2000);
+                    animator.setEvaluator(new ArgbEvaluator());
+                    animator.setRepeatCount(Animation.ABSOLUTE);
+                    animator.setRepeatCount(Animation.INFINITE);
+                    animator.start();
+                }
+            };
+            otpTimer.start();
+        }
+    }
+
+    public void sign_in(Cred cred) {
 
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .adminlogin( cred )
+                .login( cred )
                 .enqueue( new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        JsonArray jsonArray = response.body().getAsJsonArray( "data" );
-                        JsonObject jsonObject;
-                        Log.e("cred",""+jsonArray);
-                        if (jsonArray!=null) {
-                            sentOTP = response.body().get("otp").getAsInt();
+                        JsonObject jsonObject = response.body().getAsJsonObject( "data" );
+                        apiToken = response.body().get("token").getAsString();
+                        Log.e("API Token received from db",apiToken);
+                        sentOTP = response.body().get("otp").getAsInt();
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            otpSentTime = LocalTime.now();
+                            otpTimer();
+                        }
+                        if (response.body().get("roles").getAsString().equals("viewer")) {
                             Log.e("sentOTP",""+sentOTP);
-                            jsonObject = jsonArray.get( 0 ).getAsJsonObject();
+                            loggedInSponsor = new Sponsor();
+                            Log.e("jsonObject",""+jsonObject);
+                            loggedInSponsor.setSponsor_id(jsonObject.get( "sponsor_id" ).getAsInt());
+                            loggedInSponsor.setSponsor_name(jsonObject.get( "sponsor_name" ).getAsString());
+                            loggedInSponsor.setSponsor_email(jsonObject.get( "sponsor_email" ).getAsString());
+                            otpLinearLayout.setVisibility(View.VISIBLE);
+                        }
+                        else if(response.body().get("roles").getAsString().equals("editor") || response.body().get("roles").getAsString().equals("admin")) {
+                            Toast.makeText( getActivity(), "Checking if Admin", Toast.LENGTH_LONG ).show();
+                            Log.e("sentOTP",""+sentOTP);
                             loggedInAdmin = new Admin();
                             loggedInAdmin.setAdmin_id(jsonObject.get( "admin_id" ).getAsInt());
                             loggedInAdmin.setRole(new Role(jsonObject.get( "role" ).getAsString()));
                             otpLinearLayout.setVisibility(View.VISIBLE);
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                otpSentTime = LocalTime.now();
-                            }
-                        }
-                        else if(jsonArray==null) {
+                        } else {
                             Toast.makeText( getActivity(), "No account found, kindly check email & password or Register with us", Toast.LENGTH_LONG ).show();
                             RegisterFragment rf = new RegisterFragment();
                             bundle.putString("email", login_username.getEditText().getText().toString() );
@@ -208,48 +277,8 @@ public class LoginFragment extends Fragment {
                         Toast.makeText( getActivity(), "DB Connection failed", Toast.LENGTH_SHORT ).show();
                     }
                 } );
+
     }
-
-    public void signinSponsor(Cred cred) {
-        new Retrofit.Builder()
-                .addConverterFactory( GsonConverterFactory.create() )
-                .baseUrl( Constants.BASE_URL )
-                .build()
-                .create( DBService.class )
-                .sponsorlogin( cred )
-                .enqueue( new Callback<JsonObject>() {
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        JsonArray jsonArray = response.body().getAsJsonArray( "data" );
-                        JsonObject jsonObject;
-                        if (jsonArray!=null) {
-                            sentOTP = response.body().get("otp").getAsInt();
-                            Log.e("sentOTP",""+sentOTP);
-                            jsonObject = jsonArray.get( 0 ).getAsJsonObject();
-                            loggedInSponsor = new Sponsor();
-                            Log.e("jsonObject",""+jsonObject);
-                            loggedInSponsor.setSponsor_id(jsonObject.get( "sponsor_id" ).getAsInt());
-                            loggedInSponsor.setSponsor_name(jsonObject.get( "sponsor_name" ).getAsString());
-                            loggedInSponsor.setSponsor_email(jsonObject.get( "sponsor_email" ).getAsString());
-                            otpLinearLayout.setVisibility(View.VISIBLE);
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                otpSentTime = LocalTime.now();
-                            }
-                        }
-                        else if(jsonArray==null) {
-                            Toast.makeText( getActivity(), "Checking if Admin", Toast.LENGTH_LONG ).show();
-                            signinAdmin(cred);
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Toast.makeText( getActivity(), "DB Connection failed", Toast.LENGTH_SHORT ).show();
-                    }
-                } );
-    }
-
     public void validateOTP() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             validateOTPTime = LocalTime.now();
@@ -257,11 +286,13 @@ public class LoginFragment extends Fragment {
             if(otpExpire<2) {
                 if(Integer.parseInt(enteredOTP.getEditText().getText().toString())==sentOTP) {
                     if(loggedInSponsor!=null) {
+                        preferences.edit().putString( "API_Token", apiToken ).commit();
                         saveData(loggedInSponsor.getSponsor_id(),null);
                         Toast.makeText( getActivity(), "Sponsor Login Successful", Toast.LENGTH_SHORT ).show();
                         startActivity( new Intent( getActivity(), SponsorHome.class ) );
                         getActivity().finish();
                     } else if(loggedInAdmin!=null) {
+                        preferences.edit().putString( "API_Token", apiToken ).commit();
                         Toast.makeText( getActivity(), "Admin Login successfull", Toast.LENGTH_SHORT ).show();
                         if(loggedInAdmin.getRole().getRole().equals( "Super_Admin" )) {
                             startActivity( new Intent( getActivity(), AdminHome.class ) );
@@ -284,9 +315,9 @@ public class LoginFragment extends Fragment {
     }
 
     public void saveData(int id, String role) {
-        SharedPreferences preferences = this.getActivity().getSharedPreferences( "store", MODE_PRIVATE );
         if(remember_me.isChecked()) {
             if(role==null) {
+                Log.e("API Token inside shared Preferences",apiToken);
                 preferences.edit().putInt( "sponsor_id", id ).commit();
                 preferences.edit().putBoolean( "sponsor_logged_in", true ).commit();
             } else if(role.equals( "Volunteer" )) {

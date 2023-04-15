@@ -7,7 +7,7 @@ import './css/style.css'
 
 function Login() {
 
-    const loginAPI = 'http://192.168.0.14:4000/adminlogin';
+    const loginAPI = 'http://192.168.0.14:4000/';
     const navigate = useNavigate();
     var otp, userOTP=0, otpExpire, validateOTPTime, otpSentTime;
     const [open] = useState(false);
@@ -24,20 +24,18 @@ function Login() {
             otpTimer()
             btnPointer.innerHTML = 'Login';
             btnPointer.removeAttribute('disabled');
-            const profile = response.data.data[0];
-            const token = profile.role;
-            if(response.data.data[0]!=null) {
+            const profile = response.data;
+            console.log(profile)
+            const token = profile.token;
+            if(response.data!=null) {
                 otpSentTime = (new Date().getMinutes()*60)+new Date().getSeconds();
                 localStorage.clear();
                 localStorage.setItem('user-token', token);
-                otp=response.data.otp;
-                console.log('OTP sent to user - '+otp)
+                otp=profile.otp;
                 return;
             }
         }).catch((error) => {
-            console.log(error)
-                alert('Oops! Provided email or password is incorrect');
-                return;
+            return;
         });
     }
 
@@ -46,15 +44,21 @@ function Login() {
         console.log('User Entered OTP - '+userOTP)
         validateOTPTime = (new Date().getMinutes()*60)+ new Date().getSeconds();
         otpExpire = validateOTPTime - otpSentTime
+        console.log(otpSentTime)
+        console.log(validateOTPTime)
+        console.log(otpExpire)
         if(otpExpire<120) {
             if(otp==userOTP) {
+                console.log('OTP Verified')
                 setTimeout(() => {
                     navigate('/home');
                 }, 500);
             } else if(otp!=userOTP) {
+                console.log('Invalid OTP')
                 alert("Invalid OTP please check again");
             }
         } else if(otpExpire>120) {
+            console.log('Invalid expired')
             alert("OTP Expired please try again!!!");
         }
     }

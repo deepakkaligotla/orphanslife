@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { alpha } from '@mui/material/styles';
 import {Box, Table, TableBody, TableCell,TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch, tableCellClasses} from '@mui/material'
@@ -24,20 +25,21 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }));
 
 const Sponsors = () => {
-    const [sponsors, setsponsors] =  useState([]);
+  const loginAPI = 'http://192.168.0.14:4000/sponsors';
+    const [sponsors, setSponsors] =  useState([]);
 
     useEffect(()=>{
-        var helper = new XMLHttpRequest();
-        helper.onreadystatechange = ()=>{
-            if(helper.readyState === 4 && helper.status === 200)
-            {
-                var result = JSON.parse(helper.responseText);
-                setsponsors(result.data);
-            }
-        };
-        helper.open("GET","http://localhost:4000/sponsors");
-        helper.send();
-    }, []);
+      axios.get(loginAPI, { headers: {"x-auth-token" : `${localStorage.getItem('user-token')}`}}).then((response) => {
+        if(Array.isArray(response.data.data)) {
+          if(response.data.data[0]!=null) {
+            setSponsors(response.data.data);
+            return;
+          }
+        }
+    }).catch((error) => {
+        return;
+    });
+}, []);
 
     return (
         <React.Fragment>

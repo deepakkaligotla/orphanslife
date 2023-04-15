@@ -14,7 +14,6 @@ router.get("/", [auth, viewer], (req, res) => {
 });
 
 router.post("/", [auth, editor], async (req, res) => {
-    console.log('inside messages.js/post')
     messages.push({ id: messages.length + 1, name: req.body.name, content: req.body.content });
     res.status(200).send({
         ok: true,
@@ -23,6 +22,21 @@ router.post("/", [auth, editor], async (req, res) => {
 });
 
 router.put("/", [auth, editor], async (req, res) => {
+    res.status(200).send({
+        ok: true,
+        result: messages
+    });
+});
+
+router.post("/", [auth, admin], async (req, res) => {
+    messages.push({ id: messages.length + 1, name: req.body.name, content: req.body.content });
+    res.status(200).send({
+        ok: true,
+        result: messages
+    });
+});
+
+router.put("/", [auth, admin], async (req, res) => {
     res.status(200).send({
         ok: true,
         result: messages

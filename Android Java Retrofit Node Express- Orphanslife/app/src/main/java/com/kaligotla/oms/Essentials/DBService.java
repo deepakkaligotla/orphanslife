@@ -1,5 +1,7 @@
 package com.kaligotla.oms.Essentials;
 
+import android.content.SharedPreferences;
+
 import com.google.gson.JsonObject;
 import com.kaligotla.oms.AdminView.Admin.Admin;
 import com.kaligotla.oms.AdminView.AdoptRequest.AdoptRequest;
@@ -13,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -38,8 +41,6 @@ public interface DBService {
 
     @PUT("updateadoptreqbyid/{req_no}")
     public Call<JsonObject> updateAdoptReq(@Path("req_no") int aid, @Body AdoptRequest adoptRequest);
-    @POST("sponsorlogin")
-    public Call<JsonObject> sponsorlogin(@Body Cred cred);
 
     @POST("forgotpasswordsendotp")
     public Call<JsonObject> forgotPasswordSendOTP(@Body Cred cred);
@@ -47,8 +48,8 @@ public interface DBService {
     @PUT("updatesponsorpassword")
     public Call<JsonObject> changePassword(@Body Cred cred);
 
-    @POST("adminlogin")
-    public Call<JsonObject> adminlogin(@Body Cred cred);
+    @POST("/")
+    public Call<JsonObject> login(@Body Cred cred);
 
     @GET("sponsors")
     public Call<JsonObject> sponsors();
@@ -78,7 +79,7 @@ public interface DBService {
     public Call<JsonObject> getSponsorByID(@Path("id") int id);
 
     @DELETE("deleteadmin/{id}")
-    public Call<JsonObject> deleteAdminByID(@Path("id") int id);
+    public Call<JsonObject> deleteAdminByID(@Header("x-auth-token") String apiToken, @Path("id") int id);
 
     @DELETE("deleteAdoptReqById/{id}")
     public Call<JsonObject> deleteAdoptReqByID(@Path("id") int id);
@@ -96,7 +97,7 @@ public interface DBService {
     public Call<JsonObject> deleteRoleByID(@Path("id") int id);
 
     @GET("admins")
-    public Call<JsonObject> admins();
+    public Call<JsonObject> admins(@Header("x-auth-token") String apiToken);
 
     @GET("childs")
     public Call<JsonObject> childs();

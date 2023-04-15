@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { alpha } from '@mui/material/styles';
 import {Box, Table, TableBody, TableCell,TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch, tableCellClasses} from '@mui/material'
@@ -26,29 +27,32 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+
+
 function Admins()
 {
-    const [admins, setadmins] =  useState([]);
+  const loginAPI = 'http://192.168.0.14:4000/admins';
+  const [admins, setadmins] =  useState([]);
 
-    useEffect(()=>{
-        var helper = new XMLHttpRequest();
-        helper.onreadystatechange = ()=>{
-            if(helper.readyState === 4 && helper.status === 200)
-            {
-                var result = JSON.parse(helper.responseText);
-                setadmins(result.data);
+  useEffect(()=>{
+        axios.get(loginAPI, { headers: {"x-auth-token" : `${localStorage.getItem('user-token')}`}}).then((response) => {
+          if(Array.isArray(response.data.data)) {
+            if(response.data.data[0]!=null) {
+              setadmins(response.data.data);
+              return;
             }
-        };
-        helper.open("GET","http://localhost:4000/admins");
-        helper.send();
-    }, []);
+          }
+      }).catch((error) => {
+          return;
+      });
+  }, []);
 
     return (
         <React.Fragment>
           <div className="table-wrap">
           <div className="table-responsive">
             <TableContainer component={Paper}>
-              <Table class="table table-hover table-dark">
+              <Table className="table table-hover table-dark">
                 <TableHead>
                   <TableRow>
                     <StyledTableCell align="center">ID</StyledTableCell>
@@ -73,7 +77,7 @@ function Admins()
                 </TableHead>
             <TableBody>
                 {admins.map((admin)=>(
-                    <StyledTableRow key={admin.id}>
+                    <StyledTableRow key={admin.admin_id}>
                         <StyledTableCell component="th" scope="role">{admin.admin_id}</StyledTableCell>
                         <StyledTableCell align="center">{admin.admin_name}</StyledTableCell>
                         <StyledTableCell align="center">{admin.admin_dob}</StyledTableCell>

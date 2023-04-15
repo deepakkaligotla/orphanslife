@@ -92,9 +92,11 @@ router.post('/newsponsor', (request, response) => {
         </body>
       </html>
     `
-    mailer.sendEmail(sponsor_email, 'Welcome to Orphanslife', body, () => {
-      response.send(utils.createResult(error, result))
-    })
+    if(error.code!=null) {
+      mailer.sendEmail(sponsor_email, 'Welcome to Orphanslife', body, () => {
+        response.send(utils.createSuccessResult(error, result))
+      })
+    } else response.send(utils.createErrorResult(error, result))
     })
 })
 
@@ -115,103 +117,6 @@ router.get('/sponsors', auth, (request, response) => {
     })
 })
 
-router.post('/sponsorlogin', auth,  (request, response) => {
-    const {email, password} = request.body
-    const encryptedPassword = String(cryptoJs.MD5(password))
-    const statement = `SELECT * FROM sponsor where sponsor_email="${email}" and sponsor_password="${encryptedPassword}"`
-    db.pool.query(statement, [email,encryptedPassword], (error, result) => {
-      if(result[0]!=null) {
-        var otp = Math.floor(100000 + Math.random() * 900000)
-        const body = `
-      <html>
-      <style>
-        mark {
-          background-color: yellow;
-          color: black;
-        }
-
-        .container {
-          height: 200px;
-          position: relative;
-          border: 3px solid green;
-        }
-        
-        .vertical-center {
-          margin: 0;
-          position: absolute;
-          top: 50%;
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-        }
-      </style>
-        <body>
-          <br/>
-          <img src="https://orphanslife.s3.ap-northeast-1.amazonaws.com/welcome.png" alt="Welcome to Orphanslife App" style="width:700px;height:150px;">
-          <br/>
-          <br/>
-          <br/>
-
-          Hi ${result[0].sponsor_name},
-          <br/>
-          <br/>
-          Greetings!
-
-          <br/>
-          <br/>
-
-          You are just a step away from accessing your Orphanslife account
-
-          <br/>
-          <br/>
-
-          Once you have verified the code, you'll be logged into app.
-
-          <br/>
-          <br/>
-
-          <mark> Your OTP: ${otp}</mark><br/>
-          <mark>Expires in: 2 minutes</mark>
-
-          <br/>
-          <br/>
-          
-          <div class="container">
-            <div class="vertical-center">
-              <a href='http://localhost/auth/login'" type="button" style="background-color: blue;color: white;border: 1px solid #e4e4e4;padding: 8px;border-radius: 3px;cursor: pointer;">Click here to Login</a>
-            </div>
-          </div>
-          <br/>
-          <br/>
-          
-          blah blah blah
-
-          <br/>
-          <br/>
-          
-          © 2 0 2 3   O r p h a n s l i f e
-
-          <br/>
-          <a href="http://localhost">localhost</a>
-          <br/>
-
-          Kasarsai Rd, Phase 2, Hinjewadi Rajiv Gandhi Infotech Park,<br/>
-          Hinjawadi,<br/>
-          Pimpri-Chinchwad,<br/>
-          Maharashtra 411057<br/><br/>
-          <a href="/Unsubscribe">Unsubscribe</a> •  <a href="/browser">View in browser</a> •  <a href="/terms">Terms of Use</a> •  <a href="/privacy">Privacy PolicyPage</a>
-
-          <br/>
-          Thank you.
-        </body>
-      </html>
-    `
-        mailer.sendEmail(email, `Orphanslife Account - ${otp} is your verification code for secure access`, body, () => {
-          response.send(utils.createSuccessResult(result, otp))
-        })
-      } else response.send(utils.createErrorResult(error))
-    })
-})
-
 router.delete('/deletesponsor/:id', (request, response) => {
     console.log(request.params.id)
     const statement = `Delete from sponsor where sponsor_id="${request.params.id}"`
@@ -220,9 +125,8 @@ router.delete('/deletesponsor/:id', (request, response) => {
     })
 })
 
-router.post('/forgotpasswordsendotp', (request, response) => {
+router.post('/forgotpasswordsendotp', auth, (request, response) => {
   const {email} = request.body
-  console.log(request.body)
   const statement = `select * from sponsor where sponsor_email = "${email}"`
   db.pool.query(statement, [email], (error, result) => {
     if(result[0]!=null) {
@@ -310,10 +214,12 @@ router.post('/forgotpasswordsendotp', (request, response) => {
       </body>
     </html>
   `
-      mailer.sendEmail(email, `Orphanslife Account - ${otp} is your verification code for reset password`, body, () => {
-        response.send(utils.createSuccessResult(result, otp))
-      })
-    } else response.send(utils.createErrorResult(error))
+      if(error==null) {
+        mailer.sendEmail(email, 'Welcome to Orphanslife', body, () => {
+          response.send(utils.createSuccessResult(result,otp))
+        })
+      } else response.send(utils.createErrorResult(error, result))
+    } else response.send(utils.createErrorResult(error, result))
   })
 })
 

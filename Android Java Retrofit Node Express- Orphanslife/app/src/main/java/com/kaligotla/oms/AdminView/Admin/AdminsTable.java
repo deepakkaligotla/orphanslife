@@ -59,16 +59,16 @@ public class AdminsTable extends AppCompatActivity {
         AdminsTableRecyclerView.setAdapter(adminsTableListAdapter);
         AdminsTableRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         adminsTableListAdapter.notifyDataSetChanged();
-
     }
 
     public void getAdmins() {
+        Log.e("API Token", this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""));
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .admins( )
+                .admins(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""))
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -126,11 +126,10 @@ public class AdminsTable extends AppCompatActivity {
             setIntent( new Intent( AdminsTable.this, MainActivity.class ) );
         } else if (item.getTitle().equals( "Logout" )) {
             Toast.makeText( this, "Logout", Toast.LENGTH_SHORT ).show();
-            SharedPreferences preferences = getSharedPreferences( "store", MODE_PRIVATE );
-            preferences.edit().putBoolean( "guardian_logged_in", false ).commit();
-            preferences.edit().putBoolean( "sponsor_logged_in", false ).commit();
-            preferences.edit().putBoolean( "volunteer_logged_in", false ).commit();
-            preferences.edit().putBoolean( "super_admin_logged_in", false ).commit();
+            this.getSharedPreferences("store", MODE_PRIVATE).edit().putBoolean( "guardian_logged_in", false ).commit();
+            this.getSharedPreferences("store", MODE_PRIVATE).edit().putBoolean( "sponsor_logged_in", false ).commit();
+            this.getSharedPreferences("store", MODE_PRIVATE).edit().putBoolean( "volunteer_logged_in", false ).commit();
+            this.getSharedPreferences("store", MODE_PRIVATE).edit().putBoolean( "super_admin_logged_in", false ).commit();
             startActivity( new Intent( AdminsTable.this, MainActivity.class ) );
         } else if (item.getTitle().equals("Add")) {
             startActivity( new Intent( this, AddOrphanageActivities.class ) );

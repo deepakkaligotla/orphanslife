@@ -72,7 +72,7 @@ public class AdminHome extends AppCompatActivity {
         setSupportActionBar(sponsor_toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onResume();
-
+        Log.e("API Token", this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""));
         monthwise_donations = new double[12];
 
         getSuccessPaymentsCount();

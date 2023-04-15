@@ -59,12 +59,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:endIconDrawable="@drawable/close_eye"
+                app:endIconMode="custom"
                 android:hint="Enter registered Password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/password"
+                    android:inputType="textPassword"
                     android:drawablePadding="@android:dimen/app_icon_size" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +91,31 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/otpExpireProgress"
+                        style="@style/Widget.Material3.CircularProgressIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="false"
+                        android:progress="100"
+                        app:indicatorSize="80dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/timeCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/otpExpireProgress"
+                        android:layout_alignTop="@id/otpExpireProgress"
+                        android:layout_alignRight="@id/otpExpireProgress"
+                        android:layout_alignBottom="@id/otpExpireProgress"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF" />
+                </RelativeLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/enteredOTP"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -100,6 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/password"
+                        android:inputType="number"
                         android:drawablePadding="@android:dimen/app_icon_size" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -109,15 +138,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Validate OTP" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/otpExpireMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/md_theme_light_error" />
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/cell_shape"
+                android:text="Forgot Password"
                 android:textColor="@android:color/holo_red_light" />
 
             <pl.droidsonroids.gif.GifImageView
