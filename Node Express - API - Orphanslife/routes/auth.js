@@ -12,7 +12,6 @@ var otp;
 router.post("/", async (req, res) => {
     const {email, password} = req.body
     const encryptedPassword = String(cryptoJs.MD5(password))
-
     const statement = `SELECT * FROM sponsor where sponsor_email="${email}" and sponsor_password="${encryptedPassword}"`
     db.pool.query(statement, [email,encryptedPassword], (error, result) => {
         if(Array.isArray(result)) {
@@ -76,8 +75,8 @@ router.post("/", async (req, res) => {
                           <br/>
                           <br/>
 
-                          <div class="container">
-                            <div class="vertical-center">
+                          <div className="container">
+                            <div className="vertical-center">
                               <a href='http://localhost/auth/login'" type="button" style="background-color: blue;color: white;border: 1px solid #e4e4e4;padding: 8px;border-radius: 3px;cursor: pointer;">Click here to Login</a>
                             </div>
                           </div>
@@ -115,12 +114,14 @@ router.post("/", async (req, res) => {
     });
 
     function checkingAdmin() {
+      console.log('checking admin')
         const statement = `SELECT * FROM admin LEFT JOIN role on admin.role_id = role.id where admin_email="${email}" and admin_password="${encryptedPassword}"`
         db.pool.query(statement, [email,encryptedPassword], (error, result) => {
             if(Array.isArray(result)) {
                 if(result[0]!=null) {
+                  
                     otp = Math.floor(100000 + Math.random() * 900000)
-                    expireTime = "15m"
+                    expireTime = "1d"
                     const body = 
                         `<html>
                           <style>
@@ -174,8 +175,8 @@ router.post("/", async (req, res) => {
                               <br/>
                               <br/>
 
-                              <div class="container">
-                                <div class="vertical-center">
+                              <div className="container">
+                                <div className="vertical-center">
                                   <a href='http://localhost/auth/login'" type="button" style="background-color: blue;color: white;border: 1px solid #e4e4e4;padding: 8px;border-radius: 3px;cursor: pointer;">Click here to Login</a>
                                 </div>
                               </div>
@@ -234,8 +235,6 @@ router.post("/", async (req, res) => {
                 email: authUser.email,
                 roles: authUser.roles
             }, "jwtPrivateKey", { expiresIn: expireTime });
-            console.log('token created')
-            console.log(token)
     
             res.send({
                 ok: true,

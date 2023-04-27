@@ -1,4 +1,5 @@
 const express = require("express");
+const getMachineDetails = require('./UserMachine.js')
 const auth = require("./routes/auth.js");
 const cors = require('cors')
 const morgan = require('morgan')
@@ -15,6 +16,7 @@ const routerLocation = require('./location.js')
 const routerOrphanage = require('./orphanage.js')
 const routerRole = require('./role.js')
 const routerOrphanageActivities = require('./orphanage_details.js')
+const routerUserMachine = require('./UserMachine.js')
 
 const app = express();
 
@@ -34,6 +36,7 @@ app.use((request, response, next)=>{
 });
 
 app.use(express.json({ limit: "50mb" }));
+app.use(getMachineDetails)
 app.use(auth)
 app.use(messagesRouter)
 app.use(express.json()) //to get JSON data from get to post (or) page 1 to another page
@@ -48,6 +51,7 @@ app.use(routerLocation)
 app.use(routerOrphanage)
 app.use(routerRole)
 app.use(routerOrphanageActivities)
+app.use(routerUserMachine)
 
 // This should be the last route else any after it won't work
 app.use("*", (req, res) => {
@@ -59,6 +63,6 @@ app.use("*", (req, res) => {
       message: "You reached a route that is not defined on this server",
     },
   });
-});
+}); 
 
 module.exports = app;

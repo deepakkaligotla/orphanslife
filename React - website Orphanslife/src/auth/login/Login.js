@@ -1,17 +1,28 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import os from 'os'
 import Popup from 'reactjs-popup';
 import { Button, Col, Container, Form, FormGroup, FormLabel, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './css/style.css'
+import kids_jumping from '../../Asset/images/kids_jumping.gif'
 
 function Login() {
 
-    const loginAPI = 'http://192.168.0.14:4000/';
+    const [localIP, setLocalIP] = useState('http://192.168.0.14:4000/')
+    axios.get(localIP).then((response) => {
+        localStorage.setItem("localIP",response.data.localIP)
+        setLocalIP(response.data.localIP);
+    }).catch((error) => {
+    return;
+    });
+
+    const loginAPI = 'http://'+localIP+':4000/'
+    console.log(localIP)
     const navigate = useNavigate();
     var otp, userOTP=0, otpExpire, validateOTPTime, otpSentTime;
     const [open] = useState(false);
-    
+
     const submitLoginForm = (event) => {
         event.preventDefault();
         const formElement = document.querySelector('#loginForm');
@@ -32,6 +43,7 @@ function Login() {
                 localStorage.clear();
                 localStorage.setItem('user-token', token);
                 otp=profile.otp;
+                console.log('Sent OTP from DB')
                 return;
             }
         }).catch((error) => {
@@ -112,7 +124,6 @@ function Login() {
                                                     <span className="progress-value">120 sec left</span>
                                                 </div>
                                             </div>
-                                            <br/>
                                             <button className="btn btn-success" id="login-btn" onClick={validateOTP}>Validate OTP</button>
                                         </div>
                                         <br/>
@@ -123,7 +134,7 @@ function Login() {
                         </Form>
                     </Col>
                 </Row>
-				<img src="images/kids_jumping.gif" alt="kids jumping"></img>
+				<img src={kids_jumping} alt="kids jumping"></img>
             </Container>
         </>
     );

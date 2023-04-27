@@ -1,17 +1,18 @@
 const express = require('express')
 const db = require('./db')
 const utils = require('./utils')
-
 const router = express.Router()
+const auth = require('./Auth/auth.js')
+const { admin, editor, viewer } = require("./Auth/roles.js");
 
-router.get('/adoptrequests', (request, response) => {
+router.get('/adoptrequests',[auth], (request, response) => {
     const statement = `SELECT * FROM adopt_req`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
 })
 
-router.get('/findByIdAdoptRequest/:id', (request, response) => {
+router.get('/findByIdAdoptRequest/:id', [auth], (request, response) => {
     const id = request.params.id
     console.log(id);
     const statement = `select * from adopt_req where req_no=${request.params.id};`
@@ -20,7 +21,7 @@ router.get('/findByIdAdoptRequest/:id', (request, response) => {
     })
 })
 
-router.put('/updateadoptreqbyid/:req_no', (request, response) => {
+router.put('/updateadoptreqbyid/:req_no', [auth, editor], (request, response) => {
     console.log(request.body)
         const {reason, req_stage, date_of_req, last_checked, req_comment, next_check, adopted} = request.body
         const statement = `update adopt_req set user_id=${request.body.sponsor.id}, admin_id=${request.body.admin.admin_id}, child_id=${request.body.child.child_id}, reason=?, req_stage=?, date_of_req=?, last_checked=?, req_comment=?, next_check=?, adopted=? where req_no="${request.params.req_no}"`
@@ -29,7 +30,7 @@ router.put('/updateadoptreqbyid/:req_no', (request, response) => {
         })
     })
     
-router.post('/newadoptreq', (request, response) => {
+router.post('/newadoptreq', [auth, editor], (request, response) => {
     console.log(request.body)
     const {reason, req_stage, date_of_req, last_checked, req_comment, next_check, adopted} = request.body
     const statement = `insert into adopt_req(user_id, admin_id, child_id, reason, req_stage, date_of_req, last_checked, req_comment, next_check, adopted) values(${request.body.sponsor.id},${request.body.admin.admin_id},${request.body.child.child_id},?,?,?,?,?,?,?)`
@@ -38,7 +39,7 @@ router.post('/newadoptreq', (request, response) => {
     })
 })
 
-router.get('/new_adopt_reqs/', (request, response) => {
+router.get('/new_adopt_reqs/', [auth], (request, response) => {
     const statement = `SELECT count(*) as new_req FROM orphanslife.adopt_req where req_stage = 'New Request';`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
@@ -52,7 +53,7 @@ router.get('/approved_adopt_reqs/', (request, response) => {
     })
 })
 
-router.delete('/deleteAdoptReqById/:req_no', (request, response) => {
+router.delete('/deleteAdoptReqById/:req_no', [auth, admin], (request, response) => {
     console.log(request.params.req_no);
     const statement = `Delete from adopt_req where req_no="${request.params.req_no}"`
     db.pool.query(statement, (error, result) => {
@@ -60,7 +61,7 @@ router.delete('/deleteAdoptReqById/:req_no', (request, response) => {
     })
 })
 
-router.get('/rejected_adopt_reqs/', (request, response) => {
+router.get('/rejected_adopt_reqs/', [auth], (request, response) => {
     const statement = `SELECT count(*) as rejected FROM orphanslife.adopt_req where req_stage = 'rejected';`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))

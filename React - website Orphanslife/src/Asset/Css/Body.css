@@ -1,3 +1,56 @@
-.margin{
-    width: 1300px;
+.tableDiv{
+  height: 685px;
+  justify-content: left;
 }
+
+.tablesMenuDiv{
+  position: fixed;
+  justify-content: left;
+  height: fit-content;
+  width: fit-content;
+}
+
+.tablesButton{
+  background-color: white;
+}
+
+.table.cName{
+  color:black;
+}
+
+.tablesContentDiv{
+  margin-left: 150px;
+  position: relative;
+  height: fit-content;
+}
+
+.submenu {
+  padding: 10px 20px;
+  top: 60px;
+  list-style: none;
+  text-align: center;
+  }
+  
+  .submenu li {
+    background: rgb(0, 0, 0);
+    padding: 10px 10px;
+    cursor: pointer;
+  }
+  
+  .submenu li button:hover {
+    background: rgb(216, 145, 249);
+  }
+  
+  .submenu.clicked {
+    display: block;
+  }
+  
+  .submenu-item {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0);
+    padding: 0px;
+  }
+  

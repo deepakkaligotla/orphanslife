@@ -17,7 +17,7 @@ router.get('/admins', [auth], (request, response) => {
     })
 })
 
-router.get('/findByIdAdmin/:admin_id', [auth, viewer], (request, response) => {
+router.get('/findByIdAdmin/:admin_id', [auth], (request, response) => {
     const admin_id = request.params.admin_id
     console.log(admin_id);
     const statement = `select * from admin where admin.admin_id=${request.params.admin_id};`
@@ -87,8 +87,8 @@ router.post('/newadmin', [auth, editor], (request, response) => {
           <img src="https://orphanslife.s3.ap-northeast-1.amazonaws.com/party_popper.gif" alt="Success" style="width:48px;height:48px;">
           <br/>
           <br/>
-          <div class="container">
-            <div class="vertical-center">
+          <div className="container">
+            <div className="vertical-center">
               <a href='http://localhost/auth/login'" type="button" style="background-color: blue;color: white;border: 1px solid #e4e4e4;padding: 8px;border-radius: 3px;cursor: pointer;">Click here to Login</a>
             </div>
           </div>

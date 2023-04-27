@@ -1,11 +1,22 @@
 
 .otpWindow{
-    width: 320px;
-    height: 380px;
+    width: 370px;
+    height: 330px;
     padding: 5px 0;
     border-radius: 8px;
-    background: #ffffff85;
+    background: #d2d0d085;
     text-align: right;
+}
+
+.modal-dialog{
+    width: 320px;
+    height: 380px;
+}
+
+.modal-content{
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
 }
 
 .circular-container{

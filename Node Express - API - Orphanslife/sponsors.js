@@ -7,8 +7,9 @@ const mailer = require('./mailer')
 const upload = multer()
 const router = express.Router()
 const auth = require('./Auth/auth.js')
+const { admin, editor, viewer } = require("./Auth/roles.js");
 
-router.post('/newsponsor', (request, response) => {
+router.post('/newsponsor', [auth, editor], (request, response) => {
     const {sponsor_name, sponsor_dob, sponsor_gender, sponsor_govt_id_type, sponsor_govt_id, sponsor_mobile, sponsor_email, sponsor_password, marital_status, sponsor_image, sponsor_address, sponsor_location_id, spouce_name, spouce_dob, spouce_govt_id_type, spouce_govt_id, spouce_mobile, spouce_image, donation_id} = request.body
     const encryptedPassword = String(cryptoJs.MD5(sponsor_password))
     
@@ -62,8 +63,8 @@ router.post('/newsponsor', (request, response) => {
           <img src="https://orphanslife.s3.ap-northeast-1.amazonaws.com/party_popper.gif" alt="Success" style="width:48px;height:48px;">
           <br/>
           <br/>
-          <div class="container">
-            <div class="vertical-center">
+          <div className="container">
+            <div className="vertical-center">
               <a href='http://localhost/auth/login'" type="button" style="background-color: blue;color: white;border: 1px solid #e4e4e4;padding: 8px;border-radius: 3px;cursor: pointer;">Click here to Login</a>
             </div>
           </div>
@@ -92,7 +93,7 @@ router.post('/newsponsor', (request, response) => {
         </body>
       </html>
     `
-    if(error.code!=null) {
+    if(!error) {
       mailer.sendEmail(sponsor_email, 'Welcome to Orphanslife', body, () => {
         response.send(utils.createSuccessResult(error, result))
       })
@@ -100,7 +101,7 @@ router.post('/newsponsor', (request, response) => {
     })
 })
 
-router.put('/updatesponsorbyid/:sid', upload.none(), (request, response) => {
+router.put('/updatesponsorbyid/:sid', [auth, editor], upload.none(), (request, response) => {
     console.log(request.body)
     
         const {sponsor_name, sponsor_dob, sponsor_gender, sponsor_govt_id_type, sponsor_govt_id, sponsor_mobile, sponsor_email, sponsor_password, marital_status, sponsor_address, spouce_name, spouce_dob, spouce_govt_id_type, spouce_govt_id, spouce_mobile} = request.body
@@ -110,14 +111,14 @@ router.put('/updatesponsorbyid/:sid', upload.none(), (request, response) => {
         })
     })
 
-router.get('/sponsors', auth, (request, response) => {
-    const statement = `SELECT * FROM sponsor LEFT JOIN location ON sponsor.sponsor_location_id = location.id;`
+router.get('/sponsors', [auth], (request, response) => {
+    const statement = `SELECT * FROM sponsor`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
 })
 
-router.delete('/deletesponsor/:id', (request, response) => {
+router.delete('/deletesponsor/:id', [auth, admin], (request, response) => {
     console.log(request.params.id)
     const statement = `Delete from sponsor where sponsor_id="${request.params.id}"`
     db.pool.query(statement, (error, result) => {
@@ -125,7 +126,7 @@ router.delete('/deletesponsor/:id', (request, response) => {
     })
 })
 
-router.post('/forgotpasswordsendotp', auth, (request, response) => {
+router.post('/forgotpasswordsendotp', [auth, editor], (request, response) => {
   const {email} = request.body
   const statement = `select * from sponsor where sponsor_email = "${email}"`
   db.pool.query(statement, [email], (error, result) => {
@@ -184,8 +185,8 @@ router.post('/forgotpasswordsendotp', auth, (request, response) => {
         <br/>
         <br/>
         
-        <div class="container">
-          <div class="vertical-center">
+        <div className="container">
+          <div className="vertical-center">
             <a href='http://localhost/auth/login'" type="button" style="background-color: blue;color: white;border: 1px solid #e4e4e4;padding: 8px;border-radius: 3px;cursor: pointer;">Click here to Login</a>
           </div>
         </div>
@@ -223,7 +224,7 @@ router.post('/forgotpasswordsendotp', auth, (request, response) => {
   })
 })
 
-router.put('/updatesponsorpassword', (request, response) => {
+router.put('/updatesponsorpassword', [auth, editor], (request, response) => {
     const {email,password} = request.body
     console.log(request.body)
     const encryptedPassword = String(cryptoJs.MD5(password))
@@ -233,7 +234,7 @@ router.put('/updatesponsorpassword', (request, response) => {
     })
 })
 
-router.post('/findByEmailSponsor', (request, response) => {
+router.post('/findByEmailSponsor', [auth], (request, response) => {
     const {sponsor_email} = request.body
     console.log(sponsor_email);
     const statement = `select * from sponsor where sponsor_email="${sponsor_email}"`
@@ -242,7 +243,7 @@ router.post('/findByEmailSponsor', (request, response) => {
     })
 })
 
-router.get('/findByIdSponsor/:id', (request, response) => {
+router.get('/findByIdSponsor/:id', [auth], (request, response) => {
     const id = request.params.id
     console.log(id);
     const statement = `select * FROM sponsor JOIN location ON sponsor.sponsor_location_id = location.id where sponsor.sponsor_id=${request.params.id};`
@@ -251,7 +252,7 @@ router.get('/findByIdSponsor/:id', (request, response) => {
     })
 })
 
-router.get('/sponsorsdonated', (request, response) => {
+router.get('/sponsorsdonated', [auth], (request, response) => {
     const statement = `SELECT * FROM sponsor where donation_id is not null;`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))

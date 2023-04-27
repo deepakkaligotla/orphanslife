@@ -1,3 +1,5 @@
+import Locations from "../../Components/Locations.js"
+
 export const navItems = [
     {
       id: 1,
@@ -7,8 +9,8 @@ export const navItems = [
     },
     {
       id: 2,
-      title: "Menu",
-      path: "./menu",
+      title: "Tables",
+      path: "./tables",
       cName: "nav-item",
     },
     {
@@ -25,7 +27,7 @@ export const navItems = [
     }
   ];
   
-  export const menuDropdown = [
+  export const tablesMenuItems = [
     {
       id: 1,
       title: "Sponsors",

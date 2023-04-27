@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from "react";
+import '../Asset/Css/Body.css';
 
 
 function Locations()
 {
+    const loginAPI = 'http://localhost:4000/admins';
     const [locations, setlocations] =  useState([]);
     const [message, setmessage] = useState("");
     const [pin, setpin] = useState({pincode:"411057"});
@@ -51,6 +53,7 @@ function Locations()
         helper.setRequestHeader("Access-Control-Allow-Origin", "*");
         helper.setRequestHeader("Access-Control-Allow-Methods", "*");
         helper.setRequestHeader("Access-Control-Allow-Headers", "*");
+        helper.setRequestHeader({ headers: {"x-auth-token" : `${localStorage.getItem('user-token')}`}});
         helper.send();
     }
 

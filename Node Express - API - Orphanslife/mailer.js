@@ -8,7 +8,7 @@ function sendEmail(email, subject, body, callback) {
     port: 465,
     auth: {
       user: 'deepak.kaligotla@gmail.com',
-      pass: 'jnsevfhfsucbjtmp',
+      pass: 'vmyxppismejghmsy',
     },
   })
 

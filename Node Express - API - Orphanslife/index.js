@@ -3,9 +3,10 @@ const app = require("./app");
 const server = http.createServer(app);
 const config = require('config')
 const port = config.get("portno")
-const MessageRouter = require('./routes/messages')
+const express = require('express')
 
-app.use(MessageRouter)
+const saveUserMachineDetails = require('./UserMachine.js')
+app.use(saveUserMachineDetails)
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
