@@ -70,7 +70,7 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
   & .${classes.displayedRows} {
     margin: 0;
 
-    @media (min-width: 768px) {
+    @media (min-width: 100%) {
       margin-left: auto;
     }
   }

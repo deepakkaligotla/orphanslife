@@ -13,13 +13,13 @@ router.get('/donations', [auth], (request, response) => {
 })
 
 router.get('/monthwise_donations', [auth], (request, response) => {
-    const statement = `SELECT DATE_FORMAT(created_at, '%M') as Month, DATE_FORMAT(created_at, '%Y') as Year, sum(amount) as donations FROM orphanslife.donation where payment_status='success' GROUP BY MONTH(created_at) ORDER BY STR_TO_DATE(CONCAT('0001 ', Month, ' 01'), '%Y %M %d');`
+    const statement = `SELECT DATE_FORMAT(created_at, '%M') as Month, DATE_FORMAT(created_at, '%Y') as Year, sum(amount) as donations FROM orphanslife.donation where payment_status='success' GROUP BY created_at ORDER BY STR_TO_DATE(CONCAT('0001 ', Month, ' 01'), '%Y %M %d');`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))
     })
 })
 
-router.post('/newdonation', [auth, editor], (request, response) => {
+router.post('/newdonation', [auth, admin], (request, response) => {
     const {amount, payment_status, user_id} = request.body
     console.log(amount+" "+payment_status+" "+user_id)
     const statement = `insert into donation(amount, payment_status, user_id) values(?,?,?)`
@@ -28,7 +28,7 @@ router.post('/newdonation', [auth, editor], (request, response) => {
     })
 })
 
-router.get('/findByIdDonation/:id', [auth, editor], (request, response) => {
+router.get('/findByIdDonation/:id', [auth], (request, response) => {
     const id = request.params.id
     console.log(id);
     const statement = `select * from donation where id=${request.params.id};`
@@ -37,7 +37,7 @@ router.get('/findByIdDonation/:id', [auth, editor], (request, response) => {
     })
 })
 
-router.get('/success_payments/', [auth, editor], (request, response) => {
+router.get('/success_payments/', [auth], (request, response) => {
     const statement = `SELECT count(*) as success_payments FROM orphanslife.donation where payment_status = 'success';`
     db.pool.query(statement, (error, result) => {
         response.send(utils.createResult(error, result))

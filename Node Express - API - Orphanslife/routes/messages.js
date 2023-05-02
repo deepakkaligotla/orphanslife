@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['address']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['address']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['address']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['address']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['address']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['address']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['address']+']'
+    ']'
 
     const network_interface_base_netmask='lo0 - ['+os.networkInterfaces()['lo0'][0]['netmask']+' || '+os.networkInterfaces()['lo0'][1]['netmask']+' || '+os.networkInterfaces()['lo0'][2]['netmask']+']'+
     'anpi1 - '+os.networkInterfaces()['anpi1'][0]['netmask']+'  anpi2 - '+os.networkInterfaces()['anpi2'][0]['netmask']+
@@ -37,7 +37,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['netmask']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['netmask']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['netmask']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['netmask']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['netmask']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['netmask']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['netmask']+']'
+    ']'
 
     const network_interface_base_family='lo0 - ['+os.networkInterfaces()['lo0'][0]['family']+' || '+os.networkInterfaces()['lo0'][1]['family']+' || '+os.networkInterfaces()['lo0'][2]['family']+']'+
     'anpi1 - '+os.networkInterfaces()['anpi1'][0]['family']+'  anpi2 - '+os.networkInterfaces()['anpi2'][0]['family']+
@@ -46,7 +46,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['family']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['family']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['family']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['family']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['family']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['family']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['family']+']'
+    ']'
 
     const network_interface_base_mac='lo0 - ['+os.networkInterfaces()['lo0'][0]['mac']+' || '+os.networkInterfaces()['lo0'][1]['mac']+' || '+os.networkInterfaces()['lo0'][2]['mac']+']'+
     'anpi1 - '+os.networkInterfaces()['anpi1'][0]['mac']+'  anpi2 - '+os.networkInterfaces()['anpi2'][0]['mac']+
@@ -55,7 +55,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['mac']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['mac']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['mac']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['mac']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['mac']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['mac']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['mac']+']'
+    ']'
 
     const network_interface_base_scopeid='lo0 - ['+os.networkInterfaces()['lo0'][0]['scopeid']+' || '+os.networkInterfaces()['lo0'][1]['scopeid']+' || '+os.networkInterfaces()['lo0'][2]['scopeid']+']'+
     'anpi1 - '+os.networkInterfaces()['anpi1'][0]['scopeid']+'  anpi2 - '+os.networkInterfaces()['anpi2'][0]['scopeid']+
@@ -64,7 +64,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['scopeid']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['scopeid']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['scopeid']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['scopeid']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['scopeid']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['scopeid']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['scopeid']+']'
+    ']'
 
     const network_interface_base_internal='lo0 - ['+os.networkInterfaces()['lo0'][0]['internal']+' || '+os.networkInterfaces()['lo0'][1]['internal']+' || '+os.networkInterfaces()['lo0'][2]['internal']+']'+
     'anpi1 - '+os.networkInterfaces()['anpi1'][0]['internal']+'  anpi2 - '+os.networkInterfaces()['anpi2'][0]['internal']+
@@ -73,7 +73,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['internal']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['internal']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['internal']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['internal']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['internal']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['internal']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['internal']+']'
+    ']'
 
     const network_interface_base_cidr='lo0 - ['+os.networkInterfaces()['lo0'][0]['cidr']+' || '+os.networkInterfaces()['lo0'][1]['cidr']+' || '+os.networkInterfaces()['lo0'][2]['cidr']+']'+
     'anpi1 - '+os.networkInterfaces()['anpi1'][0]['cidr']+'  anpi2 - '+os.networkInterfaces()['anpi2'][0]['cidr']+
@@ -82,7 +82,7 @@ router.get("/", (req, res) => {
     ' || '+os.networkInterfaces()['en0'][2]['cidr']+']  awdl0 - '+os.networkInterfaces()['awdl0'][0]['cidr']+
     '] llw0 - '+os.networkInterfaces()['llw0'][0]['cidr']+']  utun0 - ['+os.networkInterfaces()['utun0'][0]['cidr']+
     '] utun1 - ['+os.networkInterfaces()['utun1'][0]['cidr']+']  utun2 - ['+os.networkInterfaces()['utun2'][0]['cidr']+
-    '] utun3 - '+os.networkInterfaces()['utun3'][0]['cidr']+']'
+    ']'
 
     const user_info_username=os.userInfo()['username']
     const user_info_uid=os.userInfo()['uid']
@@ -179,6 +179,7 @@ router.get("/", (req, res) => {
         get_priorities,
         set_priority
     ], (error, result) => {
+        console.log(result)
         console.log(error)
     })
     res.send({

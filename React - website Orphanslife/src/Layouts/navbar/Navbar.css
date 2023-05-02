@@ -1,5 +1,4 @@
 .navbar {
-    height: 15vh;
     background: #000000;
     display: flex;
     margin-bottom: 0%;
@@ -7,7 +6,7 @@
   
   .navbar-logo {
     color: rgb(255, 255, 255);
-    font-size: 2rem;
+    font-size: 2%;
     display: flex;
     justify-content: space-between;
   }
@@ -15,7 +14,7 @@
   .nav-items {
     display: flex;
     text-align: center;
-    width: 40vw;
+    width: fit-content;
     justify-content: flex-center;
   }
   
@@ -28,13 +27,15 @@
   .nav-item a {
     text-decoration: none;
     color: white;
-    font-size: 1.1rem;
+    background-color: darkgray;
+    font-size: 150%;
     margin-right: 2rem;
-    padding: 6px;
+    padding: 10%;
     border-radius: 5px;
   }
   
   .nav-item a:hover {
-    background: rgb(211, 102, 247);
+    background: rgb(249, 247, 144);
+    color:purple;
   }
   

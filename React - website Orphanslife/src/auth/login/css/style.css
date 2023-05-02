@@ -1,5 +1,5 @@
 
-.otpWindow{
+.otpWindow {
     width: 370px;
     height: 330px;
     padding: 5px 0;
@@ -8,35 +8,37 @@
     text-align: right;
 }
 
-.modal-dialog{
+.modal-dialog {
     width: 320px;
     height: 380px;
 }
 
-.modal-content{
+.modal-content {
     justify-content: center;
     justify-items: center;
     align-items: center;
 }
 
-.circular-container{
+.circular-container {
     width: 120px;
     padding: 5px 0;
     border-radius: 8px;
     background: #fff;
     row-gap: 6px;
 }
-.circular-progress{
+
+.circular-progress {
     position: relative;
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background: conic-gradient( #ededed 3deg, #7d2ae8 0deg);
+    background: conic-gradient(#ededed 3deg, #7d2ae8 0deg);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.circular-progress::before{
+
+.circular-progress::before {
     content: "";
     position: absolute;
     height: 80px;
@@ -44,7 +46,8 @@
     border-radius: 50%;
     background-color: #fff;
 }
-.progress-value{
+
+.progress-value {
     position: relative;
     font-size: 12px;
     font-weight: 600;

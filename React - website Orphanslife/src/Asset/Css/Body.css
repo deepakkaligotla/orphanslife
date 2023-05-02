@@ -1,56 +1,170 @@
-.tableDiv{
-  height: 685px;
-  justify-content: left;
+.indexGridBox {
+  align-content: center;
+  width: 95%;
+  height: 100%;
 }
 
-.tablesMenuDiv{
+.indexGridContainer {
+  align-content: center;
+  width: -webkit-fill-available;
+  height: 100%;
+}
+
+.appGridBox {
+  align-content: center;
+  width: -webkit-fill-available;
+  height: 100%;
+}
+
+.appGridContainer {
+  align-content: center;
+  width: -webkit-fill-available;
+  height: 100%;
+}
+
+.navGridBox {
+  align-content: center;
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.navGridContainer {
+  align-content: center;
+  width: -webkit-fill-available;
+  height: 100%;
+}
+
+.loginBox {
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.loginGrid {
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.mainBodyBox {
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.mainBodyGrid {
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.mainBodyDiv {
+  width: -webkit-fill-available;
+  height: 800px;
+}
+
+.tableGridBox {
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.tableGridContainer {
+  width: -webkit-fill-available;
+  height: fit-content;
+}
+
+.tablesContentDiv {
+  height: 100%;
+  width: -webkit-fill-available;
+}
+
+.tablesMenuDiv {
   position: fixed;
-  justify-content: left;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  background-color: black;
   height: fit-content;
-  width: fit-content;
+  width: inherit;
 }
 
-.tablesButton{
-  background-color: white;
-}
-
-.table.cName{
-  color:black;
-}
-
-.tablesContentDiv{
-  margin-left: 150px;
-  position: relative;
-  height: fit-content;
-}
-
-.submenu {
-  padding: 10px 20px;
-  top: 60px;
+.tableMenuItems {
+  padding: 1% 0%;
+  top: 1%;
   list-style: none;
   text-align: center;
+  width: 100%;
+}
+
+.submenu li {
+  padding: 5% 5%;
+  cursor: pointer;
+}
+
+.submenu li button:hover {
+  background: rgb(216, 145, 249);
+}
+
+.submenu.clicked {
+  display: block;
+}
+
+.submenu-item {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  text-decoration: none;
+  padding: 1px;
+  font-size: 20%;
+}
+
+.tablesButton {
+  font-size: 100%;
+}
+
+.footerGridBox {
+  align-content: center;
+  width: -webkit-fill-available;
+  height: fit-content;
+
+  @media (max-width: fit-content) {
+    padding: 1% 1%;
   }
-  
-  .submenu li {
-    background: rgb(0, 0, 0);
-    padding: 10px 10px;
-    cursor: pointer;
+}
+
+.footerGridContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-content: center;
+  width: -webkit-fill-available;
+  height: 100%;
+}
+
+.footerRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  grid-gap: 1%;
+
+  @media (max-width: -webkit-fill-available) {
+    grid-template-columns: repeat(auto-fill,
+        minmax(200px, 1fr));
   }
+}
+
+.footerColumn {
   
-  .submenu li button:hover {
-    background: rgb(216, 145, 249);
-  }
-  
-  .submenu.clicked {
-    display: block;
-  }
-  
-  .submenu-item {
-    display: flex;
-    width: fit-content;
-    height: fit-content;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0);
-    padding: 0px;
-  }
-  
+}
+
+.footerLink {
+  color: #fff;
+  font-size: 10%;
+  text-decoration: none;
+}
+
+.footerLink a:hover {
+  color: green;
+  transition: 200ms ease-in;
+}
+
+.footerHeading {
+  font-size: 200%;
+  color: #fff;
+  margin-bottom: 2%;
+  font-weight: bold;
+}

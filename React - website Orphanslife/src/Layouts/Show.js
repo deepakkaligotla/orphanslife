@@ -4,7 +4,7 @@ function Show() {
 
     return (
         <React.Fragment>
-            <h1>This is Home</h1>
+            <h2>This is Home</h2>
         </React.Fragment>
     )
 }

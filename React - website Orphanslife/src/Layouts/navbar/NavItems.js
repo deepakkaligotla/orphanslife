@@ -15,7 +15,7 @@ export const navItems = [
     },
     {
       id: 3,
-      title: "Account Settings",
+      title: "Settings",
       path: "../components/accountSettings",
       cName: "nav-item",
     },

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import { useEffect, useState } from "react";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, tableCellClasses, IconButton, Tooltip } from '@mui/material'
+import { Box, TextField, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, tableCellClasses, IconButton, Tooltip, TableFooter } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import TablePaginationUnstyled, {
   tablePaginationUnstyledClasses as classes,
@@ -11,18 +11,24 @@ import TablePaginationUnstyled, {
 import { blue, grey } from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
 import '../Asset/Css/Body.css';
 
 const columns = [
-  { id: 'location_id', label: 'LOCATION ID', maxWidth: 60, numeric: true, disablePadding: false },
-  { id: 'pincode', label: 'PINCODE', minWidth: 80, numeric: true, disablePadding: false },
-  { id: 'area', label: 'AREA', minWidth: 170, numeric: false, disablePadding: false },
-  { id: 'city', label: 'CITY', minWidth: 170, numeric: false, disablePadding: false },
-  { id: 'district', label: 'DISTRICT', minWidth: 170, numeric: false, disablePadding: false },
-  { id: 'state', label: 'STATE', minWidth: 170, numeric: false, disablePadding: false },
-  { id: 'action', label: 'ACTION', minWidth: 150 },
+  { id: 'location_id', label: 'LOCATION ID', numeric: true, disablePadding: false },
+  { id: 'pincode', label: 'PINCODE', numeric: true, disablePadding: false },
+  { id: 'area', label: 'AREA', numeric: false, disablePadding: false },
+  { id: 'city', label: 'CITY', numeric: false, disablePadding: false },
+  { id: 'district', label: 'DISTRICT', numeric: false, disablePadding: false },
+  { id: 'state', label: 'STATE', numeric: false, disablePadding: false },
+  { id: 'action', label: 'ACTION' },
 ];
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? 'black' : 'white',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+}));
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -81,12 +87,14 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
   & .${classes.toolbar}  {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+    flex-direction: row;
+    justify-content: center;
+    gap: 1%;
+    margin-top: 1%;
+    width: -webkit-fill-available;
+    background-color: ${theme.palette.mode === 'dark' ? 'white' : 'black'};
 
-    @media (min-width: 768px) {
+    @media (min-width: 2%) {
       flex-direction: row;
       align-items: center;
     }
@@ -94,52 +102,65 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
   & .${classes.selectLabel} {
     margin: 0;
+    font-size: 150%;
+    color: white;
+    margin-top: 1%;
+    width: 10%;
   }
 
   & .${classes.select}{
-    padding: 2px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
-    border-radius: 50px;
+    padding: 1%;
+    border: 1% solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
+    border-radius: 10%;
     background-color: transparent;
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+    font-size: 150%;
+    color: white;
+    color: ${theme.palette.mode === 'dark' ? grey[300] : 'white'};
 
     &:hover {
-      background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
+      background-color: ${theme.palette.mode === 'dark' ? 'red' : '#99ff99'};
+      color: ${theme.palette.mode === 'dark' ? grey[300] : 'red'};
     }
 
     &:focus {
-      outline: 1px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
+      outline: 1% solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
     }
   }
 
   & .${classes.displayedRows} {
     margin: 0;
+    width: 10%;
+    font-size: 150%;
+    color: white;
+    margin-top: 1%;
 
-    @media (min-width: 768px) {
+    @media (min-width: -webkit-fill-available) {
       margin-left: auto;
     }
   }
 
   & .${classes.actions} {
-    padding: 2px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
-    border-radius: 50px;
+    padding: 1%;
+    border: 1% solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
+    border-radius: 20%;
     text-align: center;
+    font-size: 200%;
+    width: 20%;
   }
 
   & .${classes.actions} > button {
-    margin: 0 8px;
+    margin: 0 1%;
     border: transparent;
-    border-radius: 2px;
+    border-radius: 20%;
     background-color: transparent;
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+    color: ${theme.palette.mode === 'dark' ? grey[300] : 'green'};
 
     &:hover {
-      background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
+      background-color: ${theme.palette.mode === 'dark' ? grey[800] : 'yellow'};
     }
 
     &:focus {
-      outline: 1px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
+      outline: 1% solid ${theme.palette.mode === 'dark' ? blue[400] : 'red'};
     }
   }
   `,
@@ -160,7 +181,7 @@ function LocationsTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            style={{color:'white'}}
+            style={{ color: 'white' }}
             inputProps={{
               'aria-label': 'select all desserts',
             }}
@@ -171,6 +192,7 @@ function LocationsTableHead(props) {
             key={headCell.id}
             align='center'
             sortDirection={orderBy === headCell.id ? order : false}
+            style={{ fontSize: '100%' }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -203,7 +225,7 @@ LocationsTableHead.propTypes = {
 function LocationsTableToolbar(props) {
   const { numSelected } = props;
 
-  return (
+  return (<Item>
     <Toolbar
       sx={{
         pl: { sm: 2 },
@@ -218,7 +240,7 @@ function LocationsTableToolbar(props) {
         <Typography
           sx={{ flex: '1 1 100%' }}
           color="red"
-          fontSize="15px"
+          fontSize="100%"
           variant="subtitle1"
           component="div"
         >
@@ -228,7 +250,7 @@ function LocationsTableToolbar(props) {
         <Typography
           sx={{ flex: '1 1 100%' }}
           variant="h6"
-          fontSize="15px"
+          fontSize="100%"
           id="tableTitle"
           component="div"
         >
@@ -239,7 +261,7 @@ function LocationsTableToolbar(props) {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon/>
+            <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
@@ -250,6 +272,7 @@ function LocationsTableToolbar(props) {
         </Tooltip>
       )}
     </Toolbar>
+  </Item>
   );
 }
 
@@ -392,20 +415,19 @@ function Locations(props) {
     });
   }, []);
 
-
-  function searchLocationTable(e) {
+  function SearchLocationTable(event) {
     const results = locations.filter(location => {
-      if (e.target.value === "") return locations
-      if (location.location_id.toString().includes(e.target.value)) return location
-      if (location.pincode.toString().includes(e.target.value)) return location
-      if (location.area.toLowerCase().toString().includes(e.target.value.toString().toLowerCase())) return location
-      if (location.city.toLowerCase().toString().includes(e.target.value.toString().toLowerCase())) return location
-      if (location.district.toLowerCase().toString().includes(e.target.value.toString().toLowerCase())) return location
-      if (location.state.toLowerCase().toString().includes(e.target.value.toString().toLowerCase())) return location
+      if (event.target.value === "") return locations
+      if (location.location_id.toString().includes(event.target.value)) return location
+      if (location.pincode.toString().includes(event.target.value)) return location
+      if (location.area.toLowerCase().toString().includes(event.target.value.toString().toLowerCase())) return location
+      if (location.city.toLowerCase().toString().includes(event.target.value.toString().toLowerCase())) return location
+      if (location.district.toLowerCase().toString().includes(event.target.value.toString().toLowerCase())) return location
+      if (location.state.toLowerCase().toString().includes(event.target.value.toString().toLowerCase())) return location
       return null
     })
+
     setState({
-      query: e.target.value,
       list: results
     })
   }
@@ -414,99 +436,120 @@ function Locations(props) {
 
   return (
     <React.Fragment>
-      <div className="table-wrap">
-        <StyledTableCell align='center' style={{ fontSize: '20px' }}>Locations Table
-          <input type='search' placeholder='Search in Location!' style={{ color: 'black', textAlign: 'center', width: '180px', fontSize: '15px', marginLeft: '10px' }} onChange={searchLocationTable} />
-        </StyledTableCell>
-        <div className="table-responsive">
-          <Box sx={{ width: '100%' }}>
-            <Paper sx={{ width: '80%', overflow: 'hidden', border: 1 }}>
-              <LocationsTableToolbar numSelected={selected.length} />
-              <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 750 }}
-                  aria-labelledby="tableTitle">
-                  <LocationsTableHead
-                    numSelected={selected.length}
-                    order={order}
-                    orderBy={orderBy}
-                    onSelectAllClick={handleSelectAllClick}
-                    onRequestSort={handleRequestSort}
-                    rowCount={state.list.length}
-                  />
-                  <TableBody>
-                    {visibleRows
-                      ? visibleRows.map((row, index) => {
-                        const isItemSelected = isSelected(row.location_id);
-                        const labelId = `Locations-table-checkbox-${index}`;
-                        return (
-                          <StyledTableRow hover
-                            onClick={(event) => handleClick(event, row.location_id)}
-                            role="checkbox"
-                            aria-checked={isItemSelected}
-                            tabIndex={-1}
-                            key={row.location_id}
-                            selected={isItemSelected}
-                            sx={{ cursor: 'pointer' }}>
-                            <StyledTableCell padding="checkbox">
-                              <Checkbox
-                                checked={isItemSelected}
-                                inputProps={{
-                                  'aria-labelledby': labelId,
-                                }}
-                              />
+      <Box className="appGridBox" sx={{ flexGrow: 1, width: '-webkit-fill-available' }}>
+        <Grid className="appGridContainer" container spacing={3} style={{ marginLeft: '2%', marginTop: '1%' }} sx={{ width: '-webkit-fill-available' }}>
+          <Item sx={{ width: '-webkit-fill-available' }} style={{ marginRight: '1%' }}>
+            <label>Search in Locations Table</label>
+            <br/>
+            <TextField
+              type='search'
+              label="SEARCH IN LOCATIONS TABLE"
+              placeholder='SEARCH IN LOCATIONS TABLE!'
+              onChange={SearchLocationTable}
+              helperText="Search Pincode, Area, City, District, State in Location Table"
+              style={{ textAlignLast: 'center', fontSize: '180%', backgroundColor: 'grey', width: '50%', marginLeft: '1%' }} />
+
+            <div className="table-wrap">
+              <div className="table-responsive">
+                <Box sx={{ width: '-webkit-fill-available', marginLeft: '8%' }}>
+                  <Paper sx={{ width: '-webkit-fill-available', overflow: 'hidden', border: 1 }}>
+                    <LocationsTableToolbar numSelected={selected.length} />
+                    <TableContainer sx={{ height: '450px' }}>
+                      <Table stickyHeader aria-label="sticky table"
+                        aria-labelledby="tableTitle">
+                        <LocationsTableHead
+                          numSelected={selected.length}
+                          order={order}
+                          orderBy={orderBy}
+                          onSelectAllClick={handleSelectAllClick}
+                          onRequestSort={handleRequestSort}
+                          rowCount={state.list.length}
+                        />
+                        <TableBody style={{ width: '-webkit-fill-available' }}>
+                          {visibleRows
+                            ? visibleRows.map((row, index) => {
+                              const isItemSelected = isSelected(row.location_id);
+                              const labelId = `Locations-table-checkbox-${index}`;
+                              return (
+                                <StyledTableRow hover
+                                  onClick={(event) => handleClick(event, row.location_id)}
+                                  role="checkbox"
+                                  aria-checked={isItemSelected}
+                                  tabIndex={-1}
+                                  key={row.location_id}
+                                  selected={isItemSelected}
+                                  sx={{ cursor: 'pointer' }}>
+                                  <StyledTableCell padding="checkbox">
+                                    <Checkbox
+                                      checked={isItemSelected}
+                                      inputProps={{
+                                        'aria-labelledby': labelId,
+                                      }}
+                                    />
+                                  </StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }} component="th" scope="location">{row.location_id}</StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }}>{row.pincode}</StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }}>{row.area}</StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }}>{row.city}</StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }}>{row.district}</StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }}>{row.state}</StyledTableCell>
+                                  <StyledTableCell sx={{ border: 1 }} align="center" style={{ fontSize: '100%' }}>
+                                    <a href="/editLocation" className="btn btn-primary" style={{ marginRight: '2%', width: '10%', height: '10%' }}><span role="img" aria-label="Love">✏️</span></a>
+                                    <a href="/deleteLocation" className="btn btn-primary" style={{ width: '10%', height: '10%' }}>🗑️</a>
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              );
+                            }) : null}
+                          {paddingHeight > 0 && (
+                            <TableRow
+                              style={{
+                                height: paddingHeight,
+                              }}
+                            >
+                              <TableCell colSpan={6} />
+                            </TableRow>
+                          )}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <TableContainer>
+                      <Table>
+                        <TableFooter>
+                          <TableRow>
+                            <CustomTablePagination
+                              rowsPerPageOptions={[100, 500, 1000, { label: 'All', value: -1 }]}
+                              count={state.list.length}
+                              rowsPerPage={rowsPerPage}
+                              page={page}
+                              slotProps={{
+                                select: {
+                                  'aria-label': 'rows per page',
+                                },
+                                actions: {
+                                  showFirstButton: true,
+                                  showLastButton: true,
+                                },
+                              }}
+                              onPageChange={handleChangePage}
+                              onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                          </TableRow>
+                          <TableRow>
+                            <StyledTableCell>
+                              <a style={{ marginTop: '2%' }} href="addAdmin" className='btn btn-success'>Location not found here 😱, ADD IT</a>
                             </StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center" component="th" scope="location">{row.location_id}</StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center">{row.pincode}</StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center">{row.area}</StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center">{row.city}</StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center">{row.district}</StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center">{row.state}</StyledTableCell>
-                            <StyledTableCell sx={{ border: 1 }} align="center">
-                              <a href="/editLocation" className="btn btn-primary" style={{ marginRight: '10px' }}><span role="img" aria-label="Love">✏️</span></a>
-                              <a href="/deleteLocation" className="btn btn-primary">DEL</a>
-                            </StyledTableCell>
-                          </StyledTableRow>
-                        );
-                      }) : null}
-                    {paddingHeight > 0 && (
-                      <TableRow
-                        style={{
-                          height: paddingHeight,
-                        }}
-                      >
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <br />
-              <CustomTablePagination
-                rowsPerPageOptions={[100, 500, 1000, { label: 'All', value: -1 }]}
-                count={state.list.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                slotProps={{
-                  select: {
-                    'aria-label': 'rows per page',
-                  },
-                  actions: {
-                    showFirstButton: true,
-                    showLastButton: true,
-                  },
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-              <br/>
-            </Paper>
-          </Box>
-        </div>
-      </div>
-      <br />
-      <div>
-        <a href="addAdmin" className='btn btn-success'>Location not found here 😱, ADD IT</a>
-      </div>
+                          </TableRow>
+                        </TableFooter>
+                      </Table>
+                    </TableContainer>
+                    <br />
+                  </Paper>
+                </Box>
+              </div>
+            </div>
+          </Item>
+        </Grid>
+      </Box>
     </React.Fragment>
   );
 }
