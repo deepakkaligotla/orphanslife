@@ -191,7 +191,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .getAdoptRequestByID(req_no)
+                .getAdoptRequestByID(getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), req_no)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -275,7 +275,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
                 .baseUrl(Constants.BASE_URL)
                 .build()
                 .create(DBService.class)
-                .updateAdoptReq(req_no, updatedAdoptReq)
+                .updateAdoptReq(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), req_no, updatedAdoptReq)
                 .enqueue(new Callback<JsonObject>() {
 
                     @Override

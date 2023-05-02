@@ -49,6 +49,30 @@ public class Sponsor implements Serializable{
         this.sponsor_address = sponsor_address;
     }
 
+    public Sponsor(Sponsor s) {
+        this.sponsor_id = s.sponsor_id;
+        this.sponsor_name = s.sponsor_name;
+        this.sponsor_dob = s.sponsor_dob;
+        this.sponsor_gender = s.sponsor_gender;
+        this.sponsor_govt_id_type = s.sponsor_govt_id_type;
+        this.sponsor_govt_id = s.sponsor_govt_id;
+        this.sponsor_mobile = s.sponsor_mobile;
+        this.sponsor_email = s.sponsor_email;
+        this.sponsor_password = s.sponsor_password;
+        this.marital_status = s.marital_status;
+        this.sponsor_image = s.sponsor_image;
+        this.sponsor_address = s.sponsor_address;
+        this.location = s.location;
+        this.spouce_name = s.spouce_name;
+        this.spouce_dob = s.spouce_dob;
+        this.spouce_govt_id_type = s.spouce_govt_id_type;
+        this.spouce_govt_id = s.spouce_govt_id;
+        this.spouce_mobile = s.spouce_mobile;
+        this.spouce_image = s.spouce_image;
+        this.sponsor_created_at = s.sponsor_created_at;
+        this.sponsor_updated_at = s.sponsor_updated_at;
+    }
+
     public int getSponsor_id() {
         return sponsor_id;
     }

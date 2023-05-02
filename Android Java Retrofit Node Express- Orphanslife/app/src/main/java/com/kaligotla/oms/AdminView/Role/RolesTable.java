@@ -68,7 +68,7 @@ public class RolesTable extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .roles( )
+                .roles( this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""))
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

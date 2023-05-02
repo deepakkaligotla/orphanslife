@@ -59,7 +59,7 @@ public class RolesTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .getRoleByID(aid)
+                .getRoleByID(getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""), aid)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

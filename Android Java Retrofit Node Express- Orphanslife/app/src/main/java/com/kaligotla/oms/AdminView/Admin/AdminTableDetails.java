@@ -138,7 +138,7 @@ public class AdminTableDetails extends AppCompatActivity {
                 .baseUrl(Constants.BASE_URL)
                 .build()
                 .create(DBService.class)
-                .orphanages()
+                .orphanages(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token",""))
                 .enqueue(new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -242,7 +242,7 @@ public class AdminTableDetails extends AppCompatActivity {
                                 .baseUrl(Constants.BASE_URL)
                                 .build()
                                 .create(DBService.class)
-                                .getAdminByID(aid)
+                                .getAdminByID(getSharedPreferences("store",MODE_PRIVATE).getString("API_Token",""), aid)
                                 .enqueue(new Callback<JsonObject>() {
                                     @Override
                                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -382,7 +382,7 @@ public class AdminTableDetails extends AppCompatActivity {
                 .baseUrl(Constants.BASE_URL)
                 .build()
                 .create(DBService.class)
-                .updateAdmin(aid, updatedAdmin)
+                .updateAdmin(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Tooken",""), aid, updatedAdmin)
                 .enqueue(new Callback<JsonObject>() {
 
                     @Override

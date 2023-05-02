@@ -63,7 +63,7 @@ public class LocationsTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .getLocationByID(location_id)
+                .getLocationByID(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""), location_id)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

@@ -101,7 +101,7 @@ public class SponsorsTableListAdapter extends RecyclerView.Adapter<SponsorsTable
                     .baseUrl( Constants.BASE_URL )
                     .build()
                     .create( DBService.class )
-                    .deleteSponsorByID(deleteSponsorId)
+                    .deleteSponsorByID(context.getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""), deleteSponsorId)
                     .enqueue( new Callback<JsonObject>() {
 
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

@@ -120,7 +120,7 @@ public class AddOrphanageActivities extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .orphanages( )
+                .orphanages( this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""))
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -215,7 +215,7 @@ public class AddOrphanageActivities extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .newOrphanageActivity(orphanageActivities)
+                .newOrphanageActivity(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""), orphanageActivities)
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

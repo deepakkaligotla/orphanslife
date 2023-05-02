@@ -67,7 +67,7 @@ public class LocationsTable extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .locations(new Pagination(1,28))
+                .locations(this.getSharedPreferences("store", MODE_PRIVATE ).getString("API_Token",""), new Pagination(1,28))
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

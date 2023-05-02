@@ -1,6 +1,7 @@
 package com.kaligotla.oms;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -175,7 +176,7 @@ public class RegisterFragment extends Fragment {
                 .baseUrl(Constants.BASE_URL) //Adding the base url
                 .build() // creating the retrofit object
                 .create(DBService.class)
-                .register(sponsor)
+                .register(this.getActivity().getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""), sponsor)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -210,7 +211,7 @@ public class RegisterFragment extends Fragment {
                                         .baseUrl(Constants.BASE_URL)
                                         .build()
                                         .create(DBService.class)
-                                        .checkSponsorExists(sponsor)
+                                        .checkSponsorExists(this.getActivity().getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""), sponsor)
                                         .enqueue(new Callback<JsonObject>() {
                                             @Override
                                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

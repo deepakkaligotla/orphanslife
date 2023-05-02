@@ -34,6 +34,23 @@ public class Child implements Serializable {
         this.admin = admin;
     }
 
+    public Child(Child c) {
+        this.child_id = c.child_id;
+        this.child_name = c.child_name;
+        this.child_dob = c.child_dob;
+        this.child_gender = c.child_gender;
+        this.admitted_date = c.admitted_date;
+        this.leave_date = c.leave_date;
+        this.mother_name = c.mother_name;
+        this.father_name = c.father_name;
+        this.child_mobile = c.child_mobile;
+        this.child_image = c.child_image;
+        this.adoptiveStatus = c.adoptiveStatus;
+        this.admin = c.admin;
+        this.child_created_at = c.child_created_at;
+        this.child_updated_at = c.child_updated_at;
+    }
+
     public int getChild_id() {
         return child_id;
     }

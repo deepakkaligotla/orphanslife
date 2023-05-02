@@ -70,7 +70,7 @@ public class OrphanageActivitiesTable extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .orphanageActivities( )
+                .orphanageActivities(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token","") )
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

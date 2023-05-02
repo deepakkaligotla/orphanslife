@@ -68,7 +68,7 @@ public class DonationsTable extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .donations( )
+                .donations(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token","") )
                 .enqueue( new Callback<JsonObject>() {
 
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -79,11 +79,11 @@ public class DonationsTable extends AppCompatActivity {
                             for(int i=0; i<jsonArray.size(); i++) {
                                 jsonObject = jsonArray.get(i).getAsJsonObject();
                                 Donation donation = new Donation();
-                                donation.setId(jsonObject.get( "id" ).getAsInt());
+                                donation.setId(jsonObject.get( "donation_id" ).getAsInt());
                                 donation.setAmount((jsonObject.get("amount").getAsDouble()));
                                 donation.setPayment_status(jsonObject.get("payment_status").getAsString());
                                 Sponsor donatedSponsor = new Sponsor();
-                                donatedSponsor.setSponsor_id(jsonObject.get("user_id").getAsInt());
+                                donatedSponsor.setSponsor_id(jsonObject.get("sponsor_id").getAsInt());
                                 donation.setSponsor(donatedSponsor);
                                 donationList.add( donation );
                                 Log.e( "donationList from DB",""+donationList );

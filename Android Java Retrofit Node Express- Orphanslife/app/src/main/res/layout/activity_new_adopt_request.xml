@@ -41,54 +41,38 @@
                 android:orientation="vertical"
                 android:background="@drawable/cell_shape">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/sponsor"
+                <com.google.android.material.textview.MaterialTextView
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Adopt Requested Sponsor ID">
+                    android:textAlignment="center"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Click me 😉 choose Sponsor"
+                    android:textSize="18dp"
+                    android:id="@+id/selectedSponsorTextView"
+                    android:clickable="true"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/person_outline"
-                        android:drawablePadding="@android:dimen/app_icon_size" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/admin"
+                <com.google.android.material.textview.MaterialTextView
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Adopt Verified Admin ID">
+                    android:textAlignment="center"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Click me 😉 choose Admin"
+                    android:textSize="18dp"
+                    android:id="@+id/selectedAdminTextView"
+                    android:clickable="true"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/role"
-                        android:drawablePadding="@android:dimen/app_icon_size" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/child"
+                <com.google.android.material.textview.MaterialTextView
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Adopted Child ID">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/child"
-                        android:drawablePadding="@android:dimen/app_icon_size" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textAlignment="center"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Click me 😉 choose Child"
+                    android:textSize="18dp"
+                    android:id="@+id/selectedChildTextView"
+                    android:clickable="true"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/reason"

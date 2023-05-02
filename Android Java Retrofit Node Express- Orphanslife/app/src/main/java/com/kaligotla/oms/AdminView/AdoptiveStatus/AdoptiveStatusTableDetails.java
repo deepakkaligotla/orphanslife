@@ -57,7 +57,7 @@ public class AdoptiveStatusTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .getAdoptStatusByID(adoptiveStatusId)
+                .getAdoptStatusByID(getSharedPreferences("store",MODE_PRIVATE).getString("API_Token", ""), adoptiveStatusId)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

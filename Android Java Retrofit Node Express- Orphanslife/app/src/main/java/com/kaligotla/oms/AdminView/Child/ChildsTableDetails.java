@@ -74,7 +74,7 @@ public class ChildsTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .getChildByID(child_id)
+                .getChildByID(getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), child_id)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

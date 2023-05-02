@@ -93,13 +93,18 @@ public class LoginFragment extends Fragment {
     CountDownTimer otpTimer;
     int progress = 100, seconds=120;
     String apiToken;
-    SharedPreferences preferences;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor myEdit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = new Bundle();
-        preferences = this.getActivity().getSharedPreferences( "store", MODE_PRIVATE );
+        sharedPreferences = this.getActivity().getSharedPreferences("store", MODE_PRIVATE);
+        myEdit = sharedPreferences.edit();
+        Log.e("API Token from Shared Preferences",sharedPreferences.getString("API_Token",""));
+        Log.e("super_admin_logged_in from Shared Preferences",""+sharedPreferences.getBoolean("super_admin_logged_in",false));
+        Log.e("admin_id from Shared Preferences",""+sharedPreferences.getInt("admin_id",0));
     }
 
     @Override
@@ -120,23 +125,6 @@ public class LoginFragment extends Fragment {
         otpExpireMsg = rootView.findViewById(R.id.otpExpireMsg);
         otpLinearLayout.setVisibility(View.GONE);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        if (this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "sponsor_logged_in", false )) {
-            Log.e("Sponsor logged in",""+this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "sponsor_logged_in", false ));
-            startActivity( new Intent( getActivity(), SponsorHome.class ) );
-            getActivity().finish();
-        } else if(this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "super_admin_logged_in", false )) {
-            Log.e("Super Admin logged in",""+this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "super_admin_logged_in", false ));
-            startActivity( new Intent( getActivity(), AdminHome.class ) );
-            getActivity().finish();
-        } else if(this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "guardian_logged_in", false )) {
-            Log.e("Guardian logged in",""+this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "guardian_logged_in", false ));
-            startActivity( new Intent( getActivity(), GuardianHome.class ) );
-            getActivity().finish();
-        } else if(this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "volunteer_logged_in", false )) {
-            Log.e("Volunteer logged in",""+this.getActivity().getSharedPreferences( "store", MODE_PRIVATE ).getBoolean( "volunteer_logged_in", false ));
-            startActivity( new Intent( getActivity(), VolunteerHome.class ) );
-            getActivity().finish();
-        }
 
         //restoring
         if(savedInstanceState!=null){
@@ -239,7 +227,6 @@ public class LoginFragment extends Fragment {
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         JsonObject jsonObject = response.body().getAsJsonObject( "data" );
                         apiToken = response.body().get("token").getAsString();
-                        Log.e("API Token received from db",apiToken);
                         sentOTP = response.body().get("otp").getAsInt();
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                             otpSentTime = LocalTime.now();
@@ -286,19 +273,20 @@ public class LoginFragment extends Fragment {
             if(otpExpire<2) {
                 if(Integer.parseInt(enteredOTP.getEditText().getText().toString())==sentOTP) {
                     if(loggedInSponsor!=null) {
-                        preferences.edit().putString( "API_Token", apiToken ).commit();
-                        saveData(loggedInSponsor.getSponsor_id(),null);
+                        saveData(null);
                         Toast.makeText( getActivity(), "Sponsor Login Successful", Toast.LENGTH_SHORT ).show();
                         startActivity( new Intent( getActivity(), SponsorHome.class ) );
                         getActivity().finish();
                     } else if(loggedInAdmin!=null) {
-                        preferences.edit().putString( "API_Token", apiToken ).commit();
                         Toast.makeText( getActivity(), "Admin Login successfull", Toast.LENGTH_SHORT ).show();
                         if(loggedInAdmin.getRole().getRole().equals( "Super_Admin" )) {
+                            saveData(loggedInAdmin.getRole().getRole());
                             startActivity( new Intent( getActivity(), AdminHome.class ) );
                         } else if(loggedInAdmin.getRole().getRole().equals( "Volunteer" )) {
+                            saveData(loggedInAdmin.getRole().getRole());
                             startActivity( new Intent( getActivity(), VolunteerHome.class ) );
                         } else if(loggedInAdmin.getRole().getRole().equals( "Guardian" )) {
+                            saveData(loggedInAdmin.getRole().getRole());
                             startActivity( new Intent( getActivity(), GuardianHome.class ) );
                         }
                         getActivity().finish();
@@ -314,23 +302,25 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    public void saveData(int id, String role) {
+    public void saveData(String role) {
+        myEdit.putString( "API_Token", apiToken ).commit();
         if(remember_me.isChecked()) {
             if(role==null) {
-                Log.e("API Token inside shared Preferences",apiToken);
-                preferences.edit().putInt( "sponsor_id", id ).commit();
-                preferences.edit().putBoolean( "sponsor_logged_in", true ).commit();
+                myEdit.putInt( "sponsor_id", loggedInSponsor.getSponsor_id() ).commit();
+                myEdit.putBoolean( "sponsor_logged_in", true ).commit();
             } else if(role.equals( "Volunteer" )) {
-                preferences.edit().putInt( "admin_id", id ).commit();
-                preferences.edit().putBoolean( "volunteer_logged_in", true ).commit();
+                myEdit.putInt( "admin_id", loggedInAdmin.getAdmin_id() ).commit();
+                myEdit.putBoolean( "volunteer_logged_in", true ).commit();
             } else if(role.equals( "Guardian" )) {
-                preferences.edit().putInt( "admin_id", id ).commit();
-                preferences.edit().putBoolean( "guardian_logged_in", true ).commit();
+                myEdit.putInt( "admin_id", loggedInAdmin.getAdmin_id() ).commit();
+                myEdit.putBoolean( "guardian_logged_in", true ).commit();
             } else if(role.equals( "Super_Admin" )) {
-                preferences.edit().putInt( "admin_id", id ).commit();
-                preferences.edit().putBoolean( "super_admin_logged_in", true ).commit();
-            }
+                myEdit.putInt( "admin_id", loggedInAdmin.getAdmin_id() ).commit();
+                myEdit.putBoolean( "super_admin_logged_in", true ).commit();
+                Log.e("Super Admin logged in",""+sharedPreferences.getBoolean( "super_admin_logged_in", false ));
+            } else myEdit.clear().commit();
         }
+        myEdit.apply();
     }
 
     public Cred validateData() {

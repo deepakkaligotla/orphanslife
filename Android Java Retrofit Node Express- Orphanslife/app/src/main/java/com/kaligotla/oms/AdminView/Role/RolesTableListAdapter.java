@@ -103,7 +103,7 @@ public class RolesTableListAdapter extends RecyclerView.Adapter<RolesTableListAd
                     .baseUrl( Constants.BASE_URL )
                     .build()
                     .create( DBService.class )
-                    .deleteRoleByID(deleteRoleId)
+                    .deleteRoleByID(context.getSharedPreferences("store",Context.MODE_PRIVATE).getString("API_Token",""), deleteRoleId)
                     .enqueue( new Callback<JsonObject>() {
 
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

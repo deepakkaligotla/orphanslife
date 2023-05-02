@@ -133,7 +133,7 @@ public class ForgotPassword extends AppCompatActivity {
                 .baseUrl(Constants.BASE_URL)
                 .build()
                 .create(DBService.class)
-                .forgotPasswordSendOTP(cred)
+                .forgotPasswordSendOTP(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), cred)
                 .enqueue(new Callback<JsonObject>() {
 
                     @Override
@@ -206,7 +206,7 @@ public class ForgotPassword extends AppCompatActivity {
                                 .baseUrl(Constants.BASE_URL)
                                 .build()
                                 .create(DBService.class)
-                                .changePassword(cred)
+                                .changePassword(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token",""), cred)
                                 .enqueue(new Callback<JsonObject>() {
 
                                     @Override

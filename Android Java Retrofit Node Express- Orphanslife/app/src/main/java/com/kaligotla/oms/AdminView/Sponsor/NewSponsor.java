@@ -136,7 +136,7 @@ public class NewSponsor extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .register(newSponsor)
+                .register(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token",""), newSponsor)
                 .enqueue(new Callback<JsonObject>() {
 
                     @Override

@@ -103,7 +103,7 @@ public class AdoptiveStatusTableListAdapter extends RecyclerView.Adapter<Adoptiv
                     .baseUrl( Constants.BASE_URL )
                     .build()
                     .create( DBService.class )
-                    .deleteAdoptiveStatusByID(deleteAdoptiveStatusId)
+                    .deleteAdoptiveStatusByID(context.getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""), deleteAdoptiveStatusId)
                     .enqueue( new Callback<JsonObject>() {
 
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

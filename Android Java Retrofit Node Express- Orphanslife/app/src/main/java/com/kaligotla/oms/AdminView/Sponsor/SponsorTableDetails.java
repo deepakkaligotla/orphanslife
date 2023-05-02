@@ -260,7 +260,7 @@ public class SponsorTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .updateSponsor(sid, updateSponsor)
+                .updateSponsor(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), sid, updateSponsor)
                 .enqueue(new Callback<JsonObject>() {
 
                     @Override

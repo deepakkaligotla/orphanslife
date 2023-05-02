@@ -115,7 +115,7 @@ public class ChildsTableListAdapter extends RecyclerView.Adapter<ChildsTableList
                     .baseUrl( Constants.BASE_URL )
                     .build()
                     .create( DBService.class )
-                    .deleteChildByID(deleteChildId)
+                    .deleteChildByID(context.getSharedPreferences("store",Context.MODE_PRIVATE).getString("API_Token",""), deleteChildId)
                     .enqueue( new Callback<JsonObject>() {
 
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

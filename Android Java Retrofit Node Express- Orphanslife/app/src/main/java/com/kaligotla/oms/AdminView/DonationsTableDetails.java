@@ -61,7 +61,7 @@ public class DonationsTableDetails extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL)
                 .build()
                 .create( DBService.class)
-                .getDonationsByID(donation_id)
+                .getDonationsByID(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token", ""), donation_id)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

@@ -103,7 +103,7 @@ public class AdoptRequestsTableListAdapter extends RecyclerView.Adapter<AdoptReq
                     .baseUrl( Constants.BASE_URL )
                     .build()
                     .create( DBService.class )
-                    .deleteAdoptReqByID(deleteAdoptReqNo)
+                    .deleteAdoptReqByID(context.getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""),deleteAdoptReqNo)
                     .enqueue( new Callback<JsonObject>() {
 
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

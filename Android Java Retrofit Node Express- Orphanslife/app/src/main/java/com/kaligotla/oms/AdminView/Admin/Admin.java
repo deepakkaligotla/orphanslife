@@ -48,6 +48,25 @@ public class Admin implements Serializable {
         this.image = image;
     }
 
+    public Admin(Admin a) {
+        this.admin_id = a.admin_id;
+        this.admin_name = a.admin_name;
+        this.admin_dob = a.admin_dob;
+        this.admin_gender = a.admin_gender;
+        this.admin_govt_id_type = a.admin_govt_id_type;
+        this.admin_govt_id = a.admin_govt_id;
+        this.admin_mobile = a.admin_mobile;
+        this.admin_email = a.admin_email;
+        this.admin_password = a.admin_password;
+        this.address = a.address;
+        this.location = a.location;
+        this.role = a.role;
+        this.orphanage = a.orphanage;
+        this.image = a.image;
+        this.created_at = a.created_at;
+        this.updated_at = a.updated_at;
+    }
+
     public int getAdmin_id() {
         return admin_id;
     }

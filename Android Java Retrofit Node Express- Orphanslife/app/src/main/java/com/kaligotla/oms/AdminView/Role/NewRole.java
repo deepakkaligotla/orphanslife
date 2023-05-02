@@ -37,7 +37,7 @@ public class NewRole extends AppCompatActivity {
                 .baseUrl( Constants.BASE_URL )
                 .build()
                 .create( DBService.class )
-                .newRole(addNewRole)
+                .newRole(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), addNewRole)
                 .enqueue( new Callback<JsonObject>() {
 
                     @Override
