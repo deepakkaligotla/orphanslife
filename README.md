@@ -30,11 +30,12 @@ Technologies, Languages, tools, Machines used to make this project
 
 Cloud - AWS
 Cloud Services - EC2, RDS, S3, Amplify.
-Languages - Java, Swift, Dart, JavaScript, HTML, CSS
-Database - Mongo, SQL
-Libraries - Retrofit (Android), Alamofire (Xcode), Figma (m3 Material UI), Crypto, JSON-WebToken, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
+Languages - Java, Kotlin, Swift, Dart, JavaScript, HTML, CSS
+Database - SQL
+API Authentication - JWT (JSON-WebToken)
+Libraries - Express, Retrofit (Android), Alamofire (Xcode), axios(react), Figma (m3 Material UI), Crypto, NodeMailer, Morgan, Multer, Formidable, BootStrap, JQuery
 Domain - GoDaddy
-Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH
+Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH, Postman, MySQL Workbench
 OS - macOS
 Linux Commands
 ```
