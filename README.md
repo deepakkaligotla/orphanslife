@@ -38,6 +38,8 @@ Domain - GoDaddy
 Tools - AndroidStudio, xCode, VS-Code, FileZilla, SSH, Postman, MySQL Workbench
 OS - macOS
 Linux Commands
+
+Functionalities - Searching, sorting, pagination, OTP Validation, Responsive UI and much more...
 ```
 
 
