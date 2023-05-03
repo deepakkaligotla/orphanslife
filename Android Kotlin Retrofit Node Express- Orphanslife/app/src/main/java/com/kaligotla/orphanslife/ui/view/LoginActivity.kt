@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else -> {
                     val loginBody = LoginBody(email,password)
-                    loginViewModel.Login(loginBody)
+                    loginViewModel.login(loginBody)
                 }
             }
         }

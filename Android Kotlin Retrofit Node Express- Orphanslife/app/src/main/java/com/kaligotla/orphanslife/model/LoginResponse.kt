@@ -16,11 +16,11 @@ data class LoginResponse(
 	val token: String,
 
 	@field:SerializedName("data")
-	val data: JsonArray
+	val data: List<LoginResult>
 )
 
 data class LoginResult(
 
 	@field:SerializedName("loggedInUser")
-	val data: JsonObject
+	val loggedInUser: JsonObject
 )
