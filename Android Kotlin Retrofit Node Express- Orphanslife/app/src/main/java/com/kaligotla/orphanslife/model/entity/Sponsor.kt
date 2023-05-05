@@ -1,8 +1,18 @@
-package com.kaligotla.orphanslife.model
+package com.kaligotla.orphanslife.model.entity
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
+@Entity(
+    tableName = "sponsor"
+)
+
 data class Sponsor(
+
+    @PrimaryKey
     @SerializedName("sponsor_id")
     val sponsor_id: Int,
 
@@ -39,8 +49,8 @@ data class Sponsor(
     @SerializedName("sponsor_address")
     val sponsor_address: String,
 
-    @SerializedName("sponsor_location")
-    val sponsor_location: Location,
+    @SerializedName("sponsor_location_id")
+    val sponsor_location_id: Int,
 
     @SerializedName("spouce_name")
     val spouce_name: String,
@@ -60,8 +70,8 @@ data class Sponsor(
     @SerializedName("spouce_image")
     val spouce_image: String,
 
-    @SerializedName("donation")
-    val donation: Donation,
+    @SerializedName("donation_id")
+    val donation_id: Int,
 
     @SerializedName("sponsor_created_at")
     val sponsor_created_at: String,

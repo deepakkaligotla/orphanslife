@@ -185,7 +185,7 @@
             tools:ignore="SmallSp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editEmail"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginHorizontal="@dimen/space_16"
@@ -216,11 +216,11 @@
             android:textColor="@color/textBlack"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintTop_toBottomOf="@+id/editEmail"
             tools:ignore="SmallSp" />
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/editPassword"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginHorizontal="@dimen/space_16"
@@ -241,9 +241,9 @@
             android:layout_height="14dp"
             android:layout_marginEnd="@dimen/space_16"
             android:src="@drawable/img_eye"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_email"
-            app:layout_constraintEnd_toEndOf="@+id/edit_email"
-            app:layout_constraintTop_toTopOf="@+id/edit_email" />
+            app:layout_constraintBottom_toBottomOf="@+id/editPassword"
+            app:layout_constraintEnd_toEndOf="@+id/editPassword"
+            app:layout_constraintTop_toTopOf="@+id/editPassword" />
 
         <TextView
             android:id="@+id/tv_lupa_password"
@@ -256,7 +256,7 @@
             android:textColor="@color/darkBrown"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_email"
+            app:layout_constraintTop_toBottomOf="@+id/editPassword"
             tools:ignore="SmallSp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -288,7 +288,7 @@
             android:textSize="9sp"
             app:layout_constraintTop_toBottomOf="@+id/loginbutton"
             tools:ignore="SmallSp"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/validate_otp_button"
@@ -303,7 +303,7 @@
             android:textSize="10sp"
             app:layout_constraintTop_toBottomOf="@+id/validate_otp"
             tools:ignore="SmallSp"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View

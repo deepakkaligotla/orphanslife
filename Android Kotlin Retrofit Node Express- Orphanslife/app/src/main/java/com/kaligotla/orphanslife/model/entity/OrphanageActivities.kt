@@ -1,13 +1,22 @@
-package com.kaligotla.orphanslife.model
+package com.kaligotla.orphanslife.model.entity
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(
+    tableName = "orphanage_activities"
+)
+
 data class OrphanageActivities(
+
+    @PrimaryKey
     @SerializedName("event_id")
     val event_id: Int,
 
-    @SerializedName("orphanage")
-    val orphanage: Orphanage,
+    @SerializedName("orphanage_id")
+    val orphanage_id: Int,
 
     @SerializedName("details")
     val details: String,

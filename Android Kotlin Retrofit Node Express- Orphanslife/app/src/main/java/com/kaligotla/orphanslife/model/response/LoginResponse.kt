@@ -1,6 +1,5 @@
-package com.kaligotla.orphanslife.model
+package com.kaligotla.orphanslife.model.response
 
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
@@ -16,11 +15,7 @@ data class LoginResponse(
 	val token: String,
 
 	@field:SerializedName("data")
-	val data: List<LoginResult>
+	val data: List<JsonObject>
 )
 
-data class LoginResult(
 
-	@field:SerializedName("loggedInUser")
-	val loggedInUser: JsonObject
-)

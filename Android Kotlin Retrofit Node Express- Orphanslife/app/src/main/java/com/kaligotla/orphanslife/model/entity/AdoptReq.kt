@@ -1,20 +1,27 @@
-package com.kaligotla.orphanslife.model
+package com.kaligotla.orphanslife.model.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+
+@Entity(
+    tableName = "adopt_req"
+)
 
 data class AdoptReq(
 
+    @PrimaryKey
     @SerializedName("adop_req_id")
     val adop_req_id: Int,
 
     @SerializedName("user_id")
-    val user_id: Sponsor,
+    val user_id: Int,
 
     @SerializedName("admin_id")
-    val admin_id: Admin,
+    val admin_id: Int,
 
     @SerializedName("child_id")
-    val child_id: Child,
+    val child_id: Int,
 
     @SerializedName("reason")
     val reason: String,

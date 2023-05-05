@@ -1,4 +1,4 @@
-package com.kaligotla.orphanslife.model
+package com.kaligotla.orphanslife.model.response
 
 import com.google.gson.annotations.SerializedName
 

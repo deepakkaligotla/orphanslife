@@ -1,8 +1,16 @@
-package com.kaligotla.orphanslife.model
+package com.kaligotla.orphanslife.model.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(
+    tableName = "orphanage"
+)
+
 data class Orphanage(
+
+    @PrimaryKey
     @SerializedName("orphanage_id")
     val orphanage_id: Int,
 
@@ -12,8 +20,8 @@ data class Orphanage(
     @SerializedName("orphanage_address")
     val orphanage_address: String,
 
-    @SerializedName("orphanage_location")
-    val orphanage_location: Location,
+    @SerializedName("orphanage_location_id")
+    val orphanage_location_id: Int,
 
     @SerializedName("contact_person")
     val contact_person: String,
@@ -46,5 +54,5 @@ data class Orphanage(
     val orphanage_created_at: String,
 
     @SerializedName("orphanage_updated_at")
-    val orphanage_updated_at: String
+    val orphanage_updated_at: String,
 )
