@@ -1,16 +1,12 @@
 package com.kaligotla.orphanslife.ui.viewmodel
 
 import android.content.Context
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kaligotla.orphanslife.data.repository.AdminRepo
 import com.kaligotla.orphanslife.data.repository.MainRepository
 import com.kaligotla.orphanslife.di.Injection
-import com.kaligotla.orphanslife.preferences.PreferenceStorage
 
-class ViewModelFactory (private val mainRepository: MainRepository) : ViewModelProvider.NewInstanceFactory(){
-
+class LoginViewModelFactory(private val mainRepository: MainRepository) : ViewModelProvider.NewInstanceFactory(){
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)){
             return LoginViewModel(mainRepository) as T
@@ -20,10 +16,10 @@ class ViewModelFactory (private val mainRepository: MainRepository) : ViewModelP
 
     companion object {
         @Volatile
-        private var instance: ViewModelFactory? = null
-        fun getInstance(context: Context): ViewModelFactory =
+        private var instance: LoginViewModelFactory? = null
+        fun getInstance(context: Context): LoginViewModelFactory =
             instance ?: synchronized(this){
-                instance ?: ViewModelFactory(Injection.provideRepository(context))
+                instance ?: LoginViewModelFactory(Injection.mainRepository(context))
             }.also {
                 instance = it
             }

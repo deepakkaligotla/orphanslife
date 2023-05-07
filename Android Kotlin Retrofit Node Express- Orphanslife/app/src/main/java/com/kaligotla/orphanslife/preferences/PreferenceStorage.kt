@@ -8,11 +8,18 @@ interface PreferenceStorage {
     suspend fun setSavedKey(order: Boolean)
 
     fun API_Token() : Flow<String>
-    suspend fun setAPI_Token(order: String)
+   suspend fun setAPI_Token(order: String)
 
     fun LoggedInUserID() : Flow<Int>
     suspend fun setLoggedInUserID(order: Int)
 
     fun role() : Flow<String>
     suspend fun setRole(order: String)
+
+    suspend fun clearAll() {
+        setSavedKey(false)
+        setAPI_Token("")
+        setLoggedInUserID(0)
+        setRole("")
+    }
 }

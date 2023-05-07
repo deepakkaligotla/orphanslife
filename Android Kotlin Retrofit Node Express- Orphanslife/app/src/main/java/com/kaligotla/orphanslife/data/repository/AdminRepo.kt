@@ -11,7 +11,7 @@ class AdminRepo @Inject constructor(private val adminDao: AdminDao){
         return adminDao.addAdmin(admin)
     }
 
-    val getUserDetails: Flow<List<Admin>> get() =  adminDao.getAllAdmins()
+    val getAdminDetails: Flow<List<Admin>> get() =  adminDao.getAllAdmins()
 
     suspend fun deleteSingleAdminRecord(id : Int) {
         adminDao.deleteSingleAdmin(id)

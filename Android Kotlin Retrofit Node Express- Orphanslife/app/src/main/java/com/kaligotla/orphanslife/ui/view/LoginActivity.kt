@@ -1,7 +1,6 @@
 package com.kaligotla.orphanslife.ui.view
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,73 +8,73 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
-import com.kaligotla.orphanslife.R
+import com.google.gson.JsonObject
 import com.kaligotla.orphanslife.databinding.ActivityLoginBinding
-import com.kaligotla.orphanslife.db.OrphanslifeDB
-import com.kaligotla.orphanslife.model.entity.Admin
 import com.kaligotla.orphanslife.model.response.LoginBody
 import com.kaligotla.orphanslife.ui.view.admin.AdminHome
 import com.kaligotla.orphanslife.ui.view.guardian.GuardianHome
 import com.kaligotla.orphanslife.ui.view.sponsor.SponsorHome
 import com.kaligotla.orphanslife.ui.view.volunteer.VolunteerHome
-import com.kaligotla.orphanslife.ui.viewmodel.LoginViewModel
-import com.kaligotla.orphanslife.ui.viewmodel.PreferencesViewModel
-import com.kaligotla.orphanslife.ui.viewmodel.ViewModelFactory
+import com.kaligotla.orphanslife.ui.viewmodel.*
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel : LoginViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
+        LoginViewModelFactory.getInstance(this)
     }
     private val preferencesViewModel : PreferencesViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
+        PreferencesViewModelFactory.getInstance(applicationContext)
     }
+    lateinit var otpFromRep: String
+    lateinit var tokenFromRep: String
+    lateinit var authenticatedUserFromRep: JsonObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+    }
 
+    override fun onResume() {
+        super.onResume()
         checkIfUserHasSavedDetails()
-        initViews()
     }
 
     private fun checkIfUserHasSavedDetails(){
         preferencesViewModel.savedKey.observe(this){ it ->
             if (it == true){
-                preferencesViewModel.LoggedInUserID.observe(this){ id ->
-                    if(id!=0) {
-                        preferencesViewModel.API_Token.observe(this){ token->
-                            if(token!=""){
-                                preferencesViewModel.role.observe(this){ role->
-                                    if(role=="Super_Admin"){
-                                        val intent = Intent(this, AdminHome::class.java)
-                                        startActivity(intent)
-                                    } else if(role=="Sponsor"){
-                                        val intent = Intent(this, SponsorHome::class.java)
-                                        startActivity(intent)
-                                    } else if(role=="Volunteer"){
-                                        val intent = Intent(this, VolunteerHome::class.java)
-                                        startActivity(intent)
-                                    } else if(role=="Guardian"){
-                                        val intent = Intent(this, GuardianHome::class.java)
-                                        startActivity(intent)
-                                    } else if(role==""){
-                                        makeButtonNotClickableAtFirst()
-                                        initViews()
-                                    }
-                                }
+                preferencesViewModel.API_Token.observe(this){ token->
+                    if(token!=""){
+                        preferencesViewModel.role.observe(this){ role->
+                            if(role=="Super_Admin"){
+                                val intent = Intent(this, AdminHome::class.java)
+                                startActivity(intent)
+                            } else if(role=="Sponsor"){
+                                val intent = Intent(this, SponsorHome::class.java)
+                                startActivity(intent)
+                            } else if(role=="Volunteer"){
+                                val intent = Intent(this, VolunteerHome::class.java)
+                                startActivity(intent)
+                            } else if(role=="Guardian"){
+                                val intent = Intent(this, GuardianHome::class.java)
+                                startActivity(intent)
+                            } else {
+                                makeButtonNotClickableAtFirst()
+                                initViews()
                             }
                         }
+                    } else {
+                        makeButtonNotClickableAtFirst()
+                        initViews()
                     }
                 }
-            }
-            else{
+            } else{
                 makeButtonNotClickableAtFirst()
                 initViews()
             }
@@ -95,16 +94,18 @@ class LoginActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val email = binding.editEmail.text.toString()
                 val password = binding.editPassword.text.toString()
-                if(email.isEmpty()) binding.editEmail.error = "Invalid Email"
-                if(password.isEmpty()) binding.editPassword.error = "Invalid Password"
+                if(email.isEmpty()) binding.editEmail.error = "Cannot be Empty"
+                if(password.isEmpty()) binding.editPassword.error = "Cannot be Empty"
                 binding.loginbutton.isEnabled = !(email.isEmpty() || password.isEmpty())
+                val userOTP = binding.validateOtp.text.toString()
+                if(userOTP.isEmpty() || userOTP.length>6 || userOTP.length<6) binding.validateOtp.error = "Should be 6 digits"
+                binding.validateOtpButton.isEnabled = (!(userOTP.isEmpty()) && userOTP.length==6)
             }
-            override fun afterTextChanged(s: Editable) {
-
-            }
+            override fun afterTextChanged(s: Editable) {}
         }
         binding.editEmail.addTextChangedListener(watcher)
         binding.editPassword.addTextChangedListener(watcher)
+        binding.validateOtp.addTextChangedListener(watcher)
     }
 
     private fun handleClick(){
@@ -112,26 +113,47 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
             val loginBody = LoginBody(email,password)
-            loginViewModel.login(loginBody)
             binding.validateOtp.visibility = android.view.View.VISIBLE
-            binding.validateOtpButton.isEnabled = false
             binding.validateOtpButton.visibility = android.view.View.VISIBLE
+            loginViewModel.login(loginBody)
+            loginViewModel.createPostLiveData.observe(this) {
+                if (it == null) {
+                    Toast.makeText(this, "Account not found", Toast.LENGTH_SHORT).show()
+                } else {
+                    otpFromRep = it.otp
+                    tokenFromRep = it.token
+                    authenticatedUserFromRep = it.data.get(0).getAsJsonObject("loggedInUser")
+                    Toast.makeText(this, "OTP sent to registered email", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
 
         binding.validateOtpButton.setOnClickListener{
-            val watcher: TextWatcher = object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    val userOTP = binding.validateOtp.text.toString()
-                    if(userOTP.isEmpty()) binding.validateOtp.error = "Invalid OTP"
-                    binding.validateOtpButton.isEnabled = (!userOTP.isEmpty() && userOTP.length==6)
-                    checkIfUserHasSavedDetails()
+            if(otpFromRep == binding.validateOtp.text.toString()) {
+                Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT)
+                    .show()
+                preferencesViewModel.setSavedKey(true)
+                preferencesViewModel.setAPI_Token(tokenFromRep)
+                if(authenticatedUserFromRep.has("sponsor_id")) {
+                    preferencesViewModel.setLoggedInUserID(authenticatedUserFromRep.get("sponsor_id").asInt)
+                    preferencesViewModel.setRole("Sponsor")
+                } else if(authenticatedUserFromRep.has("admin_id")) {
+                    preferencesViewModel.setLoggedInUserID(authenticatedUserFromRep.get("admin_id").asInt)
+                    if(authenticatedUserFromRep.get("role_id").asInt==1) {
+                        preferencesViewModel.setRole("Volunteer")
+                        Log.e("Volunteer logged In","Volunteer logged In")
+                    } else if(authenticatedUserFromRep.get("role_id").asInt==2) {
+                        preferencesViewModel.setRole("Guardian")
+                        Log.e("Guardian logged In","Guardian logged In")
+                    } else if(authenticatedUserFromRep.get("role_id").asInt==3) {
+                        preferencesViewModel.setRole("Super_Admin")
+                        Log.e("Super Admin logged In","Super Admin logged In")
+                    }
                 }
-                override fun afterTextChanged(s: Editable) {
-
-                }
-            }
-            binding.validateOtp.addTextChangedListener(watcher)
+                checkIfUserHasSavedDetails()
+            } else Toast.makeText(this, "Incorrect OTP", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

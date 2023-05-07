@@ -3,36 +3,38 @@ package com.kaligotla.orphanslife.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.kaligotla.orphanslife.preferences.PreferenceStorage
+import com.kaligotla.orphanslife.data.repository.PreferencesRepo
 import kotlinx.coroutines.launch
 
-class PreferencesViewModel (private val preferenceStorage: PreferenceStorage): ViewModel() {
+class PreferencesViewModel(private val preferencesRepo: PreferencesRepo): ViewModel() {
 
-    val savedKey = preferenceStorage.savedKey().asLiveData()
+    val savedKey = preferencesRepo.getSavedKey.asLiveData()
     fun setSavedKey(key: Boolean) {
         viewModelScope.launch {
-            preferenceStorage.setSavedKey(key)
+            preferencesRepo.setSavedKey(key)
         }
     }
 
-    val API_Token = preferenceStorage.API_Token().asLiveData()
+    val API_Token = preferencesRepo.getAPI_Token.asLiveData()
     fun setAPI_Token(key: String) {
         viewModelScope.launch {
-            preferenceStorage.setAPI_Token(key)
+            preferencesRepo.setAPI_Token(key)
         }
     }
 
-    val LoggedInUserID = preferenceStorage.LoggedInUserID().asLiveData()
+    val LoggedInUserID = preferencesRepo.getLoggedInUserID.asLiveData()
     fun setLoggedInUserID(key: Int) {
         viewModelScope.launch {
-            preferenceStorage.setLoggedInUserID(key)
+            preferencesRepo.setLoggedInUserID(key)
         }
     }
 
-    val role = preferenceStorage.role().asLiveData()
+    val role = preferencesRepo.getRole.asLiveData()
     fun setRole(key: String) {
         viewModelScope.launch {
-            preferenceStorage.setRole(key)
+            preferencesRepo.setRole(key)
         }
     }
+
+    suspend fun clearAll() = preferencesRepo.clearAll()
 }
