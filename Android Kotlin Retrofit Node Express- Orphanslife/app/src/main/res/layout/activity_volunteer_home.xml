@@ -10,21 +10,49 @@
         android:id="@+id/toolbar_top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/cream"
+        android:background="@color/textBlack"
         android:minHeight="?android:attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/nunito_bold"
-            android:text="Volunteer Home"
-            android:textColor="@color/darkBrown"
-            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
+
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Volunteer Home"
+        android:textColor="@color/darkBrown"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_top"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_top"/>
+
+    <TextView
+        android:id="@+id/tokenPref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nunito_bold"
+        android:text=""
+        android:textColor="@color/darkBrown"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/title"/>
+
+    <TextView
+        android:id="@+id/idPref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nunito_bold"
+        android:text=""
+        android:textColor="@color/darkBrown"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tokenPref"
+        app:layout_constraintEnd_toEndOf="@+id/tokenPref"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

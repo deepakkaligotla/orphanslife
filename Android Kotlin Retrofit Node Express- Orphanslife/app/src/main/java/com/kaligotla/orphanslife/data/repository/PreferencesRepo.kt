@@ -1,30 +1,59 @@
 package com.kaligotla.orphanslife.data.repository
 
-import com.kaligotla.orphanslife.data.datastore.PreferencesDataSource
-import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+import android.content.Context
+import androidx.core.content.edit
 
-class PreferencesRepo @Inject constructor(private val preferencesDataSource: PreferencesDataSource) {
+class PreferencesRepo private constructor(context: Context) {
 
-    val getSavedKey: Flow<Boolean> get() =  preferencesDataSource.savedKey()
-    suspend fun setSavedKey(key: Boolean) {
-        return preferencesDataSource.setSavedKey(key)
+    private val sharedPreferences =
+        context.applicationContext.getSharedPreferences("store", Context.MODE_PRIVATE)
+
+    //Saved Key
+    val getSavedKey: Boolean get() =  sharedPreferences.getBoolean("SavedKey", false)
+    fun setSavedKey(key: Boolean) {
+        sharedPreferences.edit {
+            putBoolean("SavedKey", key)
+        }
     }
 
-    val getAPI_Token: Flow<String> get() = preferencesDataSource.API_Token()
-    suspend fun setAPI_Token(key: String) {
-        return preferencesDataSource.setAPI_Token(key)
+    //API_Token
+    val getAPI_Token: String get() =  sharedPreferences.getString("API_Token", "").toString()
+    fun setAPI_Token(key: String) {
+        sharedPreferences.edit {
+            putString("API_Token", key)
+        }
     }
 
-    val getLoggedInUserID: Flow<Int> get() =  preferencesDataSource.LoggedInUser()
-    suspend fun setLoggedInUserID(id: Int) {
-        return preferencesDataSource.setLoggedInUser(id)
+    //Logged In User ID
+    val getLoggedInUserID: Int get() =  sharedPreferences.getInt("ID", 0)
+    fun setLoggedInUserID(key: Int) {
+        sharedPreferences.edit {
+            putInt("ID", key)
+        }
     }
 
-    val getRole: Flow<String> get() =  preferencesDataSource.Role()
-    suspend fun setRole(key: String) {
-        return preferencesDataSource.setRole(key)
+    //Role
+    val getRole: String get() = sharedPreferences.getString("Role", "").toString()
+    fun setRole(key: String) {
+        sharedPreferences.edit {
+            putString("Role", key)
+        }
     }
 
-    suspend fun clearAll() = preferencesDataSource.clearAll()
+    companion object {
+        @Volatile
+        private var INSTANCE: PreferencesRepo? = null
+
+        fun getInstance(context: Context): PreferencesRepo {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE?.let {
+                    return it
+                }
+
+                val instance = PreferencesRepo(context)
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }

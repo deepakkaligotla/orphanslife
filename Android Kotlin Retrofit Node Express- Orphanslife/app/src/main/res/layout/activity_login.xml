@@ -81,7 +81,7 @@
         android:id="@+id/constrain_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="180dp"
         android:background="@drawable/bg_rounded_card_view"
         app:cardCornerRadius="@dimen/space_16"
         app:layout_constraintBottom_toTopOf="@+id/view"
@@ -175,7 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="100dp"
             android:fontFamily="@font/nunito_semi_bold"
             android:text="@string/email"
             android:textColor="@color/textBlack"
@@ -245,17 +245,32 @@
             app:layout_constraintEnd_toEndOf="@+id/editPassword"
             app:layout_constraintTop_toTopOf="@+id/editPassword" />
 
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rememberMe"
+            android:text="Remember Me"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/font_body_xs_size"
+            android:checked="true"
+            app:layout_constraintStart_toEndOf="@+id/editPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+
         <TextView
             android:id="@+id/tv_lupa_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/nunito_semi_bold"
             android:text="Forgot Password"
             android:textColor="@color/darkBrown"
-            android:textSize="10sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editPassword"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editPassword"
             tools:ignore="SmallSp" />
 
@@ -264,46 +279,97 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_36"
             android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginTop="20dp"
             android:background="@drawable/item_brown_rounded"
             android:text="@string/login"
-            android:textColor="@color/md_white_1000"
             android:textAllCaps="false"
+            android:textColor="@color/md_white_1000"
             android:textSize="10sp"
             app:layout_constraintTop_toBottomOf="@+id/tv_lupa_password"
-            tools:ignore="SmallSp" />
-
-        <EditText
-            android:id="@+id/validate_otp"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/item_rounded_edt"
-            android:hint="Enter OTP"
-            android:inputType="number"
-            android:paddingHorizontal="@dimen/space_16"
-            android:textColor="@color/textBlack"
-            android:textColorHint="@color/textGrey"
-            android:textSize="9sp"
-            app:layout_constraintTop_toBottomOf="@+id/loginbutton"
             tools:ignore="SmallSp"
-            android:visibility="gone"/>
+            tools:layout_editor_absoluteX="16dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/validate_otp_button"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_36"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/item_brown_rounded"
-            android:text="Validate OTP"
-            android:textColor="@color/md_white_1000"
-            android:textAllCaps="false"
-            android:textSize="10sp"
-            app:layout_constraintTop_toBottomOf="@+id/validate_otp"
-            tools:ignore="SmallSp"
-            android:visibility="gone"/>
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/cell_shape"
+            android:id="@+id/otpLinearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/loginbutton">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/otpExpireProgress"
+                    style="@style/Widget.Material3.CircularProgressIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:indicatorColor="@color/md_green_800"
+                    android:indeterminate="false"
+                    android:progress="100"
+                    app:indicatorSize="60dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/timeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/otpExpireProgress"
+                    android:layout_alignTop="@id/otpExpireProgress"
+                    android:layout_alignRight="@id/otpExpireProgress"
+                    android:layout_alignBottom="@id/otpExpireProgress"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/validate_otp"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:background="@drawable/item_rounded_edt"
+                android:hint="Enter OTP"
+                android:inputType="number"
+                android:paddingHorizontal="@dimen/space_16"
+                android:textColor="@color/textBlack"
+                android:textColorHint="@color/textGrey"
+                android:textSize="9sp"
+                app:layout_constraintTop_toBottomOf="@+id/loginbutton"
+                tools:ignore="SmallSp"
+                android:visibility="visible"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/validate_otp_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_36"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:background="@drawable/item_brown_rounded"
+                android:text="Validate OTP"
+                android:textColor="@color/md_white_1000"
+                android:textAllCaps="false"
+                android:textSize="10sp"
+                app:layout_constraintTop_toBottomOf="@+id/validate_otp"
+                tools:ignore="SmallSp"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/otpExpireMsg"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:textColor="@color/md_red_500"
+            android:background="@drawable/cell_shape"
+            app:layout_constraintTop_toBottomOf="@+id/otpLinearLayout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View

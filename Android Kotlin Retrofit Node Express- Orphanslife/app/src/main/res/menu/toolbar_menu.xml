@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Home"
+        android:contentDescription="Logout"
+        android:icon="@drawable/home"
+        android:menuCategory="system"
+        android:title="Home"
+        android:titleCondensed="@string/app_name"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/donate"
+        android:contentDescription="Donate"
+        android:icon="@drawable/donate"
+        android:title="Donate"
+        android:titleCondensed="Donate"
+        android:visible="true"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/adopt"
+        android:contentDescription="Adopt"
+        android:icon="@drawable/adopt"
+        android:title="Adopt"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/login"
+        android:contentDescription="Logout"
+        android:icon="@drawable/login"
+        android:title="Login"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/Logout"
+        android:contentDescription="Logout"
+        android:icon="@drawable/logout"
+        android:title="Logout"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/add"
+        android:title="Add"
+        android:icon="@drawable/add"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/settings"
+        android:title="Add"
+        android:icon="@drawable/settings"
+        app:showAsAction="always"/>
+
+</menu>

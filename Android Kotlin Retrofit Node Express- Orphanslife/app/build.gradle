@@ -86,9 +86,6 @@ dependencies {
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.5.1"
 
-    //preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.1.0-alpha04"
-
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
@@ -99,4 +96,29 @@ dependencies {
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    // Preferences DataStore (SharedPreferences like APIs)
+    dependencies {
+        implementation("androidx.datastore:datastore-preferences:1.0.0")
+        // optional - RxJava2 support
+        implementation("androidx.datastore:datastore-preferences-rxjava2:1.0.0")
+        // optional - RxJava3 support
+        implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
+    }
+    // Alternatively - use the following artifact without an Android dependency.
+    dependencies {
+        implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    }
+    // Typed DataStore (Typed API surface, such as Proto)
+    dependencies {
+        implementation("androidx.datastore:datastore:1.0.0")
+        // optional - RxJava2 support
+        implementation("androidx.datastore:datastore-rxjava2:1.0.0")
+        // optional - RxJava3 support
+        implementation("androidx.datastore:datastore-rxjava3:1.0.0")
+    }
+    // Alternatively - use the following artifact without an Android dependency.
+    dependencies {
+        implementation("androidx.datastore:datastore-core:1.0.0")
+    }
 }

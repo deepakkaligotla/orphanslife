@@ -1,22 +1,27 @@
 package com.kaligotla.orphanslife.model.entity
 
+import androidx.annotation.NonNull
 import androidx.room.*
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.util.foreignKeyCheck
+import androidx.room.util.query
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
-@Entity(
-    tableName = "admin",
-)
-
+@Entity(tableName = "admin",)
 data class Admin(
 
     @PrimaryKey(autoGenerate = false)
     @SerializedName("admin_id")
+    @NonNull
     val admin_id: Int,
 
     @SerializedName("admin_name")
     val admin_name: String,
+
+    @SerializedName("admin_dob")
+    val admin_dob: String,
 
     @SerializedName("admin_gender")
     val admin_gender: String,
@@ -57,3 +62,11 @@ data class Admin(
     @SerializedName("admin_updated_at")
     val admin_updated_at: String,
 )
+
+fun fromJson(json: JsonObject): Admin? {
+    return Gson().fromJson<Admin>(json, Admin::class.java)
+}
+
+fun toJson(toString: String): String? {
+    return Gson().toJson(toString)
+}

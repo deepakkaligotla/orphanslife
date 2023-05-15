@@ -1,18 +1,13 @@
 package com.kaligotla.orphanslife.ui.viewmodel
 
 import android.util.Log
-import androidx.activity.viewModels
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.kaligotla.orphanslife.data.repository.MainRepository
-import com.kaligotla.orphanslife.data.repository.AdminRepo
 import com.kaligotla.orphanslife.model.response.LoginBody
 import com.kaligotla.orphanslife.model.response.LoginResponse
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
