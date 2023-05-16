@@ -50,7 +50,6 @@ class GuardianHome : AppCompatActivity()  {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         menu!!.removeItem(R.id.Home)
-        menu!!.removeItem(R.id.login)
         menu!!.removeItem(R.id.add)
         menu!!.removeItem(R.id.adopt)
         menu!!.removeItem(R.id.donate)

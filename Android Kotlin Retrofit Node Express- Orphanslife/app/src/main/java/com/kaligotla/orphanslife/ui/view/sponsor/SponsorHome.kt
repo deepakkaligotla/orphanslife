@@ -50,7 +50,6 @@ class SponsorHome : AppCompatActivity()  {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         menu!!.removeItem(R.id.Home)
-        menu!!.removeItem(R.id.login)
         menu!!.removeItem(R.id.add)
         return super.onCreateOptionsMenu(menu)
     }

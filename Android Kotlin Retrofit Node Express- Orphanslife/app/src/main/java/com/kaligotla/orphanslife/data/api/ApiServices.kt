@@ -18,7 +18,7 @@ interface ApiServices {
     @POST("/admins")
     fun admins(
         @Header("x-auth-token") apiToken : String
-    ): Call<LoginResponse>
+    ): Call<NodeDBResponse>
 
     @Headers("Content-Type: application/json")
     @GET("/findByIdAdmin/{id}")
@@ -64,8 +64,14 @@ interface ApiServices {
     ): Call<NodeDBResponse>
 
     @Headers("Content-Type: application/json")
-    @POST("locations")
+    @GET("locations")
     fun locations(
+        @Header("x-auth-token") apiToken: String
+    ): Call<NodeDBResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("orphanages")
+    fun orphanages(
         @Header("x-auth-token") apiToken: String
     ): Call<NodeDBResponse>
 }

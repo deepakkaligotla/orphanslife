@@ -1,6 +1,7 @@
 package com.kaligotla.orphanslife.ui.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,8 +24,7 @@ class LoginViewModel(private val repository: MainRepository) :ViewModel() {
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     if (response.isSuccessful) {
                         val otp: String = response.body()?.otp.toString()
-                        val token: String = response.body()?.token.toString()
-                        Log.e("SENT OTP",otp)
+                        Log.e("response.body()?.otp.toString()",response.body()?.otp.toString())
                         if(response.body()?.data?.isNotEmpty() == true) {
                             val data: List<JsonObject> = response.body()?.data!!
                             Log.e("logged in user", "res :${data.get(0).get("loggedInUser")}")

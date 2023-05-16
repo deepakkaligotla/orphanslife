@@ -23,6 +23,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AdminAccountSettings : AppCompatActivity() {
+
     private lateinit var binding: ActivityAdminAccountSettingsBinding
     private lateinit var preferencesViewModel: PreferencesViewModel
     private val dbViewModel: DBViewModel by viewModels{
@@ -45,12 +46,12 @@ class AdminAccountSettings : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        dbViewModel.createPostLiveData.observe(this) {
+        dbViewModel.adminDetailsById.observe(this) {
             if (it == null) {
-                Toast.makeText(this, "Account not found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminAccountSettings, "Account not found", Toast.LENGTH_SHORT).show()
             } else {
                 loggedInAdminDetails = Gson().fromJson(it.data.get(0), Admin::class.java)
-                Toast.makeText(this, "OTP sent to registered email", Toast.LENGTH_SHORT)
+                Toast.makeText(this@AdminAccountSettings, "OTP sent to registered email", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -63,8 +64,6 @@ class AdminAccountSettings : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-        menu!!.removeItem(R.id.Home)
-        menu!!.removeItem(R.id.login)
         menu!!.removeItem(R.id.donate)
         menu!!.removeItem(R.id.adopt)
         menu!!.removeItem(R.id.settings)
@@ -85,7 +84,7 @@ class AdminAccountSettings : AppCompatActivity() {
                 return true
             }
             R.id.Logout ->{
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AdminAccountSettings, "Logout", Toast.LENGTH_SHORT).show()
                 GlobalScope.launch {
                     preferencesViewModel.setSavedKey(false)
                     preferencesViewModel.setAPI_Token("")

@@ -26,4 +26,58 @@ class RemoteDataSource(private val apiServices: ApiServices) {
     }.catch {
         Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
     }.flowOn(Dispatchers.IO)
+
+    fun successPaymentCount(apiToken: String) = flow {
+        emit(apiServices.getSuccessPaymentCount(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun failedPaymentsCount(apiToken: String) = flow {
+        emit(apiServices.getFailedPaymentsCount(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun newAdoptReqsCount(apiToken: String) = flow {
+        emit(apiServices.getNewAdoptReqsCount(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun approvedAdoptReqsCount(apiToken: String) = flow {
+        emit(apiServices.getApprovedAdoptReqsCount(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun rejectedAdoptReqsCount(apiToken: String) = flow {
+        emit(apiServices.getRejectedAdoptReqsCount(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun monthwiseDonationsTotal(apiToken: String) = flow {
+        emit(apiServices.getMonthwiseDonationsTotal(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun getLocations(apiToken: String) = flow {
+        emit(apiServices.locations(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun getOrphanages(apiToken: String) = flow {
+        emit(apiServices.orphanages(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
+
+    fun getAdmins(apiToken: String) = flow {
+        emit(apiServices.admins(apiToken))
+    }.catch {
+        Log.e("Get Admin Details", "Get Admin Details: failed = ${it.message}")
+    }.flowOn(Dispatchers.IO)
 }

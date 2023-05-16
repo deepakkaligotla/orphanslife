@@ -1,41 +1,70 @@
-<!--ref: https://google-developers.appspot.com/chart/interactive/docs/gallery/columnchart-->
-<html>
+<!DOCTYPE html>
 <head>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawChart);
-function drawChart() {
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-  var data = google.visualization.arrayToDataTable([
-    ['Items', '₹'],
-      ['Jan',  Android.getJanDonations()],
-      ['Feb',  Android.getFebDonations()],
-      ['Mar',  Android.getMarDonations()],
-      ['Apr',  Android.getAprDonations()],
-      ['May',  Android.getMayDonations()],
-      ['Jun',  Android.getJunDonations()],
-      ['Jul',  Android.getJulDonations()],
-      ['Aug',  Android.getAugDonations()],
-      ['Sep',  Android.getSepDonations()],
-      ['Oct',  Android.getOctDonations()],
-      ['Nov',  Android.getNovDonations()],
-      ['Dec',  Android.getDecDonations()]
-  ]);
+        function drawChart() {
 
-  var options = {
-    title: 'Month Wise Donations Dashboard',
-    hAxis: {title: 'Value', titleTextStyle: {color: 'red'}}
-  };
+            var data = new google.visualization.arrayToDataTable([
+                    ['Year & Month', 'Donations', { role: 'style'}],
+                        [new Date(Android.getJanDonationYear(), Android.getJanDonationMonth()), Android.getJanDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getFebDonationYear(), Android.getFebDonationMonth()), Android.getFebDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getMarDonationYear(), Android.getMarDonationMonth()), Android.getMarDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getAprDonationYear(), Android.getAprDonationMonth()), Android.getAprDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getMayDonationYear(), Android.getMayDonationMonth()), Android.getMayDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getJunDonationYear(), Android.getJunDonationMonth()), Android.getJunDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getJulDonationYear(), Android.getJulDonationMonth()), Android.getJulDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getAugDonationYear(), Android.getAugDonationMonth()), Android.getAugDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getSepDonationYear(), Android.getSepDonationMonth()), Android.getSepDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getOctDonationYear(), Android.getOctDonationMonth()), Android.getOctDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getNovDonationYear(), Android.getNovDonationMonth()), Android.getNovDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        [new Date(Android.getDecDonationYear(), Android.getDecDonationMonth()), Android.getDecDonations(), 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF']
+                    ]);
 
-  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            var view = new google.visualization.DataView(data);
 
-  chart.draw(data, options);
+            var options = {
+                chart: {
+                    title: 'MonthWise Donations'
+                },
+                bars: 'vertical',
+                hAxis: {
+                    title: 'Year & Month',
+                    format: 'MMM yyyy',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        ticks: [new Date(2021,12), new Date()]
+                    },
+                    gridlines: {
+                        units: {
+                            days: {
+                                format: ['MMM YYYY']
+                            },
+                        }
+                    },
+                    minorGridlines: {
+                        units: {
+                            months: {
+                                format: ['mm']
+                            },
+                        }
+                    }
+                },
+                vAxis: {
+                    title: 'Donations',
+                },
+            };
 
-}
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+            chart.draw(view, options);
+        }
     </script>
 </head>
+
 <body style="background-color:#B3FF37;">
-<div id="chart_div" style="width: 100%; height: 100%;"></div>
+<div id="chart" style="width: 100%; height: 100%;"></div>
 </body>
+
 </html>

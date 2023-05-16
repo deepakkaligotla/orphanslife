@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.provider.CalendarContract.Colors
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -149,13 +148,13 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.login(loginBody)
             loginViewModel.createPostLiveData.observe(this) {
                 if (it == null) {
-                    Toast.makeText(this, "Account not found", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Account not found", Toast.LENGTH_SHORT).show()
                 } else {
                     otpSentTime = LocalTime.now()
                     otpFromRep = it.otp
                     tokenFromRep = it.token
                     authenticatedUserFromRep = it.data.get(0).getAsJsonObject("loggedInUser")
-                    Toast.makeText(this, "OTP sent to registered email", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@LoginActivity, "OTP sent to registered email", Toast.LENGTH_SHORT)
                         .show()
                     binding.editEmail.isFocusable = false
                     binding.editPassword.isFocusable = false
@@ -172,7 +171,7 @@ class LoginActivity : AppCompatActivity() {
                 if (otpFromRep == binding.validateOtp.text.toString()) {
                     //checking Sponsor
                     if (authenticatedUserFromRep.has("sponsor_id")) {
-                        Toast.makeText(this, "Sponsor Successfully LoggedIn", Toast.LENGTH_SHORT)
+                        Toast.makeText(this@LoginActivity, "Sponsor Successfully LoggedIn", Toast.LENGTH_SHORT)
                             .show()
                         loggedInSponsor = Gson().fromJson(authenticatedUserFromRep, Sponsor::class.java)
                         role = "Sponsor"
@@ -182,7 +181,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     //Checking Admin
                     else if (authenticatedUserFromRep.has("admin_id")) {
-                        Toast.makeText(this, "Admin Successfully LoggedIn", Toast.LENGTH_SHORT)
+                        Toast.makeText(this@LoginActivity, "Admin Successfully LoggedIn", Toast.LENGTH_SHORT)
                             .show()
                         loggedInAdmin = Gson().fromJson(authenticatedUserFromRep, Admin::class.java)
                         if (authenticatedUserFromRep.get("role_id").asInt == 1) {
@@ -202,9 +201,9 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                     }
-                } else Toast.makeText(this, "Incorrect OTP", Toast.LENGTH_SHORT)
+                } else Toast.makeText(this@LoginActivity, "Incorrect OTP", Toast.LENGTH_SHORT)
                     .show()
-            } else Toast.makeText(this, "OTP EXPIRED", Toast.LENGTH_SHORT)
+            } else Toast.makeText(this@LoginActivity, "OTP EXPIRED", Toast.LENGTH_SHORT)
                 .show()
         }
     }
