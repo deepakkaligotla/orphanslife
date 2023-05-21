@@ -11,7 +11,7 @@ const SignUp = () => {
           source={require('../assets/images/donate.png')}
         />
         </View>
-        <Text style={styles.signupText}>SignUp</Text>
+        <Text style={styles.viewText}>Login</Text>
         <View>
         <Image
           style={styles.bottom}
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
-    signupText: {
+    viewText: {
         fontSize: 30,
         textAlign : 'center',
         color: '#ffffff'

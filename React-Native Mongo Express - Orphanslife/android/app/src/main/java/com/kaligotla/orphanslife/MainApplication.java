@@ -1,4 +1,4 @@
-package com.orphanslife;
+package com.kaligotla.orphanslife;
 
 import android.app.Application;
 import android.content.res.Configuration;

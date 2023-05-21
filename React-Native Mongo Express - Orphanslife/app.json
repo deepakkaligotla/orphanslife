@@ -3,9 +3,17 @@
     "name": "orphanslife",
     "slug": "orphanslife",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "android": {
+      "package": "com.kaligotla.orphanslife"
+    },
+    "ios": {
+      "bundleIdentifier": "com.orphanslife.kaligotla"
+    }
   },
-  "name": "orphanslife"
+  "name": "kaligotla"
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, View, StatusBar, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, View, StatusBar, Text, PlatformColor } from 'react-native';
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect, useState } from "react";
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import SignUp from './screens/SignUp';
+import Login from './screens/Login';
 
 export default function App() {
 
@@ -34,12 +33,11 @@ export default function App() {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+          contentInsetAdjustmentBehavior="automatic">
           <View style={styles.container}>
             <View style={styles.body}>
               <View style={styles.sectionContainer}>
-                <SignUp/>
+                <Login/>
               </View>
             </View>
           </View>
@@ -50,9 +48,6 @@ export default function App() {
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   engine: {
     position: 'absolute',
     right: 0,
@@ -64,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   body: {
-    backgroundColor: Colors.black,
+    backgroundColor: '#000000',
   },
   sectionContainer: {
     marginTop: 32,
@@ -73,19 +68,19 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: Colors.black,
+    color: '#000000',
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
-    color: Colors.dark,
+    color: '#000000',
   },
   highlight: {
     fontWeight: '700',
   },
   footer: {
-    color: Colors.dark,
+    color: '#000000',
     fontSize: 12,
     fontWeight: '600',
     padding: 4,

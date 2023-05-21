@@ -1,4 +1,4 @@
-package com.orphanslife;
+package com.kaligotla.orphanslife;
 
 import android.os.Build;
 import android.os.Bundle;
