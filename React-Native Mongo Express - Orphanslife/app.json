@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "orphanslife",
+    "slug": "orphanslife",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "orphanslife"
+}
