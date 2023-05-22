@@ -1,190 +1,220 @@
 import { Dimensions, StyleSheet, Text, ScrollView, Alert, Modal, Pressable, View, TextInput, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { Checkbox } from 'react-native-paper';
 import MyHeader from "../header/MyHeader";
 import MyFooter from "../footer/MyFooter";
 import axios from "axios";
 
-function Login() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [isSelected, setSelection] = React.useState(true);
-  const [otpWindow, setOtpWindow] = React.useState(false);
-  const [forgotPasswordWindow, setForgotPasswordWindow] = React.useState(false);
-  const [OTP, setOTP] = React.useState(0);
-  const url = "http://192.168.0.14:4000/"
-  const [loggedInUser, setLoggedInUser] = React.useState();
-  const [otp, setOtp] = React.useState();
-  const [apiToken, setApiToken] = React.useState();
+export default class Login extends React.Component {
 
-  const handleLogin = async () => {
-    if (email === '' || password === '') {
-      alert("All fields are required");
+  constructor () {
+    super();
+    this.state = {
+      loggedInUser: [],
+      email: "",
+      password: "",
+      confirmPassword: "",
+      isSelected : true,
+      otpWindow : false,
+      forgotPasswordWindow : false,
+      sentOtp : 0,
+      enteredOtp : 0,
+      apiToken: "",
+      url : "http://192.168.0.14:4000/"
+    };
+  }
+
+  async loginAPI() {
+    await axios.post(this.state.url, 
+      { email: this.state.email,
+        password: this.state.password }, 
+        {
+          headers: {
+            'x-auth-token': ''
+          }
+        })
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({otpWindow: true})
+          Alert.alert("Login OTP sent to Email");
+          this.setState({ sentOtp: response.data.otp });
+          this.setState({ apiToken: response.data.token });
+          this.setState({ loggedInUser: response.data.data[0].loggedInUser });
+
+          console.log("Sent OTP : "+response.data.otp)
+          return;
+        } else if (response.status === 400 || response.status === 500) {
+          throw new Error("Failed to fetch users");
+        }
+      }).catch(function (error) {
+        if (axios.isCancel(error)) {
+          Alert.alert("Something went wrong");
+          return null;
+        } else {
+          Alert.alert(error);
+          return null;
+        }
+    });
+  }
+
+  handleLogin() {
+    if (this.state.email === '' || this.state.password === '') {
+      Alert.alert("All fields are required");
       return;
-    }
-    try {
-      const response = await axios.post(url, { email, password });
-      if (response.status === 200) {
-        setOtpWindow(true)
-        alert("Login OTP sent to Email");
-        setOTP(response.data.otp)
-        setApiToken(response.data.token)
-        console.log(response.data.data[0].loggedInUser)
-        return;
-      } else {
-        throw new Error("Failed to fetch users");
-      }
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        alert("Something went wrong");
-      } else {
-        alert(error);
-      }
+    } else {
+      this.loginAPI()
     }
   };
 
-  const handleValidateOtp = async () => {
-    if (otp === '' || otp < 6) {
-      alert("Invalid OTP");
+  handleValidateOtp() {
+    if (this.state.enteredOtp === 0) {
+      Alert.alert("Need OTP");
       return;
-    } setOtpWindow(!otpWindow)
+    } else if(this.state.enteredOtp.toString().length>6 || this.state.enteredOtp.toString().length<6) {
+      Alert.alert("OTP should be only 6 digits");
+      return;
+    } else if(this.state.sentOtp != this.state.enteredOtp) {
+      Alert.alert("INVALID OTP / OTP EXPIRED");
+    } else if(this.state.sentOtp == this.state.enteredOtp) {
+      this.setState({otpWindow: false})
+      Alert.alert(this.state.loggedInUser.admin_name+" Successfully Logged In");
+    }
   }
 
-  return (<>
-    <MyHeader />
-    <ScrollView>
-      <View style={styles.container}>
-
-        {/* --------- Login Screen ----------- */}
-        <Text style={styles.viewText}>Login</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Enter Registered Email"
-        ></TextInput>
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Enter Registered Password"
-          secureTextEntry={true}
-          textContentType="password"
-        ></TextInput>
-        <TouchableOpacity style={{ flexDirection: 'row' }}>
-          <Checkbox
-            status={isSelected ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setSelection(!isSelected);
-            }}
-            value={isSelected}
-            color={'green'}
-            uncheckedColor={'red'}
-
-          />
-          <Text style={styles.rememberMe}>Remember Me</Text>
-        </TouchableOpacity>
-
-        {/* --------- Forgot Password Window ----------- */}
-        <View>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={forgotPasswordWindow}
-            onRequestClose={() => {
-              Alert.alert('Forgot Password Window closed.');
-              setForgotPasswordWindow(!forgotPasswordWindow);
-            }}>
-            <View style={styles.centeredView}>
-              <View style={styles.forgotPasswordModalView}>
-                <Text style={{ color: 'white', alignSelf: 'center', backgroundColor: 'black', fontSize: 25 }}>Forgot Password</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setEmail}
-                  value={email}
-                  placeholder="Enter Registered Email"
-                ></TextInput>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setForgotPasswordWindow(!forgotPasswordWindow)}>
-                  <Text style={styles.textStyle}>Get OTP</Text>
-                </Pressable>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter OTP - X-X-X-X-X-X"
-                  onChangeText={setOTP}
-                ></TextInput>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setPassword}
-                  value={password}
-                  placeholder="Enter New Passsword"
-                  pattern={[
-                    '^.{8,}$', // min 8 chars
-                    '(?=.*\\d)', // number required
-                    '(?=.*[A-Z])', // uppercase letter
-                  ]}
-                  onValidation={isValid => this.setState({ isValid })}
-                  secureTextEntry={true}
-                  textContentType="password"
-                ></TextInput>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setConfirmPassword}
-                  value={confirmPassword}
-                  placeholder="Confirm New Password"
-                  secureTextEntry={true}
-                  textContentType="password"
-                ></TextInput>
-                <TouchableOpacity onPress={() => { setForgotPasswordWindow(!forgotPasswordWindow) }} style={[styles.changePasswordButton, styles.changePasswordButtonclose]}>
-                  <Text style={styles.changePasswordButtonText}>Change Password</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-          <Pressable
-            style={[styles.forgotPasswordButton, styles.forgotPasswordButtonOpen]}
-            onPress={() => setForgotPasswordWindow(true)}>
-            <Text style={styles.forgotPasswordButtonText}>Forgot Password</Text>
-          </Pressable>
-        </View>
-
-        {/* --------- OTP Window ----------- */}
-        <View>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={otpWindow}
-            onRequestClose={() => {
-              Alert.alert('OTP Window closed.');
-              setOtpWindow(!otpWindow);
-            }}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={{ color: 'white', alignSelf: 'center', backgroundColor: 'black', fontSize: 25 }}>Enter OTP to Login</Text>
-                <View style={[styles.otpFlex, { flexDirection: 'row' }]}>
-                  <TextInput
-                    style={styles.otpInput}
-                    placeholder="Enter OTP - X-X-X-X-X-X"
-                    onChangeText={setOTP}
-                  ></TextInput>
-                </View>
-                <TouchableOpacity onPress={() => { handleValidateOtp() }} style={[styles.validateOtpButton, styles.validateOtpButtonClose]}>
-                  <Text style={styles.validateOtpButtonText}>Validate OTP</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-          <TouchableOpacity onPress={() => { handleLogin() }} style={[styles.loginButton, styles.loginButtonOpen]}>
-            <Text style={styles.loginButtonText}>Login</Text>
+  render() {
+    return (<>
+      <MyHeader />
+      <ScrollView>
+        <View style={styles.container}>
+  
+          {/* --------- Login Screen ----------- */}
+          <Text style={styles.viewText}>Login</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(email) => this.setState({ email })}
+            value={this.state.email}
+            placeholder="Enter Registered Email"
+          ></TextInput>
+          <TextInput
+            style={styles.input}
+            onChangeText={(password) => this.setState({ password })}
+            value={this.state.password}
+            placeholder="Enter Registered Password"
+            secureTextEntry={true}
+            textContentType="password"
+          ></TextInput>
+          <TouchableOpacity style={{ flexDirection: 'row' }}>
+            <Checkbox
+              status={this.state.isSelected ? 'checked' : 'unchecked'}
+              onPress={() => this.setState({isSelected: !this.state.isSelected})}
+              value={this.state.isSelected}
+              color={'green'}
+              uncheckedColor={'red'}
+  
+            />
+            <Text style={styles.rememberMe}>Remember Me</Text>
           </TouchableOpacity>
+  
+          {/* --------- Forgot Password Window ----------- */}
+          <View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.forgotPasswordWindow}
+              onRequestClose={() => {
+                Alert.alert('Forgot Password Window closed.');
+                this.setState({forgotPasswordWindow:!forgotPasswordWindow})
+              }}>
+              <View style={styles.centeredView}>
+                <View style={styles.forgotPasswordModalView}>
+                  <Text style={{ color: 'white', alignSelf: 'center', backgroundColor: 'black', fontSize: 25 }}>Forgot Password</Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(email) => this.setState({ email })}
+                    value={this.state.email}
+                    placeholder="Enter Registered Email"
+                  ></TextInput>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setForgotPasswordWindow(!forgotPasswordWindow)}>
+                    <Text style={styles.textStyle}>Get OTP</Text>
+                  </Pressable>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter OTP - X-X-X-X-X-X"
+                    onChangeText={(enteredOtp) => this.setState({ enteredOtp })}
+                  ></TextInput>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(password) => this.setState({ password })}
+                    value={this.state.password}
+                    placeholder="Enter New Passsword"
+                    pattern={[
+                      '^.{8,}$', // min 8 chars
+                      '(?=.*\\d)', // number required
+                      '(?=.*[A-Z])', // uppercase letter
+                    ]}
+                    onValidation={isValid => this.setState({ isValid })}
+                    secureTextEntry={true}
+                    textContentType="password"
+                  ></TextInput>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
+                    value={this.state.confirmPassword}
+                    placeholder="Confirm New Password"
+                    secureTextEntry={true}
+                    textContentType="password"
+                  ></TextInput>
+                  <TouchableOpacity onPress={() => this.setState({forgotPasswordWindow:false})} style={[styles.changePasswordButton, styles.changePasswordButtonclose]}>
+                    <Text style={styles.changePasswordButtonText}>Change Password</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+            <Pressable
+              style={[styles.forgotPasswordButton, styles.forgotPasswordButtonOpen]}
+              onPress={() => this.setState({forgotPasswordWindow:true})}>
+              <Text style={styles.forgotPasswordButtonText}>Forgot Password</Text>
+            </Pressable>
+          </View>
+  
+          {/* --------- OTP Window ----------- */}
+          <View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.otpWindow}
+              onRequestClose={() => {
+                Alert.alert('OTP Window closed.');
+                this.setState({otpWindow:!otpWindow})
+              }}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={{ color: 'white', alignSelf: 'center', backgroundColor: 'black', fontSize: 25 }}>Enter OTP to Login</Text>
+                  <View style={[styles.otpFlex, { flexDirection: 'row' }]}>
+                    <TextInput
+                      style={styles.otpInput}
+                      placeholder="Enter OTP - X-X-X-X-X-X"
+                      onChangeText={(enteredOtp) => this.setState({ enteredOtp })}
+                    ></TextInput>
+                  </View>
+                  <TouchableOpacity onPress={this.handleValidateOtp.bind(this)} style={[styles.validateOtpButton, styles.validateOtpButtonClose]}>
+                    <Text style={styles.validateOtpButtonText}>Validate OTP</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+            <TouchableOpacity onPress={this.handleLogin.bind(this)} style={[styles.loginButton, styles.loginButtonOpen]}>
+              <Text style={styles.loginButtonText}>Login</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ScrollView>
-    <MyFooter />
-  </>
-  );
+      </ScrollView>
+      <MyFooter />
+    </>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -363,5 +393,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   }
 });
-
-export default Login;
