@@ -1,0 +1,55 @@
+
+.otpWindow {
+    width: 370px;
+    height: 330px;
+    padding: 5px 0;
+    border-radius: 8px;
+    background: #d2d0d085;
+    text-align: right;
+}
+
+.modal-dialog {
+    width: 320px;
+    height: 380px;
+}
+
+.modal-content {
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.circular-container {
+    width: 120px;
+    padding: 5px 0;
+    border-radius: 8px;
+    background: #fff;
+    row-gap: 6px;
+}
+
+.circular-progress {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background: conic-gradient(#ededed 3deg, #7d2ae8 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circular-progress::before {
+    content: "";
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.progress-value {
+    position: relative;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7d2ae8;
+}
