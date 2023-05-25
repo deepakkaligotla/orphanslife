@@ -1,18 +1,20 @@
-import * as React from 'react-native';
+import React from "react";
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 
 
-const MyHeader = () => {
+export default class MyFooter extends React.Component {
 
-    return (
-        <>
-            <View style={styles.insideFooterContainer}>
-                <Image style={styles.bottom}
-                    source={require("../../assets/images/kids_jumping.gif")}
-                />
-            </View>
-        </>
-    );
+    render() {
+        return (
+            <>
+                <View style={styles.insideFooterContainer}>
+                    <Image style={styles.bottom}
+                        source={require("../../../assets/images/kids_jumping.gif")}
+                    />
+                </View>
+            </>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -35,5 +37,3 @@ const styles = StyleSheet.create({
         marginTop: 10
     }
 })
-
-export default MyHeader

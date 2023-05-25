@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Dimensions, StyleSheet } from 'react-native';
-import Main from './screens/Main';
+import Main from './screens/Auth/Main';
 
 export default function App() {
 

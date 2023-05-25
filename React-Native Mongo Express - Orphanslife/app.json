@@ -13,7 +13,13 @@
     },
     "ios": {
       "bundleIdentifier": "com.orphanslife.kaligotla"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c51f2b94-b06b-4723-9c18-efe75e80ef4c"
+      }
+    },
+    "owner": "deepakkaligotla"
   },
   "name": "kaligotla"
 }

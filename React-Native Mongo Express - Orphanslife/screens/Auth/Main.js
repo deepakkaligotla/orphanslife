@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "./Auth/Login";
-import SignUp from "./Auth/SignUp";
+import Login from "./Login";
+import SignUp from "./SignUp";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";

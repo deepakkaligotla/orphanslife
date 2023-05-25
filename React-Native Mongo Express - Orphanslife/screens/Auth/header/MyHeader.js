@@ -1,19 +1,21 @@
-import * as React from 'react-native';
+import React from "react";
 import { View, Image, StyleSheet, Text, Dimensions } from 'react-native';
 
-const MyHeader = () => {
+export default class MyHeader extends React.Component {
 
-  return (
-    <>
-      <View style={styles.insideHeaderContainer}>
-        <Image
-          style={styles.topImage}
-          source={require("../../assets/images/donate.png")}
-        />
-      <Text style={{color:'white'}}>Orphanage Management System</Text>
-      </View>
-    </>
-  );
+  render() {
+    return (
+      <>
+        <View style={styles.insideHeaderContainer}>
+          <Image
+            style={styles.topImage}
+            source={require("../../../assets/images/donate.png")}
+          />
+        <Text style={{color:'white'}}>Orphanage Management System</Text>
+        </View>
+      </>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -35,5 +37,3 @@ const styles = StyleSheet.create({
     height: 50,
   },
 })
-
-export default MyHeader

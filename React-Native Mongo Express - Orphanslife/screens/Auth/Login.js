@@ -1,92 +1,51 @@
 import { Dimensions, StyleSheet, Text, ScrollView, Alert, Modal, Pressable, View, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import { Checkbox } from 'react-native-paper';
-import MyHeader from "../header/MyHeader";
-import MyFooter from "../footer/MyFooter";
+import MyHeader from "../Auth/header/MyHeader";
+import MyFooter from "../Auth/footer/MyFooter";
 import axios from "axios";
+import OTPTimer from '../extras/OTPTimer'
 
 export default class Login extends React.Component {
 
-  constructor () {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loggedInUser: [],
       email: "",
       password: "",
       confirmPassword: "",
-      isSelected : true,
-      otpWindow : false,
-      forgotPasswordWindow : false,
-      sentOtp : 0,
-      enteredOtp : 0,
+      isSelected: true,
+      otpWindow: false,
+      forgotPasswordWindow: false,
+      sentOtp: 0,
+      otpSentTime: new Date(),
+      validateOTPTime: new Date(),
+      otpExpire: new Date(),
+      enteredOtp: 0,
       apiToken: "",
-      url : "http://192.168.0.14:4000/"
+      url: "http://192.168.0.14:4000/",
     };
+    console.log('Constructor Called.');
   }
 
-  async loginAPI() {
-    await axios.post(this.state.url, 
-      { email: this.state.email,
-        password: this.state.password }, 
-        {
-          headers: {
-            'x-auth-token': ''
-          }
-        })
-      .then(response => {
-        if (response.status === 200) {
-          this.setState({otpWindow: true})
-          Alert.alert("Login OTP sent to Email");
-          this.setState({ sentOtp: response.data.otp });
-          this.setState({ apiToken: response.data.token });
-          this.setState({ loggedInUser: response.data.data[0].loggedInUser });
-
-          console.log("Sent OTP : "+response.data.otp)
-          return;
-        } else if (response.status === 400 || response.status === 500) {
-          throw new Error("Failed to fetch users");
-        }
-      }).catch(function (error) {
-        if (axios.isCancel(error)) {
-          Alert.alert("Something went wrong");
-          return null;
-        } else {
-          Alert.alert(error);
-          return null;
-        }
-    });
+  componentDidMount() {
+    console.log('componentDidMount called.');
   }
 
-  handleLogin() {
-    if (this.state.email === '' || this.state.password === '') {
-      Alert.alert("All fields are required");
-      return;
-    } else {
-      this.loginAPI()
-    }
-  };
-
-  handleValidateOtp() {
-    if (this.state.enteredOtp === 0) {
-      Alert.alert("Need OTP");
-      return;
-    } else if(this.state.enteredOtp.toString().length>6 || this.state.enteredOtp.toString().length<6) {
-      Alert.alert("OTP should be only 6 digits");
-      return;
-    } else if(this.state.sentOtp != this.state.enteredOtp) {
-      Alert.alert("INVALID OTP / OTP EXPIRED");
-    } else if(this.state.sentOtp == this.state.enteredOtp) {
-      this.setState({otpWindow: false})
-      Alert.alert(this.state.loggedInUser.admin_name+" Successfully Logged In");
-    }
+  shouldComponentUpdate(nextProp, nextState) {
+    console.log('shouldComponentUpdate nextProp: '+nextProp);
+    console.log('shouldComponentUpdate nextState: '+nextState);
+    return true;
   }
 
   render() {
+    console.log('render called.');
     return (<>
       <MyHeader />
       <ScrollView>
         <View style={styles.container}>
-  
+
           {/* --------- Login Screen ----------- */}
           <Text style={styles.viewText}>Login</Text>
           <TextInput
@@ -106,15 +65,15 @@ export default class Login extends React.Component {
           <TouchableOpacity style={{ flexDirection: 'row' }}>
             <Checkbox
               status={this.state.isSelected ? 'checked' : 'unchecked'}
-              onPress={() => this.setState({isSelected: !this.state.isSelected})}
+              onPress={() => this.setState({ isSelected: !this.state.isSelected })}
               value={this.state.isSelected}
               color={'green'}
               uncheckedColor={'red'}
-  
+
             />
             <Text style={styles.rememberMe}>Remember Me</Text>
           </TouchableOpacity>
-  
+
           {/* --------- Forgot Password Window ----------- */}
           <View>
             <Modal
@@ -123,7 +82,7 @@ export default class Login extends React.Component {
               visible={this.state.forgotPasswordWindow}
               onRequestClose={() => {
                 Alert.alert('Forgot Password Window closed.');
-                this.setState({forgotPasswordWindow:!forgotPasswordWindow})
+                this.setState({ forgotPasswordWindow: !forgotPasswordWindow })
               }}>
               <View style={styles.centeredView}>
                 <View style={styles.forgotPasswordModalView}>
@@ -144,6 +103,7 @@ export default class Login extends React.Component {
                     placeholder="Enter OTP - X-X-X-X-X-X"
                     onChangeText={(enteredOtp) => this.setState({ enteredOtp })}
                   ></TextInput>
+                  <OTPTimer/>
                   <TextInput
                     style={styles.input}
                     onChangeText={(password) => this.setState({ password })}
@@ -166,7 +126,7 @@ export default class Login extends React.Component {
                     secureTextEntry={true}
                     textContentType="password"
                   ></TextInput>
-                  <TouchableOpacity onPress={() => this.setState({forgotPasswordWindow:false})} style={[styles.changePasswordButton, styles.changePasswordButtonclose]}>
+                  <TouchableOpacity onPress={() => this.setState({ forgotPasswordWindow: false })} style={[styles.changePasswordButton, styles.changePasswordButtonclose]}>
                     <Text style={styles.changePasswordButtonText}>Change Password</Text>
                   </TouchableOpacity>
                 </View>
@@ -174,11 +134,11 @@ export default class Login extends React.Component {
             </Modal>
             <Pressable
               style={[styles.forgotPasswordButton, styles.forgotPasswordButtonOpen]}
-              onPress={() => this.setState({forgotPasswordWindow:true})}>
+              onPress={() => this.setState({ forgotPasswordWindow: true })}>
               <Text style={styles.forgotPasswordButtonText}>Forgot Password</Text>
             </Pressable>
           </View>
-  
+
           {/* --------- OTP Window ----------- */}
           <View>
             <Modal
@@ -187,7 +147,7 @@ export default class Login extends React.Component {
               visible={this.state.otpWindow}
               onRequestClose={() => {
                 Alert.alert('OTP Window closed.');
-                this.setState({otpWindow:!otpWindow})
+                this.setState({ otpWindow: !otpWindow })
               }}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
@@ -199,6 +159,8 @@ export default class Login extends React.Component {
                       onChangeText={(enteredOtp) => this.setState({ enteredOtp })}
                     ></TextInput>
                   </View>
+                  <OTPTimer/>
+
                   <TouchableOpacity onPress={this.handleValidateOtp.bind(this)} style={[styles.validateOtpButton, styles.validateOtpButtonClose]}>
                     <Text style={styles.validateOtpButtonText}>Validate OTP</Text>
                   </TouchableOpacity>
@@ -214,6 +176,99 @@ export default class Login extends React.Component {
       <MyFooter />
     </>
     );
+  }
+
+  componentDidUpdate(prevProp, prevState) {
+    console.log('componentDidUpdate prevProp: '+prevProp);
+    console.log('componentDidUpdate prevState: '+prevState);
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount called.');
+  }
+
+  componentDidCatch(error, info) {
+    console.log('componentDidCatch Error: '+ error);
+    console.log('componentDidCatch Info: '+ info);
+  }
+
+  async loginAPI() {
+    await axios.post(this.state.url,
+      {
+        email: this.state.email,
+        password: this.state.password
+      },
+      {
+        headers: {
+          'x-auth-token': ''
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({ otpWindow: true })
+          Alert.alert("Login OTP sent to Email");
+          this.setState({ sentOtp: response.data.otp });
+          this.setState({ apiToken: response.data.token });
+          this.setState({ loggedInUser: response.data.data[0].loggedInUser });
+          this.state.otpSentTime = (new Date().getMinutes() * 60) + new Date().getSeconds();
+          console.log("Sent OTP : " + response.data.otp)
+          return;
+        } else if (response.status === 400 || response.status === 500) {
+          throw new Error("Failed to fetch users");
+        }
+      }).catch(function (error) {
+        if (axios.isCancel(error)) {
+          Alert.alert("Something went wrong");
+          return null;
+        } else {
+          Alert.alert(error);
+          return null;
+        }
+      });
+  }
+
+  handleLogin() {
+    if (this.state.email === '' || this.state.password === '') {
+      Alert.alert("Enter Email & Password");
+      return;
+    } else {
+      this.loginAPI()
+    }
+  };
+
+  handleValidateOtp() {
+    this.state.validateOTPTime = (new Date().getMinutes() * 60) + new Date().getSeconds();
+    this.state.otpExpire = this.state.validateOTPTime - this.state.otpSentTime
+    if (this.state.otpExpire < 120) {
+      if (this.state.enteredOtp === 0) {
+        Alert.alert("Need OTP");
+        return;
+      } else if (this.state.enteredOtp.toString().length > 6 || this.state.enteredOtp.toString().length < 6) {
+        Alert.alert("OTP should be only 6 digits");
+        return;
+      } else if (this.state.sentOtp != this.state.enteredOtp) {
+        Alert.alert("INVALID OTP");
+      } else if (this.state.sentOtp == this.state.enteredOtp) {
+        this.setState({ otpWindow: false })
+        this.routeHomePage()
+      }
+    } else Alert.alert("OTP EXPIRED");
+  }
+
+  routeHomePage() {
+    if(this.state.loggedInUser.role_id!=undefined) {
+      if(this.state.loggedInUser.role_id==1) {
+        Alert.alert(this.state.loggedInUser.admin_name+" Volunteer Home Page");
+      }
+      if(this.state.loggedInUser.role_id==2) {
+        Alert.alert(this.state.loggedInUser.admin_name+" Guardian Home Page");
+      }
+      if(this.state.loggedInUser.role_id==3) {
+        Alert.alert(this.state.loggedInUser.admin_name+" Super Admin Home Page");
+      }
+    } else if(this.state.loggedInUser.sponsor_name!=undefined) {
+      Alert.alert(this.state.loggedInUser.sponsor_name+" Sponsor Home Page");
+    }
   }
 };
 
@@ -276,8 +331,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 3,
     width: 350,
-    height: 400,
+    height: 550,
+    alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -294,7 +351,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 3,
     width: 350,
-    height: 250,
+    height: 300,
+    alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     shadowColor: '#000',
@@ -388,8 +446,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  modalText: {
-    marginBottom: 3,
-    textAlign: 'center',
-  }
 });
