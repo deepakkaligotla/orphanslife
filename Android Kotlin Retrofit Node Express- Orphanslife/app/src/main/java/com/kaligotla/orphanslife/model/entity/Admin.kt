@@ -15,52 +15,52 @@ data class Admin(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("admin_id")
     @NonNull
-    val admin_id: Int,
+    val admin_id: Int = 0,
 
     @SerializedName("admin_name")
-    val admin_name: String,
+    val admin_name: String = "",
 
     @SerializedName("admin_dob")
-    val admin_dob: String,
+    val admin_dob: String = "",
 
     @SerializedName("admin_gender")
-    val admin_gender: String,
+    val admin_gender: String = "",
 
     @SerializedName("admin_govt_id_type")
-    val admin_govt_id_type: String,
+    val admin_govt_id_type: String = "",
 
     @SerializedName("admin_govt_id")
-    val admin_govt_id: String,
+    val admin_govt_id: String = "",
 
     @SerializedName("admin_mobile")
-    val admin_mobile: String,
+    val admin_mobile: String = "",
 
     @SerializedName("admin_email")
-    val admin_email: String,
+    val admin_email: String = "",
 
     @SerializedName("admin_password")
-    val admin_password: String,
+    val admin_password: String = "",
 
     @SerializedName("admin_address")
-    val admin_address: String,
+    val admin_address: String = "",
 
     @SerializedName("admin_location_id")
-    val admin_location_id: Int,
+    val admin_location_id: Int = 0,
 
     @SerializedName("role_id")
-    val role_id: Int,
+    val role_id: Int = 0,
 
     @SerializedName("admin_orphanage_id")
-    val admin_orphanage_id: Int,
+    val admin_orphanage_id: Int = 0,
 
     @SerializedName("admin_image")
-    val admin_image: String,
+    val admin_image: String = "",
 
     @SerializedName("admin_created_at")
-    val admin_created_at: String,
+    val admin_created_at: String = "",
 
     @SerializedName("admin_updated_at")
-    val admin_updated_at: String,
+    val admin_updated_at: String = "",
 )
 
 fun fromJson(json: JsonObject): Admin? {

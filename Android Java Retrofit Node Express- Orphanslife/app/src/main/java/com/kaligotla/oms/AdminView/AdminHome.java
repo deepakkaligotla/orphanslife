@@ -313,62 +313,62 @@ public class AdminHome extends AppCompatActivity {
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     jsonObject = jsonArray.get(i).getAsJsonObject();
                                     //January
-                                    if (jsonObject.get("Month").equals("January")) {
+                                    if (jsonObject.get("Month").getAsInt()==1) {
                                         monthwise_donations[0] = jsonObject.get("donations").getAsDouble();
                                         Log.e("January", "" + monthwise_donations[0]);
                                     }
                                     //February
-                                    if (jsonObject.get("Month").getAsString().equals("February")) {
+                                    if (jsonObject.get("Month").getAsInt()==2) {
                                         monthwise_donations[1] = jsonObject.get("donations").getAsDouble();
                                         Log.e("February", "" + monthwise_donations[1]);
                                     }
                                     //March
-                                    if (jsonObject.get("Month").getAsString().equals("March")) {
+                                    if (jsonObject.get("Month").getAsInt()==3) {
                                         monthwise_donations[2] = jsonObject.get("donations").getAsDouble();
                                         Log.e("March", "" + monthwise_donations[2]);
                                     }
                                     //April
-                                    if (jsonObject.get("Month").getAsString().equals("April")) {
+                                    if (jsonObject.get("Month").getAsInt()==4) {
                                         monthwise_donations[3] = jsonObject.get("donations").getAsDouble();
                                         Log.e("April", "" + monthwise_donations[3]);
                                     }
                                     //May
-                                    if (jsonObject.get("Month").getAsString().equals("May")) {
+                                    if (jsonObject.get("Month").getAsInt()==5) {
                                         monthwise_donations[4] = jsonObject.get("donations").getAsDouble();
                                         Log.e("May", "" + monthwise_donations[4]);
                                     }
                                     //June
-                                    if (jsonObject.get("Month").getAsString().equals("June")) {
+                                    if (jsonObject.get("Month").getAsInt()==6) {
                                         monthwise_donations[5] = jsonObject.get("donations").getAsDouble();
                                         Log.e("June", "" + monthwise_donations[5]);
                                     }
                                     //July
-                                    if (jsonObject.get("Month").getAsString().equals("July")) {
+                                    if (jsonObject.get("Month").getAsInt()==7) {
                                         monthwise_donations[6] = jsonObject.get("donations").getAsDouble();
                                         Log.e("July", "" + monthwise_donations[6]);
                                     }
                                     //August
-                                    if (jsonObject.get("Month").getAsString().equals("August")) {
+                                    if (jsonObject.get("Month").getAsInt()==8) {
                                         monthwise_donations[7] = jsonObject.get("donations").getAsDouble();
                                         Log.e("August", "" + monthwise_donations[7]);
                                     }
                                     //September
-                                    if (jsonObject.get("Month").getAsString().equals("September")) {
+                                    if (jsonObject.get("Month").getAsInt()==9) {
                                         monthwise_donations[8] = jsonObject.get("donations").getAsDouble();
                                         Log.e("September", "" + monthwise_donations[8]);
                                     }
                                     //October
-                                    if (jsonObject.get("Month").getAsString().equals("October")) {
+                                    if (jsonObject.get("Month").getAsInt()==10) {
                                         monthwise_donations[9] = jsonObject.get("donations").getAsDouble();
                                         Log.e("October", "" + monthwise_donations[9]);
                                     }
                                     //November
-                                    if (jsonObject.get("Month").getAsString().equals("November")) {
+                                    if (jsonObject.get("Month").getAsInt()==11) {
                                         monthwise_donations[10] = jsonObject.get("donations").getAsDouble();
                                         Log.e("November", "" + monthwise_donations[10]);
                                     }
                                     //December
-                                    if (jsonObject.get("Month").getAsString().equals("December")) {
+                                    if (jsonObject.get("Month").getAsInt()==12) {
                                         monthwise_donations[11] = jsonObject.get("donations").getAsDouble();
                                         Log.e("December", "" + monthwise_donations[10]);
                                     }

@@ -14,7 +14,7 @@ import com.kaligotla.orphanslife.data.repository.PreferencesRepo
 import com.kaligotla.orphanslife.databinding.ActivityAdminAccountSettingsBinding
 import com.kaligotla.orphanslife.model.entity.Admin
 import com.kaligotla.orphanslife.ui.view.LoginActivity
-import com.kaligotla.orphanslife.ui.view.admin.AdminHome
+import com.kaligotla.orphanslife.ui.view.admin_home.AdminHome
 import com.kaligotla.orphanslife.ui.viewmodel.DBViewModel
 import com.kaligotla.orphanslife.ui.viewmodel.DBViewModelFactory
 import com.kaligotla.orphanslife.ui.viewmodel.PreferencesViewModel
@@ -51,7 +51,7 @@ class AdminAccountSettings : AppCompatActivity() {
                 Toast.makeText(this@AdminAccountSettings, "Account not found", Toast.LENGTH_SHORT).show()
             } else {
                 loggedInAdminDetails = Gson().fromJson(it.data.get(0), Admin::class.java)
-                Toast.makeText(this@AdminAccountSettings, "OTP sent to registered email", Toast.LENGTH_SHORT)
+                Toast.makeText(this@AdminAccountSettings, "Got Admin account details", Toast.LENGTH_SHORT)
                     .show()
             }
         }

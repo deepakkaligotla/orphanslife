@@ -1,154 +1,49 @@
 import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
-List<Admin> modelUserFromJson(String str) =>
-    List<Admin>.from(json.decode(str).map((x) => Admin.fromJson(x)));
-
+@JsonSerializable()
 class Admin {
-  String _id, _name, _dob, _gender, _govt_id_type, _govt_id, _mobile,
-      _email, _password, _address, _location_id, _role_id, _orphanage_id,
-      _image, _created_at, _updated_at;
+  int admin_id;
+  String admin_name, admin_dob, admin_gender, admin_govt_id_type, admin_govt_id,
+      admin_mobile, admin_email, admin_password, admin_address;
+  int admin_location_id, role_id, admin_orphanage_id;
+  String admin_image, created_at, updated_at;
 
-  Admin.all(this._id,
-      this._name,
-      this._dob,
-      this._gender,
-      this._govt_id_type,
-      this._govt_id,
-      this._mobile,
-      this._email,
-      this._password,
-      this._address,
-      this._location_id,
-      this._role_id,
-      this._orphanage_id,
-      this._image,
-      this._created_at,
-      this._updated_at);
+  Admin.all(this.admin_id, this.admin_name, this.admin_dob, this.admin_gender, this.admin_govt_id_type, this.admin_govt_id,
+      this.admin_mobile, this.admin_email, this.admin_password, this.admin_address, this.admin_location_id, this.role_id,
+      this.admin_orphanage_id, this.admin_image, this.created_at, this.updated_at);
 
-  factory Admin.fromJson(Map<String, dynamic> json) => Admin.all(
-    json["id"].toString(),json["name"].toString(),json["dob"].toString(),json["gender"].toString(),json["govt_id_type"].toString(),json["govt_id"].toString(),
-      json["mobile"].toString(),json["email"].toString(),json["password"].toString(),json["address"].toString(),json["location_id"].toString(),
-      json["role_id"].toString(),json["orphanage_id"].toString(),json["image"].toString(),json["created_at"].toString(),
-      json["updated_at"].toString()
-  );
+  Admin.signup(this.admin_name, this.admin_dob, this.admin_gender,this.admin_govt_id_type, this.admin_govt_id,
+      this.admin_mobile, this.admin_email, this.admin_password);
+
+  factory Admin.fromJson(Map<String, dynamic> json) {
+    return Admin.all(json['admin_id'] as int, json['admin_name'] as String,json['admin_dob'] as String,json['admin_gender'] as String,
+      json['admin_govt_id_type'] as String,json['admin_govt_id'] as String,json['admin_mobile'] as String,json['admin_email'] as String,
+      json['admin_password'] as String,json['admin_address'] as String,json['admin_location_id'] as int,json['role_id'] as int,
+      json['admin_orphanage_id'] as int,json['admin_image'] as String,json['created_at'] as String,json['updated_at'] as String);
+  }
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "dob": dob,
-    "gender" : gender,
-    "govt_id_type" : govt_id_type,
-    "govt_id" : govt_id,
-    "mobile" : mobile,
-    "email": email,
-    "password" : password,
-    "address": address,
-    "location_id": location_id,
+    "admin_id": admin_id,
+    "admin_name": admin_name,
+    "admin_dob": admin_dob,
+    "admin_gender" : admin_gender,
+    "admin_govt_id_type" : admin_govt_id_type,
+    "admin_govt_id" : admin_govt_id,
+    "admin_mobile" : admin_mobile,
+    "admin_email": admin_email,
+    "admin_password" : admin_password,
+    "admin_address": admin_address,
+    "admin_location_id": admin_location_id,
     "role_id" : role_id,
-    "orphanage_id" : orphanage_id,
-    "image" : image,
+    "admin_orphanage_id" : admin_orphanage_id,
+    "admin_image" : admin_image,
     "created_at" : created_at,
     "updated_at" : updated_at,
   };
 
-  get updated_at => _updated_at;
-
-  set updated_at(value) {
-    _updated_at = value;
-  }
-
-  get created_at => _created_at;
-
-  set created_at(value) {
-    _created_at = value;
-  }
-
-  get image => _image;
-
-  set image(value) {
-    _image = value;
-  }
-
-  get orphanage_id => _orphanage_id;
-
-  set orphanage_id(value) {
-    _orphanage_id = value;
-  }
-
-  get role_id => _role_id;
-
-  set role_id(value) {
-    _role_id = value;
-  }
-
-  get location_id => _location_id;
-
-  set location_id(value) {
-    _location_id = value;
-  }
-
-  get address => _address;
-
-  set address(value) {
-    _address = value;
-  }
-
-  get password => _password;
-
-  set password(value) {
-    _password = value;
-  }
-
-  get email => _email;
-
-  set email(value) {
-    _email = value;
-  }
-
-  get mobile => _mobile;
-
-  set mobile(value) {
-    _mobile = value;
-  }
-
-  get govt_id => _govt_id;
-
-  set govt_id(value) {
-    _govt_id = value;
-  }
-
-  get govt_id_type => _govt_id_type;
-
-  set govt_id_type(value) {
-    _govt_id_type = value;
-  }
-
-  get gender => _gender;
-
-  set gender(value) {
-    _gender = value;
-  }
-
-  get dob => _dob;
-
-  set dob(value) {
-    _dob = value;
-  }
-
-  String get name => _name;
-
-  set name(String value) {
-    _name = value;
-  }
-
-  String get id => _id;
-
-  set id(String value) {
-    _id = value;
-  }
-
   @override
   String toString() {
-    return 'Admin{_id: $_id, _name: $_name, _dob: $_dob, _gender: $_gender, _govt_id_type: $_govt_id_type, _govt_id: $_govt_id, _mobile: $_mobile, _email: $_email, _password: $_password, _address: $_address, _location_id: $_location_id, _role_id: $_role_id, _orphanage_id: $_orphanage_id, _image: $_image, _created_at: $_created_at, _updated_at: $_updated_at}';
+    return 'Admin{id: $admin_id, name: $admin_name, dob: $admin_dob, gender: $admin_gender, govt_id_type: $admin_govt_id_type, govt_id: $admin_govt_id, mobile: $admin_mobile, email: $admin_email, password: $admin_password, address: $admin_address, location_id: $admin_location_id, role_id: $role_id, orphanage_id: $admin_orphanage_id, image: $admin_image, created_at: $created_at, updated_at: $updated_at}';
   }
 }

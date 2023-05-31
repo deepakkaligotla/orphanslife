@@ -104,6 +104,8 @@ class AdoptReq {
 
   @override
   String toString() {
-    return 'AdoptReq{_req_no: $_req_no, _user_id: $_user_id, _admin_id: $_admin_id, _child_id: $_child_id, _reason: $_reason, _req_stage: $_req_stage, _date_of_req: $_date_of_req, _last_checked: $_last_checked, _req_comment: $_req_comment, _next_check: $_next_check, _adopted: $_adopted}';
+    return 'AdoptReq{req_no: $_req_no, user_id: $_user_id, admin_id: $_admin_id, child_id: $_child_id, reason: $_reason,'
+        ' req_stage: $_req_stage, date_of_req: $_date_of_req, last_checked: $_last_checked, req_comment: $_req_comment,'
+        ' next_check: $_next_check, adopted: $_adopted}';
   }
 }

@@ -80,6 +80,7 @@ class OrphanageActivities {
 
   @override
   String toString() {
-    return 'OrphanageActivities{_event_id: $_event_id, _orphanage_id: $_orphanage_id, _details: $_details, _image_1: $_image_1, _image_2: $_image_2, _image_3: $_image_3, _image_4: $_image_4, _image_5: $_image_5}';
+    return 'OrphanageActivities{event_id: $_event_id, orphanage_id: $_orphanage_id, details: $_details, image_1: $_image_1,'
+        ' image_2: $_image_2, image_3: $_image_3, image_4: $_image_4, image_5: $_image_5}';
   }
 }

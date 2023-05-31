@@ -44,6 +44,7 @@ class DBViewModel (private val dbRepo: DBRepo): ViewModel() {
             it.enqueue(object : Callback<NodeDBResponse> {
                 override fun onResponse(call: Call<NodeDBResponse>, response: Response<NodeDBResponse>) {
                     if (response.isSuccessful) {
+                        Log.e("response.body()",response.body().toString())
                         if(response.body()?.data?.isNotEmpty() == true) {
                             _adminDetailsById.value = response.body()
                         } else {

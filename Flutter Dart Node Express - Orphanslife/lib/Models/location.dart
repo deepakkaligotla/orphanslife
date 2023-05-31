@@ -64,6 +64,6 @@ class Location {
 
   @override
   String toString() {
-    return 'Location{_id: $_id, _pincode: $_pincode, _area: $_area, _city: $_city, _district: $_district, _state: $_state}';
+    return 'Location{id: $_id, pincode: $_pincode, area: $_area, city: $_city, district: $_district, state: $_state}';
   }
 }

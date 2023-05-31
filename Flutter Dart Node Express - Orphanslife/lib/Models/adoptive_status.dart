@@ -32,6 +32,6 @@ class AdoptiveStatus {
 
   @override
   String toString() {
-    return 'AdoptiveStatus{_id: $_id, _status: $_status}';
+    return 'AdoptiveStatus{id: $_id, status: $_status}';
   }
 }

@@ -64,6 +64,7 @@ class Donation {
 
   @override
   String toString() {
-    return 'Donation{_id: $_id, _amount: $_amount, _payment_status: $_payment_status, _user_id: $_user_id, _created_at: $_created_at, _updated_at: $_updated_at}';
+    return 'Donation{id: $_id, amount: $_amount, payment_status: $_payment_status, user_id: $_user_id, created_at: $_created_at,'
+        ' updated_at: $_updated_at}';
   }
 }

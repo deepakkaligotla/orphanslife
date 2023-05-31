@@ -1,0 +1,13 @@
+current directory: /Users/deepak.kaligotla/Documents/HMBP/orphanslife/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+/Users/deepak.kaligotla/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/deepak.kaligotla/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20230526-21930-7jc065.rb extconf.rb
+creating Makefile
+
+current directory: /Users/deepak.kaligotla/Documents/HMBP/orphanslife/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/deepak.kaligotla/Documents/HMBP/orphanslife/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/deepak.kaligotla/Documents/HMBP/orphanslife/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" install

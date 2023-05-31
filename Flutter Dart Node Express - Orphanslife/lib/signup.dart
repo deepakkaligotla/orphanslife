@@ -205,7 +205,7 @@ class _SignupState extends State<Signup> {
                       child: Container(
                         height: 50,
                         width: 400,
-                        child: FlatButton(
+                        child: MaterialButton(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16.0)),

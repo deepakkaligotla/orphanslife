@@ -2,6 +2,7 @@ package com.kaligotla.orphanslife.ui.view
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -24,10 +25,10 @@ import com.kaligotla.orphanslife.databinding.ActivityLoginBinding
 import com.kaligotla.orphanslife.model.entity.Admin
 import com.kaligotla.orphanslife.model.entity.Sponsor
 import com.kaligotla.orphanslife.model.response.LoginBody
-import com.kaligotla.orphanslife.ui.view.admin.AdminHome
-import com.kaligotla.orphanslife.ui.view.guardian.GuardianHome
-import com.kaligotla.orphanslife.ui.view.sponsor.SponsorHome
-import com.kaligotla.orphanslife.ui.view.volunteer.VolunteerHome
+import com.kaligotla.orphanslife.ui.view.admin_home.AdminHome
+import com.kaligotla.orphanslife.ui.view.guardian_home.GuardianHome
+import com.kaligotla.orphanslife.ui.view.sponsor_home.SponsorHome
+import com.kaligotla.orphanslife.ui.view.volunteer_home.VolunteerHome
 import com.kaligotla.orphanslife.ui.viewmodel.LoginViewModel
 import com.kaligotla.orphanslife.ui.viewmodel.LoginViewModelFactory
 import com.kaligotla.orphanslife.ui.viewmodel.PreferencesViewModel
@@ -70,26 +71,35 @@ class LoginActivity : AppCompatActivity() {
             this,
             PreferencesViewModelFactory(PreferencesRepo.getInstance(applicationContext))
         )[PreferencesViewModel::class.java]
-        checkIfUserHasSavedDetails()
         makeButtonNotClickableAtFirst()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun checkIfUserHasSavedDetails() {
-        if (preferencesViewModel.savedKey.equals(true)) {
-            if (!preferencesViewModel.API_Token.equals("")) {
-                if (preferencesViewModel.role.equals("Super_Admin")) {
+    override fun onResume() {
+        super.onResume()
+        checkIfUserHasSavedDetails(applicationContext)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun checkIfUserHasSavedDetails(context: Context) {
+        if (preferencesViewModel.savedKey) {
+            if (preferencesViewModel.API_Token != "") {
+                if (preferencesViewModel.role == "Super_Admin") {
                     intent = Intent(this, AdminHome::class.java)
                     startActivity(intent)
-                } else if (preferencesViewModel.role.equals("Sponsor")) {
+                    finish()
+                } else if (preferencesViewModel.role == "Sponsor") {
                     intent = Intent(this, SponsorHome::class.java)
                     startActivity(intent)
-                } else if (preferencesViewModel.role.equals("Volunteer")) {
+                    finish()
+                } else if (preferencesViewModel.role == "Volunteer") {
                     intent = Intent(this, VolunteerHome::class.java)
                     startActivity(intent)
-                } else if (preferencesViewModel.role.equals("Guardian")) {
+                    finish()
+                } else if (preferencesViewModel.role == "Guardian") {
                     intent = Intent(this, GuardianHome::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     initViews()
                 }
@@ -178,6 +188,7 @@ class LoginActivity : AppCompatActivity() {
                         rememberMe()
                         intent = Intent(this, SponsorHome::class.java)
                         startActivity(intent)
+                        finish()
                     }
                     //Checking Admin
                     else if (authenticatedUserFromRep.has("admin_id")) {
@@ -189,16 +200,19 @@ class LoginActivity : AppCompatActivity() {
                             rememberMe()
                             intent = Intent(this, VolunteerHome::class.java)
                             startActivity(intent)
+                            finish()
                         } else if (authenticatedUserFromRep.get("role_id").asInt == 2) {
                             role = "Guardian"
                             rememberMe()
                             intent = Intent(this, GuardianHome::class.java)
                             startActivity(intent)
+                            finish()
                         } else if (authenticatedUserFromRep.get("role_id").asInt == 3) {
                             role = "Super_Admin"
                             rememberMe()
                             intent = Intent(this, AdminHome::class.java)
                             startActivity(intent)
+                            finish()
                         }
                     }
                 } else Toast.makeText(this@LoginActivity, "Incorrect OTP", Toast.LENGTH_SHORT)
@@ -208,14 +222,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun rememberMe() {
         if (binding.rememberMe.isChecked) {
             Log.e("remember Me state", "is checked")
             preferencesViewModel.setSavedKey(true)
             preferencesViewModel.setAPI_Token(tokenFromRep)
-            if(role.equals("Sponsor")) {
+            if(role == "Sponsor") {
                 preferencesViewModel.setLoggedInUserID(loggedInSponsor.sponsor_id)
-            } else if(role.equals("Volunteer")|| role.equals("Guardian") || role.equals("Super_Admin")) {
+            } else if(role == "Volunteer" || role == "Guardian" || role == "Super_Admin") {
                 preferencesViewModel.setLoggedInUserID(loggedInAdmin.admin_id)
             }
             preferencesViewModel.setRole(role)
@@ -223,9 +238,9 @@ class LoginActivity : AppCompatActivity() {
             Log.e("remember Me state", "not checked")
             preferencesViewModel.setSavedKey(false)
             preferencesViewModel.setAPI_Token(tokenFromRep)
-            if(role.equals("Sponsor")) {
+            if(role == "Sponsor") {
                 preferencesViewModel.setLoggedInUserID(loggedInSponsor.sponsor_id)
-            } else if(role.equals("Volunteer")|| role.equals("Guardian") || role.equals("Super_Admin")) {
+            } else if(role == "Volunteer" || role == "Guardian" || role == "Super_Admin") {
                 preferencesViewModel.setLoggedInUserID(loggedInAdmin.admin_id)
             }
             preferencesViewModel.setRole(role)

@@ -131,6 +131,8 @@ class Child {
 
   @override
   String toString() {
-    return 'Child{_id: $_id, _name: $_name, _dob: $_dob, _gender: $_gender, _admitted_date: $_admitted_date, _leave_date: $_leave_date, _mother_name: $_mother_name, _father_name: $_father_name, _mobile: $_mobile, _child_image: $_child_image, _status_id: $_status_id, _admin_id: $_admin_id, _created_at: $_created_at, _updated_at: $_updated_at}';
+    return 'Child{id: $_id, name: $_name, dob: $_dob, gender: $_gender, admitted_date: $_admitted_date, leave_date: $_leave_date,'
+        ' mother_name: $_mother_name, father_name: $_father_name, mobile: $_mobile, child_image: $_child_image,'
+        ' status_id: $_status_id, admin_id: $_admin_id, created_at: $_created_at, updated_at: $_updated_at}';
   }
 }

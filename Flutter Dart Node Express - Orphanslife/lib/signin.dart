@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'package:Orphanslife/Models/sponsor.dart';
 import 'package:Orphanslife/Models/admin.dart';
 import 'package:Orphanslife/AdminHome/admin_home.dart';
 import 'package:Orphanslife/GuardianHome/guardian_home.dart';
 import 'package:Orphanslife/signup.dart';
-import 'package:Orphanslife/sponsor.dart';
 import 'package:Orphanslife/SponsorHome/sponsor_home.dart';
 import 'package:Orphanslife/user.dart';
 import 'package:Orphanslife/VolunteerHome/volunteer_home.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:Orphanslife/storage_service.dart';
 
 class Signin extends StatefulWidget {
   Signin({Key key}) : super(key: key);
@@ -23,18 +23,13 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
   bool isCheckedRememberMe = false;
-  List<Admin> adminList = [];
-  List<Sponsor> sponsorList = [];
   var loading = false;
+  var otp;
 
   actionRemeberMe(bool value) {
     isCheckedRememberMe = value;
     if (value) {
-      SharedPreferences.getInstance().then(
-        (prefs) {
-          prefs.setBool("remember_me", value);
-        },
-      );
+      StorageService().remember_me = value;
       setState(() {
         isCheckedRememberMe = value;
       });
@@ -48,15 +43,14 @@ class _SigninState extends State<Signin> {
 
   User user = User("", "");
 
-  Future adminLogin() async {
+  Future login() async {
     Future<Null> getData() async {
       setState(() {
         loading = true;
       });
     }
 
-    Admin admin;
-    var res = await http.post("http://orphanslife.in:4000/adminlogin",
+    var res = await http.post("http://192.168.0.14:4000/",
         headers: <String, String>{
           'Context-Type': 'application/json;charSet=UTF-8'
         },
@@ -64,89 +58,61 @@ class _SigninState extends State<Signin> {
           'email': user.email,
           'password': user.password
         });
+
     var jsonObj = jsonDecode(res.body);
-    var jsonData = new List();
-    jsonData = jsonObj['data'];
-    if (!jsonData.isEmpty) {
-      setState(() {
-        adminList.clear();
-        adminList.add(Admin.fromJson(jsonData[0]));
-        admin = adminList.first;
-        loading = false;
-      });
-      SharedPreferences.getInstance().then(
-        (prefs) {
-          prefs.setString('logged_in_user', admin.toString());
-        },
-      );
-      switch (admin.role_id) {
-        case "1":
-          {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => VolunteerHome()));
-          }
-          break;
+    if (jsonObj['ok']==true) {
+      if(jsonObj['data'][0]['loggedInUser']['admin_name']==null) {
+        Sponsor sponsor;
+        otp = jsonObj['otp'];
+        setState(() {
+          sponsor = Sponsor.fromJson(jsonObj['data'][0]['loggedInUser']);
+          loading = false;
+        });
+        StorageService().logged_in_user = jsonObj['data'][0]['loggedInUser'].toString();
+        Navigator.push(
+            context, new MaterialPageRoute(builder: (context) => SponsorHome()));
+      } else if(jsonObj['data'][0]['loggedInUser']['admin_name']!=null) {
+        Admin admin;
+        otp = jsonObj['otp'];
+        setState(() {
+          admin = Admin.fromJson(jsonObj['data'][0]['loggedInUser']);
+          loading = false;
+        });
+        StorageService().logged_in_user = jsonObj['data'][0]['loggedInUser'].toString();
 
-        case "2":
-          {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => GuardianHome()));
-          }
-          break;
+        switch (admin.role_id) {
+          case 1:
+            {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => VolunteerHome()));
+            }
+            break;
 
-        case "3":
-          {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => AdminHome()));
-          }
-          break;
+          case 2:
+            {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => GuardianHome()));
+            }
+            break;
 
-        default:
-          {
-            sponsorLogin();
-          }
-          break;
+          case 3:
+            {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => AdminHome()));
+            }
+            break;
+
+          default:
+            {
+              return;
+            }
+            break;
+        }
+      } else {
+        return;
       }
-    } else if (jsonData.isEmpty) {
-      sponsorLogin();
-    }
-  }
-
-  Future sponsorLogin() async {
-    Future<Null> getData() async {
-      setState(() {
-        loading = true;
-      });
-    }
-
-    Sponsor sponsor;
-    var res = await http.post("http://orphanslife.in:4000/sponsorlogin",
-        headers: <String, String>{
-          'Context-Type': 'application/json;charSet=UTF-8'
-        },
-        body: <String, String>{
-          'email': user.email,
-          'password': user.password
-        });
-    var jsonObj = jsonDecode(res.body);
-    var jsonData = new List();
-    jsonData = jsonObj['data'];
-    if (!jsonData.isEmpty) {
-      setState(() {
-        sponsorList.clear();
-        sponsorList.add(Sponsor.fromJson(jsonData[0]));
-        sponsor = sponsorList.first;
-        loading = false;
-      });
-      SharedPreferences.getInstance().then(
-        (prefs) {
-          prefs.setString('logged_in_user', sponsor.toString());
-        },
-      );
-      Navigator.push(
-          context, new MaterialPageRoute(builder: (context) => SponsorHome()));
-    } else if (jsonData[0] = null) {
-      //toast
+    } else {
+      return;
     }
   }
 
@@ -156,22 +122,17 @@ class _SigninState extends State<Signin> {
         backgroundColor: Colors.black,
         body: Stack(
           children: [
-            Positioned(
-                top: 0,
-                child: SvgPicture.asset(
-                  'images/top.svg',
-                  width: 400,
-                  height: 150,
-                )),
             Container(
               alignment: Alignment.center,
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    Image.asset(
+                      'images/donate.png',
+                      width: 400,
                       height: 150,
                     ),
                     Text(
@@ -287,13 +248,13 @@ class _SigninState extends State<Signin> {
                       child: Container(
                         height: 50,
                         width: 400,
-                        child: FlatButton(
+                        child: MaterialButton(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16.0)),
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
-                                adminLogin();
+                                login();
                               } else {
                                 print("not ok");
                               }
@@ -332,12 +293,20 @@ class _SigninState extends State<Signin> {
                               ),
                             ),
                           ],
-                        ))
+                        )
+                    ),
+                    Image.asset(
+                      'images/kids_jumping.gif',
+                      width: 400,
+                      height: 150,
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
-        ));
+        )
+    );
   }
+
 }

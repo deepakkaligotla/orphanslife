@@ -32,6 +32,6 @@ class Role {
 
   @override
   String toString() {
-    return 'Role{_id: $_id, _role: $_role}';
+    return 'Role{id: $_id, role: $_role}';
   }
 }

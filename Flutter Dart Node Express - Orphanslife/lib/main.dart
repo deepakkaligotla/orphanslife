@@ -1,9 +1,10 @@
-import 'package:Orphanslife/signin.dart';
 import 'package:flutter/material.dart';
+import 'package:Orphanslife/storage_service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Signin(),
+      debugShowCheckedModeBanner: false,
+      home: StorageService()
   ));
 }

@@ -1,0 +1,24 @@
+Positioned(
+                          child: BottomNavigationBar(
+                              items: const <BottomNavigationBarItem>[
+                            BottomNavigationBarItem(
+                                icon: Icon(Icons.home),
+                                label: 'Home',
+                                backgroundColor: Colors.black),
+                            BottomNavigationBarItem(
+                                icon: Icon(Icons.edit),
+                                label: 'Actions',
+                                backgroundColor: Colors.black),
+                            BottomNavigationBarItem(
+                              icon: Icon(Icons.person),
+                              label: 'Profile',
+                              backgroundColor: Colors.black,
+                            ),
+                          ],
+                              type: BottomNavigationBarType.shifting,
+                              currentIndex: _selectedIndex,
+                              selectedItemColor: Colors.white,
+                              iconSize: 40,
+                              onTap: _onItemTapped,
+                              elevation: 5)
+                      )

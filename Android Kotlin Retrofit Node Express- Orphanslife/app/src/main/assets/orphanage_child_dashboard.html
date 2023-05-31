@@ -7,10 +7,10 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Items', 'Value'],
-          ['Adoptive',  Android.getAdoptive()],
-          ['Will Be Adoptive',  Android.getWillBeAdoptive()],
-          ['Adopted',  Android.getAdopted()]
+          ['Items', 'Value', { role: 'style'}],
+          ['Adoptive',  Android.getAdoptive(), 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2'],
+          ['Will Be Adoptive',  Android.getWillBeAdoptive(), 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2'],
+          ['Adopted',  Android.getAdopted(), 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
         ]);
 
         var options = {

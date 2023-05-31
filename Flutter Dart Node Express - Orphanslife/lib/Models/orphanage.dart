@@ -140,6 +140,8 @@ class Orphanage {
 
   @override
   String toString() {
-    return 'Orphanage{_id: $_id, _type: $_type, _address: $_address, _location_id: $_location_id, _contact_person: $_contact_person, _mobile: $_mobile, _phone: $_phone, _email: $_email, _in_home: $_in_home, _adoptable: $_adoptable, _boys: $_boys, _girls: $_girls, _orphanage_image: $_orphanage_image, _created_at: $_created_at, _updated_at: $_updated_at}';
+    return 'Orphanage{id: $_id, _type: $_type, address: $_address, location_id: $_location_id, contact_person: $_contact_person,'
+        ' mobile: $_mobile, phone: $_phone, email: $_email, in_home: $_in_home, adoptable: $_adoptable, boys: $_boys,'
+        ' girls: $_girls, orphanage_image: $_orphanage_image, created_at: $_created_at, updated_at: $_updated_at}';
   }
 }
