@@ -1,0 +1,15 @@
+{
+    "auto_increment": "auto_inc",
+    "admin_id_inc":1,
+    "req_no_inc": 1,
+    "adoptive_status_id_inc": 1,
+    "child_id_inc": 1,
+    "donation_id_inc": 1,
+    "location_id_inc": 1,
+    "event_id_inc": 1,
+    "orphanage_id_inc": 1,
+    "role_id_inc": 1,
+    "sponsor_id_inc": 1,
+    "user_machine_id_inc": 1
+    
+}
