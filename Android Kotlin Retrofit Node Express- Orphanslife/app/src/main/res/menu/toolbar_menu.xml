@@ -12,7 +12,7 @@
     <item
         android:id="@+id/donate"
         android:contentDescription="Donate"
-        android:icon="@drawable/donate"
+        android:icon="@drawable/donation"
         android:title="Donate"
         android:titleCondensed="Donate"
         android:visible="true"

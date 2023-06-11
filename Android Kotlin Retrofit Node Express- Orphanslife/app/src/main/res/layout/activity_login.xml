@@ -4,398 +4,375 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.LoginActivity">
+    tools:context=".ui.view.LoginActivity"
+    android:id="@+id/login_main"
+    android:background="@color/md_black_1000">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_top"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cream"
-        android:minHeight="?android:attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_bold"
             android:text="@string/login"
+            android:gravity="center"
             android:textColor="@color/darkBrown"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/space_60"
-        android:layout_height="@dimen/space_60"
-        android:layout_marginTop="@dimen/space_64"
-        android:src="@drawable/ic_lotus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/tv_masuk_accoun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="130dp"
-        android:fontFamily="@font/nunito_semi_bold"
-        android:text="Orphanslife"
-        android:textColor="@color/textBlack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/tv_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="156dp"
-        android:fontFamily="@font/nunito"
-        android:text="Orphanage Management System"
-        android:textColor="@color/textBlack"
-        android:textSize="9sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SmallSp" />
-    <View
-        android:id="@+id/constrain"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginBottom="@dimen/space_20"
-        android:alpha="0.1"
-        android:background="@drawable/bg_rounded_card_shadow"
-        android:fadingEdge="vertical"
-        android:fadingEdgeLength="@dimen/space_20"
-        app:cardCornerRadius="@dimen/space_16"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_info"
-        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constrain_login"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="180dp"
-        android:background="@drawable/bg_rounded_card_view"
-        app:cardCornerRadius="@dimen/space_16"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_info"
-        app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_top">
 
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/appCompatImageButton"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_36"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_20"
-            android:background="@drawable/item_google"
+            android:layout_height="@dimen/space_60"
+            android:src="@drawable/donation"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_1"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_28"
-            android:background="#C4C4C4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton" />
-
-        <View
-            android:layout_width="@dimen/space_40"
-            android:layout_height="@dimen/space_40"
-            android:background="@color/md_white_1000"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintStart_toStartOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_masuk_accoun"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atau"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintStart_toStartOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageButton"
-            app:layout_constraintEnd_toEndOf="@+id/appCompatImageButton"
-            app:layout_constraintStart_toStartOf="@+id/appCompatImageButton"
-            app:layout_constraintTop_toTopOf="@+id/appCompatImageButton">
-
-
-            <ImageView
-                android:layout_width="@dimen/space_32"
-                android:layout_height="@dimen/space_32"
-                android:layout_marginHorizontal="@dimen/space_8"
-                android:src="@drawable/img_google" />
-
-            <ImageView
-                android:layout_width="@dimen/space_32"
-                android:layout_height="@dimen/space_32"
-                android:layout_marginHorizontal="@dimen/space_8"
-                android:src="@drawable/img_truecaller" />
-
-            <ImageView
-                android:layout_width="@dimen/space_32"
-                android:layout_height="@dimen/space_32"
-                android:layout_marginHorizontal="@dimen/space_8"
-                android:src="@drawable/img_insta" />
-
-            <ImageView
-                android:layout_width="@dimen/space_32"
-                android:layout_height="@dimen/space_32"
-                android:layout_marginHorizontal="@dimen/space_8"
-                android:src="@drawable/img_apple" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16"
-            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:fontFamily="@font/nunito_semi_bold"
-            android:text="@string/email"
-            android:textColor="@color/textBlack"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp" />
-
-        <EditText
-            android:id="@+id/editEmail"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/space_8"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/item_rounded_edt"
-            android:hint="Enter Registered Email"
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="@dimen/space_16"
-            android:textColorHint="@color/textGrey"
-            android:textColor="@color/textBlack"
-            android:textSize="9sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="SmallSp" />
-
-
-        <TextView
-            android:id="@+id/tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_12"
-            android:fontFamily="@font/nunito_semi_bold"
-            android:text="@string/password"
-            android:textColor="@color/textBlack"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editEmail"
-            tools:ignore="SmallSp" />
-
-        <EditText
-            android:id="@+id/editPassword"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/item_rounded_edt"
-            android:hint="Enter Registered Password"
-            android:inputType="textPassword"
-            android:paddingHorizontal="@dimen/space_16"
-            android:textColor="@color/textBlack"
-            android:textColorHint="@color/textGrey"
-            android:textSize="9sp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_password"
-            tools:ignore="SmallSp" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginEnd="@dimen/space_16"
-            android:src="@drawable/img_eye"
-            app:layout_constraintBottom_toBottomOf="@+id/editPassword"
-            app:layout_constraintEnd_toEndOf="@+id/editPassword"
-            app:layout_constraintTop_toTopOf="@+id/editPassword" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rememberMe"
-            android:text="Remember Me"
-            android:textColor="@color/textBlack"
-            android:textSize="@dimen/font_body_xs_size"
-            android:checked="true"
-            app:layout_constraintStart_toEndOf="@+id/editPassword"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editPassword" />
-
-        <TextView
-            android:id="@+id/tv_lupa_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/nunito_semi_bold"
-            android:text="Forgot Password"
-            android:textColor="@color/darkBrown"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editPassword"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editPassword"
-            tools:ignore="SmallSp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loginbutton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_36"
-            android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/item_brown_rounded"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textColor="@color/md_white_1000"
-            android:textSize="10sp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_lupa_password"
-            tools:ignore="SmallSp"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/cell_shape"
-            android:id="@+id/otpLinearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/loginbutton">
+            android:text="Orphanslife"
+            android:textColor="@color/textBlack"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_info"
+            app:layout_constraintTop_toBottomOf="@id/imageView" />
 
-            <RelativeLayout
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nunito"
+            android:gravity="center"
+            android:text="Orphanage Management System"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_info"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            tools:ignore="SmallSp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constrain_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardCornerRadius="@dimen/space_16"
+            app:layout_constraintTop_toBottomOf="@id/tv_info"
+            android:background="@color/cardview_dark_background">
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/appCompatImageButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SmallSp" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_28"
+                android:background="#C4C4C4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton" />
+
+            <View
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40"
+                app:layout_constraintBottom_toBottomOf="@+id/view2"
+                app:layout_constraintEnd_toEndOf="@+id/view2"
+                app:layout_constraintStart_toStartOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatImageButton"
+                app:layout_constraintEnd_toEndOf="@+id/appCompatImageButton"
+                app:layout_constraintStart_toStartOf="@+id/appCompatImageButton"
+                app:layout_constraintTop_toTopOf="@+id/appCompatImageButton">
 
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/otpExpireProgress"
-                    style="@style/Widget.Material3.CircularProgressIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:indicatorColor="@color/md_green_800"
-                    android:indeterminate="false"
-                    android:progress="100"
-                    app:indicatorSize="60dp"/>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/timeCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/otpExpireProgress"
-                    android:layout_alignTop="@id/otpExpireProgress"
-                    android:layout_alignRight="@id/otpExpireProgress"
-                    android:layout_alignBottom="@id/otpExpireProgress"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginBottom="1dp"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF" />
-            </RelativeLayout>
+                <ImageView
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:layout_marginHorizontal="@dimen/space_8"
+                    android:src="@drawable/img_google" />
+
+                <ImageView
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:layout_marginHorizontal="@dimen/space_8"
+                    android:src="@drawable/img_truecaller" />
+
+                <ImageView
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:layout_marginHorizontal="@dimen/space_8"
+                    android:src="@drawable/img_insta" />
+
+                <ImageView
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:layout_marginHorizontal="@dimen/space_8"
+                    android:src="@drawable/img_apple" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:text="@string/email"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SmallSp" />
 
             <EditText
-                android:id="@+id/validate_otp"
-                android:layout_width="150dp"
+                android:id="@+id/editEmail"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/item_rounded_edt"
+                android:hint="Enter Registered Email"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="@dimen/space_16"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:ignore="SmallSp" />
+
+
+            <TextView
+                android:id="@+id/tv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_12"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:text="@string/password"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editEmail"
+                tools:ignore="SmallSp" />
+
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginHorizontal="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_8"
                 android:background="@drawable/item_rounded_edt"
-                android:hint="Enter OTP"
-                android:inputType="number"
+                android:hint="Enter Registered Password"
+                android:inputType="textPassword"
                 android:paddingHorizontal="@dimen/space_16"
-                android:textColor="@color/textBlack"
-                android:textColorHint="@color/textGrey"
                 android:textSize="9sp"
-                app:layout_constraintTop_toBottomOf="@+id/loginbutton"
-                tools:ignore="SmallSp"
-                android:visibility="visible"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_password"
+                tools:ignore="SmallSp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="@dimen/space_16"
+                android:src="@drawable/img_eye"
+                app:layout_constraintBottom_toBottomOf="@+id/editPassword"
+                app:layout_constraintEnd_toEndOf="@+id/editPassword"
+                app:layout_constraintTop_toTopOf="@+id/editPassword" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/rememberMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Remember Me"
+                android:textSize="@dimen/font_body_xs_size"
+                app:layout_constraintStart_toEndOf="@+id/editPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+
+            <TextView
+                android:id="@+id/tv_lupa_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:text="Forgot Password"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editPassword"
+                tools:ignore="SmallSp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/validate_otp_button"
-                android:layout_width="wrap_content"
+                android:id="@+id/loginbutton"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/space_36"
                 android:layout_marginHorizontal="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/item_brown_rounded"
-                android:text="Validate OTP"
-                android:textColor="@color/md_white_1000"
+                android:text="@string/login"
                 android:textAllCaps="false"
                 android:textSize="10sp"
-                app:layout_constraintTop_toBottomOf="@+id/validate_otp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lupa_password"
                 tools:ignore="SmallSp"
-                android:visibility="visible"/>
-        </LinearLayout>
+                tools:layout_editor_absoluteX="16dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/otpExpireMsg"
+            <LinearLayout
+                android:id="@+id/otpLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/cell_shape"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/loginbutton">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/otpExpireProgress"
+                        style="@style/Widget.Material3.CircularProgressIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="false"
+                        android:progress="100"
+                        app:indicatorColor="@color/md_green_800"
+                        app:indicatorSize="60dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/timeCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/otpExpireProgress"
+                        android:layout_alignTop="@id/otpExpireProgress"
+                        android:layout_alignRight="@id/otpExpireProgress"
+                        android:layout_alignBottom="@id/otpExpireProgress"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/validate_otp"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:background="@drawable/item_rounded_edt"
+                    android:hint="Enter OTP"
+                    android:inputType="number"
+                    android:paddingHorizontal="@dimen/space_16"
+                    android:textSize="9sp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/loginbutton"
+                    tools:ignore="SmallSp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/validate_otp_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:background="@drawable/item_brown_rounded"
+                    android:text="Validate OTP"
+                    android:textAllCaps="false"
+                    android:textColor="@color/md_white_1000"
+                    android:textSize="10sp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/validate_otp"
+                    tools:ignore="SmallSp" />
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/otpExpireMsg"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/cell_shape"
+                android:gravity="center"
+                android:textColor="@color/md_red_500"
+                app:layout_constraintTop_toBottomOf="@+id/otpLinearLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/bottom_image"
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:textColor="@color/md_red_500"
-            android:background="@drawable/cell_shape"
-            app:layout_constraintTop_toBottomOf="@+id/otpLinearLayout"/>
+            android:layout_height="100dp"
+            android:src="@drawable/kids_jumping"
+            app:layout_constraintTop_toBottomOf="@+id/constrain_login"
+            tools:layout_editor_absoluteX="0dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/space_56"
-        android:background="@color/cream"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constrain_login">
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_56"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_image" />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito"
-            android:text="Create Account"
-            android:textColor="@color/textBlack"
-            android:textSize="11sp" />
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_image">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito"
+                android:text="Create Account"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
