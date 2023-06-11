@@ -82,7 +82,7 @@ public class AdminHome extends AppCompatActivity {
     public void getSuccessPaymentsCount() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .getSuccessPaymentsCount(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))
@@ -114,7 +114,7 @@ public class AdminHome extends AppCompatActivity {
     public void getFailedPaymentsCount() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .getFailedPaymentsCount(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))
@@ -172,7 +172,7 @@ public class AdminHome extends AppCompatActivity {
     public void getNewAdoptReqsCount() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .getNewAdoptReqsCount(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))
@@ -204,7 +204,7 @@ public class AdminHome extends AppCompatActivity {
     public void getApprovedAdoptReqsCount() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .getApprovedAdoptReqsCount(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))
@@ -236,7 +236,7 @@ public class AdminHome extends AppCompatActivity {
     public void getRejectedAdoptReqsCount() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .getRejectedAdoptReqsCount(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))
@@ -298,7 +298,7 @@ public class AdminHome extends AppCompatActivity {
     public void getMonthwiseDonationsTotal() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .getMonthwiseDonationsTotal(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))

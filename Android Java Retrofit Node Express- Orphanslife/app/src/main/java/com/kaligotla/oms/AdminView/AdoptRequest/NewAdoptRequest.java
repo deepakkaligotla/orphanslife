@@ -2,7 +2,6 @@ package com.kaligotla.oms.AdminView.AdoptRequest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,18 +29,15 @@ import com.kaligotla.oms.AdminView.Admin.Admin;
 import com.kaligotla.oms.AdminView.AdoptiveStatus.AdoptiveStatus;
 import com.kaligotla.oms.AdminView.Child.Child;
 import com.kaligotla.oms.Essentials.Constants;
-import com.kaligotla.oms.Essentials.CustomDateFormate;
 import com.kaligotla.oms.Essentials.DBService;
 import com.kaligotla.oms.MainActivity;
 import com.kaligotla.oms.OrphanageActivities.AddOrphanageActivities;
 import com.kaligotla.oms.R;
 import com.kaligotla.oms.SponsorView.Sponsor;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -299,7 +294,7 @@ public class NewAdoptRequest extends AppCompatActivity {
     public void getSponsors() {
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
-                .baseUrl( Constants.BASE_URL )
+                .baseUrl( Constants.SPONSOR_URL )
                 .build()
                 .create( DBService.class )
                 .sponsors( this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""))
@@ -395,7 +390,7 @@ public class NewAdoptRequest extends AppCompatActivity {
         Log.e("API Token", this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""));
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
-                .baseUrl( Constants.BASE_URL )
+                .baseUrl( Constants.ADMIN_URL )
                 .build()
                 .create( DBService.class )
                 .admins(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""))
@@ -486,7 +481,7 @@ public class NewAdoptRequest extends AppCompatActivity {
     public void getChilds() {
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
-                .baseUrl( Constants.BASE_URL )
+                .baseUrl( Constants.ORPHANAGE_URL )
                 .build()
                 .create( DBService.class )
                 .childs( this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""))
@@ -541,7 +536,7 @@ public class NewAdoptRequest extends AppCompatActivity {
         Log.e("update in adopt req details",newAdoptReq.toString());
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .newAdoptReq(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token", ""), newAdoptReq)

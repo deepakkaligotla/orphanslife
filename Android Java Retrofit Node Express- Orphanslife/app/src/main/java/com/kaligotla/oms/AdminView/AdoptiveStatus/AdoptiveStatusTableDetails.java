@@ -54,7 +54,7 @@ public class AdoptiveStatusTableDetails extends AppCompatActivity {
     private void getAdoptiveStatus(int adoptiveStatusId) {
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create())
-                .baseUrl( Constants.BASE_URL)
+                .baseUrl( Constants.ORPHANAGE_URL)
                 .build()
                 .create( DBService.class)
                 .getAdoptStatusByID(getSharedPreferences("store",MODE_PRIVATE).getString("API_Token", ""), adoptiveStatusId)

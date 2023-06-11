@@ -67,7 +67,7 @@ public class OrphanagesTableDetails extends AppCompatActivity {
     private void getSponsor(int sid) {
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create())
-                .baseUrl( Constants.BASE_URL)
+                .baseUrl( Constants.SPONSOR_URL)
                 .build()
                 .create( DBService.class)
                 .getOrphanageByID(getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), sid)

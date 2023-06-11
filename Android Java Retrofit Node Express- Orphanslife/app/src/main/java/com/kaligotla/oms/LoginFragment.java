@@ -21,11 +21,9 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -42,13 +40,11 @@ import com.kaligotla.oms.GuardianView.GuardianHome;
 import com.kaligotla.oms.SponsorView.Sponsor;
 import com.kaligotla.oms.SponsorView.SponsorHome;
 import com.kaligotla.oms.VolunteerView.VolunteerHome;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -190,7 +186,7 @@ public class LoginFragment extends Fragment {
 
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.API_AUTH_URL)
                 .build()
                 .create(DBService.class)
                 .login(cred)
@@ -218,7 +214,7 @@ public class LoginFragment extends Fragment {
                             Log.e("sentOTP", "" + sentOTP);
                             loggedInAdmin = new Admin();
                             loggedInAdmin.setAdmin_id(jsonObject.get("admin_id").getAsInt());
-                            loggedInAdmin.setRole(new Role(jsonObject.get("role").getAsString()));
+                            loggedInAdmin.setRole(new Role(jsonObject.get("role_id").getAsInt()));
                             otpLinearLayout.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(getActivity(), "No account found, kindly check email & password or Register with us", Toast.LENGTH_LONG).show();
@@ -281,13 +277,13 @@ public class LoginFragment extends Fragment {
                         getActivity().finish();
                     } else if (loggedInAdmin != null) {
                         Toast.makeText(getActivity(), "Admin Login successfull", Toast.LENGTH_SHORT).show();
-                        if (loggedInAdmin.getRole().getRole().equals("Super_Admin")) {
+                        if (loggedInAdmin.getRole().getId() == 3) {
                             saveData(loggedInAdmin.getRole().getRole(), apiToken, loggedInAdmin.getAdmin_id());
                             startActivity(new Intent(getActivity(), AdminHome.class));
-                        } else if (loggedInAdmin.getRole().getRole().equals("Volunteer")) {
+                        } else if (loggedInAdmin.getRole().getId() == 1) {
                             saveData(loggedInAdmin.getRole().getRole(), apiToken, loggedInAdmin.getAdmin_id());
                             startActivity(new Intent(getActivity(), VolunteerHome.class));
-                        } else if (loggedInAdmin.getRole().getRole().equals("Guardian")) {
+                        } else if (loggedInAdmin.getRole().getId() == 2) {
                             saveData(loggedInAdmin.getRole().getRole(), apiToken, loggedInAdmin.getAdmin_id());
                             startActivity(new Intent(getActivity(), GuardianHome.class));
                         }

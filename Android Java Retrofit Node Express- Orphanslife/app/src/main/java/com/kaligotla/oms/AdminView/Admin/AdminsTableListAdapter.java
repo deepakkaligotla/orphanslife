@@ -99,7 +99,7 @@ public class AdminsTableListAdapter extends RecyclerView.Adapter<AdminsTableList
         public void deleteAdmin(int deleteAdminId, int position) {
             new Retrofit.Builder()
                     .addConverterFactory( GsonConverterFactory.create() )
-                    .baseUrl( Constants.BASE_URL )
+                    .baseUrl( Constants.ADMIN_URL )
                     .build()
                     .create( DBService.class )
                     .deleteAdminByID(context.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), deleteAdminId)

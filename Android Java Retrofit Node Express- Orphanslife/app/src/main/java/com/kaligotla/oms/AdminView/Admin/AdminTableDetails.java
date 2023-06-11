@@ -135,7 +135,7 @@ public class AdminTableDetails extends AppCompatActivity {
     private void getOrphanages() {
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.ORPHANAGE_URL)
                 .build()
                 .create(DBService.class)
                 .orphanages(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Token",""))
@@ -239,7 +239,7 @@ public class AdminTableDetails extends AppCompatActivity {
                     public void run() {
                         new Retrofit.Builder()
                                 .addConverterFactory(GsonConverterFactory.create())
-                                .baseUrl(Constants.BASE_URL)
+                                .baseUrl(Constants.ADMIN_URL)
                                 .build()
                                 .create(DBService.class)
                                 .getAdminByID(getSharedPreferences("store",MODE_PRIVATE).getString("API_Token",""), aid)
@@ -379,7 +379,7 @@ public class AdminTableDetails extends AppCompatActivity {
         Log.e("update in admin details",updatedAdmin.toString());
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.ADMIN_URL)
                 .build()
                 .create(DBService.class)
                 .updateAdmin(this.getSharedPreferences("store",MODE_PRIVATE).getString("API_Tooken",""), aid, updatedAdmin)

@@ -100,7 +100,7 @@ public class AdoptiveStatusTableListAdapter extends RecyclerView.Adapter<Adoptiv
         public void deleteAdoptiveStatus(int deleteAdoptiveStatusId, int position) {
             new Retrofit.Builder()
                     .addConverterFactory( GsonConverterFactory.create() )
-                    .baseUrl( Constants.BASE_URL )
+                    .baseUrl( Constants.ORPHANAGE_URL )
                     .build()
                     .create( DBService.class )
                     .deleteAdoptiveStatusByID(context.getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""), deleteAdoptiveStatusId)

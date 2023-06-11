@@ -65,7 +65,7 @@ public class AdoptRequestsTable extends AppCompatActivity {
     public void getAdoptRequests() {
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
-                .baseUrl( Constants.BASE_URL )
+                .baseUrl( Constants.BUSINESS_URL )
                 .build()
                 .create( DBService.class )
                 .adoptRequests(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token","") )

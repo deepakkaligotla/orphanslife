@@ -188,7 +188,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
         Log.e("inside getAdoptRequest",""+req_no);
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create())
-                .baseUrl( Constants.BASE_URL)
+                .baseUrl( Constants.BUSINESS_URL)
                 .build()
                 .create( DBService.class)
                 .getAdoptRequestByID(getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), req_no)
@@ -272,7 +272,7 @@ public class AdoptRequestsTableDetails extends AppCompatActivity {
         Log.e("update in adopt req details",updatedAdoptReq.toString());
         new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BUSINESS_URL)
                 .build()
                 .create(DBService.class)
                 .updateAdoptReq(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""), req_no, updatedAdoptReq)

@@ -100,7 +100,7 @@ public class AdoptRequestsTableListAdapter extends RecyclerView.Adapter<AdoptReq
         public void deleteAdoptReq(int deleteAdoptReqNo, int position) {
             new Retrofit.Builder()
                     .addConverterFactory( GsonConverterFactory.create() )
-                    .baseUrl( Constants.BASE_URL )
+                    .baseUrl( Constants.BUSINESS_URL )
                     .build()
                     .create( DBService.class )
                     .deleteAdoptReqByID(context.getSharedPreferences("store", Context.MODE_PRIVATE).getString("API_Token",""),deleteAdoptReqNo)

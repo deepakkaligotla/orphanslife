@@ -65,7 +65,7 @@ public class AdminsTable extends AppCompatActivity {
         Log.e("API Token", this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""));
         new Retrofit.Builder()
                 .addConverterFactory( GsonConverterFactory.create() )
-                .baseUrl( Constants.BASE_URL )
+                .baseUrl( Constants.ADMIN_URL )
                 .build()
                 .create( DBService.class )
                 .admins(this.getSharedPreferences("store", MODE_PRIVATE).getString("API_Token",""))
